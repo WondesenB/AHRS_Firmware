@@ -11,6 +11,7 @@ extern "C" {
 #error "The C-MAVLink implementation requires Visual Studio 2010 or greater"
 #endif
 
+#include <stdint.h>
 
 /**
  *

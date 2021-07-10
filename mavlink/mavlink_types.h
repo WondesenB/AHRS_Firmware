@@ -7,14 +7,14 @@
 
 #include <stdbool.h>
 #include <stdint.h>
-#include "minimal/stdint_.h"
+
 #ifdef MAVLINK_USE_CXX_NAMESPACE
 namespace mavlink {
 #endif
 
 // Macro to define packed structures
-#ifdef __TI_COMPILER_VERSION__  //__GNUC__
-  #define MAVPACKED( __Declaration__ ) __Declaration__  //__attribute__((packed))
+#ifdef __GNUC__
+  #define MAVPACKED( __Declaration__ ) __Declaration__ __attribute__((packed))
 #else
   #define MAVPACKED( __Declaration__ ) __pragma( pack(push, 1) ) __Declaration__ __pragma( pack(pop) )
 #endif
@@ -102,7 +102,7 @@ MAVPACKED(
 typedef struct __mavlink_system {
     uint8_t sysid;   ///< Used by the MAVLink message_xx_send() convenience function
     uint8_t compid;  ///< Used by the MAVLink message_xx_send() convenience function
-} ) mavlink_system_t;
+}) mavlink_system_t;
 
 MAVPACKED(
 typedef struct __mavlink_message {
@@ -118,7 +118,7 @@ typedef struct __mavlink_message {
 	uint64_t payload64[(MAVLINK_MAX_PAYLOAD_LEN+MAVLINK_NUM_CHECKSUM_BYTES+7)/8];
 	uint8_t ck[2];          ///< incoming checksum bytes
 	uint8_t signature[MAVLINK_SIGNATURE_BLOCK_LEN];
-} )mavlink_message_t;
+}) mavlink_message_t;
 
 typedef enum {
 	MAVLINK_TYPE_CHAR     = 0,
