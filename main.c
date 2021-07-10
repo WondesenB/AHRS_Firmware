@@ -9,7 +9,7 @@
 #include "sciconfig.h"
 #include "timerconfig.h"
 #include "datatype_convert.h"
-
+#include <minimal/mavlink.h>
 #define SENSORS_GRAVITY_EARTH  9.80665  /**< Earth's gravity in m/s^2 */
 #define  testled  0
 struct parameters para;
