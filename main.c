@@ -9,7 +9,7 @@
 #include "sciconfig.h"
 #include "timerconfig.h"
 #include "datatype_convert.h"
-#include <minimal/mavlink.h>
+#include <common/mavlink.h>
 #define SENSORS_GRAVITY_EARTH  9.80665  /**< Earth's gravity in m/s^2 */
 #define  testled  0
 struct parameters para;
@@ -20,6 +20,10 @@ struct timeinfo tm;
 struct sensorConfigdata sensorConfig;
 struct EKF_Q ekf_t;
 //
+bool flag = true;
+int system_id = 0;
+int autopilot_id = 0;
+int companion_id = 0;
 //float quat[8]= {1.0f, 0.0f, 0.0f, 0.0f,1.0f, 0.0f, 0.0f, 0.0f};
 char buf[20] = {'.','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0'};
 // Magnetometer calibration coefficient
@@ -52,7 +56,7 @@ void main(void)
     //  InitGpio();  // Skipped for this example
     //  Setup only the GP I/O only for SPI-A functionality
     //  This function is found in F2837xD_Spi.c
-    //    InitSpiaGpio();
+//    InitSpiaGpio();
     //  Step 3. Clear all interrupts and initialize PIE vector table:
     //  Disable CPU interrupts
     DINT;
@@ -210,7 +214,26 @@ void main(void)
         //send over serial port
 //         scisend_data(imu.ax,imu.ay,imu.az,imu.gx,imu.gy, imu.gz, imu.mx,imu.my,imu.mz);
 //         scisend_Magdata(imu.mx,imu.my,imu.mz);
-         scisend_Euler();
+//         scisend_Euler();
+// send data via serial with mavlink protocol
+          mavlink_command_long_t com = { 0 };
+          com.target_system    = system_id;
+          com.target_component = autopilot_id;
+          com.command          = MAV_CMD_NAV_GUIDED_ENABLE;
+          com.confirmation     = true;
+          com.param1           = (float) flag; // flag >0.5 => start, <0.5 => stop
+
+          // Encode
+          mavlink_message_t message;
+          mavlink_msg_command_long_encode(system_id, companion_id, &message, &com);
+          char buff[300];
+
+            // Translate message to buffer
+          unsigned len = mavlink_msg_to_send_buffer((uint8_t*)buff, &message);
+          for (i = 0; i <= len; i++)
+          {
+              scia_xmit(buff[i]);
+          }
     }
 }
 /*------------------------------------------------------------------------*/
