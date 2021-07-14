@@ -214,7 +214,7 @@ void main(void)
         //send over serial port
 //         scisend_data(imu.ax,imu.ay,imu.az,imu.gx,imu.gy, imu.gz, imu.mx,imu.my,imu.mz);
 //         scisend_Magdata(imu.mx,imu.my,imu.mz);
-//         scisend_Euler();
+         scisend_Euler();
 // send data via serial with mavlink protocol
           mavlink_command_long_t com = { 0 };
           com.target_system    = system_id;
@@ -232,7 +232,7 @@ void main(void)
           unsigned len = mavlink_msg_to_send_buffer((uint8_t*)buff, &message);
           for (i = 0; i <= len; i++)
           {
-              scia_xmit(buff[i]);
+//              scia_xmit(buff[i]);
           }
     }
 }
@@ -510,9 +510,9 @@ void scisend_Magdata(float mx, float my, float mz)
 void scisend_Euler(void){
     int k;
     int atStep = 0;
-// Euler
-    if (writeFloat(att.pitch))
+    if (writeFloat(tm.deltat) )
     {
+
         for (k = 0; k <= 5; k++)
         {
             scia_xmit(buf[k]);
@@ -520,7 +520,8 @@ void scisend_Euler(void){
         scia_xmit(',');
         atStep = 1;
     }
-    if (writeFloat(att.roll) && atStep == 1)
+// Euler
+    if (writeFloat(att.pitch) && atStep == 1)
     {
         for (k = 0; k <= 5; k++)
         {
@@ -529,7 +530,16 @@ void scisend_Euler(void){
         scia_xmit(',');
         atStep = 2;
     }
-    if (writeFloat(att.yaw) && atStep == 2)
+    if (writeFloat(att.roll) && atStep == 2)
+    {
+        for (k = 0; k <= 5; k++)
+        {
+            scia_xmit(buf[k]);
+        }
+        scia_xmit(',');
+        atStep = 3;
+    }
+    if (writeFloat(att.yaw) && atStep == 3)
     {
         for (k = 0; k <= 5; k++)
         {
