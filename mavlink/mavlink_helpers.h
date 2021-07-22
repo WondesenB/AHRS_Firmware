@@ -429,7 +429,8 @@ MAVLINK_HELPER uint16_t mavlink_msg_to_send_buffer(uint8_t *buf, const mavlink_m
 {
 	uint8_t signature_len, header_len;
 	uint8_t *ck;
-        uint8_t length = msg->len;
+    uint8_t length = msg->len;
+    int i=0;
         
 	if (msg->magic == MAVLINK_STX_MAVLINK1) {
 		signature_len = 0;
@@ -455,7 +456,13 @@ MAVLINK_HELPER uint16_t mavlink_msg_to_send_buffer(uint8_t *buf, const mavlink_m
 		buf[7] = msg->msgid & 0xFF;
 		buf[8] = (msg->msgid >> 8) & 0xFF;
 		buf[9] = (msg->msgid >> 16) & 0xFF;
-		memcpy(&buf[10], _MAV_PAYLOAD(msg), length);
+
+        for(i=0;i<length; i++)
+        {
+         buf[i+10]=((msg->payload64[(int)(i/8)]>>(i%8)*8) & 0xFF);
+        }
+//		memcpy(&buf[10], _MAV_PAYLOAD(msg), length);
+
 		ck = buf + header_len + 1 + (uint16_t)length;
 		signature_len = (msg->incompat_flags & MAVLINK_IFLAG_SIGNED)?MAVLINK_SIGNATURE_BLOCK_LEN:0;
 	}

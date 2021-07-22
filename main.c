@@ -20,10 +20,9 @@ struct timeinfo tm;
 struct sensorConfigdata sensorConfig;
 struct EKF_Q ekf_t;
 //
-bool flag = true;
-int system_id = 0;
-int autopilot_id = 0;
-int companion_id = 0;
+mavlink_message_t message;
+char buff[300];
+
 //float quat[8]= {1.0f, 0.0f, 0.0f, 0.0f,1.0f, 0.0f, 0.0f, 0.0f};
 char buf[20] = {'.','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0'};
 // Magnetometer calibration coefficient
@@ -214,25 +213,23 @@ void main(void)
         //send over serial port
 //         scisend_data(imu.ax,imu.ay,imu.az,imu.gx,imu.gy, imu.gz, imu.mx,imu.my,imu.mz);
 //         scisend_Magdata(imu.mx,imu.my,imu.mz);
-         scisend_Euler();
+//         scisend_Euler();
 // send data via serial with mavlink protocol
-          mavlink_command_long_t com = { 0 };
-          com.target_system    = system_id;
-          com.target_component = autopilot_id;
-          com.command          = MAV_CMD_NAV_GUIDED_ENABLE;
-          com.confirmation     = true;
-          com.param1           = (float) flag; // flag >0.5 => start, <0.5 => stop
-
           // Encode
-          mavlink_message_t message;
-          mavlink_msg_command_long_encode(system_id, companion_id, &message, &com);
-          char buff[300];
+//          float rollspeed=0.2;
+//          float pitchspeed=0.2;
+//          float yawspeed =0.2;
+//
+//          mavlink_msg_attitude_pack(100,200, &message,10,3.25,3.25,3.25,rollspeed,pitchspeed,yawspeed);
+          //mavlink_msg_raw_imu_pack(100,200, &message, 0, imu.ax, imu.ay, imu.az, imu.gx, imu.gy, imu.gz, imu.mx, imu.my, imu.mz,0,20);
+//          mavlink_msg_command_long_encode(system_id, companion_id, &message, &com);
+          mavlink_msg_heartbeat_pack(1, 200, &message, 2, 0,32,20,2);
 
             // Translate message to buffer
           unsigned len = mavlink_msg_to_send_buffer((uint8_t*)buff, &message);
           for (i = 0; i <= len; i++)
           {
-//              scia_xmit(buff[i]);
+              scia_xmit(buff[i]);
           }
     }
 }

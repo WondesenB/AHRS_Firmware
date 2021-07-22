@@ -13,6 +13,11 @@ typedef struct __mavlink_heartbeat_t {
  uint8_t mavlink_version; /*<  MAVLink version, not writable by user, gets added by protocol because of magic data type: uint8_t_mavlink_version*/
 } mavlink_heartbeat_t;
 
+typedef struct _mavlinkheartbeat_t{
+    uint32_t custom_mode;
+    uint32_t combined_data;
+    uint8_t mavlink_version;
+}mavlinkheartbeat_t;
 #define MAVLINK_MSG_ID_HEARTBEAT_LEN 9
 #define MAVLINK_MSG_ID_HEARTBEAT_MIN_LEN 9
 #define MAVLINK_MSG_ID_0_LEN 9
@@ -78,6 +83,7 @@ static inline uint16_t mavlink_msg_heartbeat_pack(uint8_t system_id, uint8_t com
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_HEARTBEAT_LEN);
 #else
     mavlink_heartbeat_t packet;
+
     packet.custom_mode = custom_mode;
     packet.type = type;
     packet.autopilot = autopilot;
@@ -85,7 +91,16 @@ static inline uint16_t mavlink_msg_heartbeat_pack(uint8_t system_id, uint8_t com
     packet.system_status = system_status;
     packet.mavlink_version = 3;
 
-        memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_HEARTBEAT_LEN);
+    mavlinkheartbeat_t packet1;
+    uint32_t tempdata;
+    packet1.custom_mode = custom_mode;
+    tempdata = (0x000000FF & (uint32_t)system_status);
+    tempdata = (tempdata << 8) | ((uint32_t)base_mode & 0x000000FF);
+    tempdata = (tempdata << 8) | ((uint32_t)autopilot & 0x000000FF);
+    tempdata = (tempdata << 8) | ((uint32_t)type & 0x000000FF);
+    packet1.combined_data = tempdata;
+    packet1.mavlink_version = 3;
+        memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet1, MAVLINK_MSG_ID_HEARTBEAT_LEN);
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_HEARTBEAT;
