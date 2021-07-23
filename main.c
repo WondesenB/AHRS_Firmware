@@ -1,5 +1,4 @@
 
-
 /**
  * main.c
  */
@@ -24,25 +23,29 @@ mavlink_message_t message;
 char buff[300];
 
 //float quat[8]= {1.0f, 0.0f, 0.0f, 0.0f,1.0f, 0.0f, 0.0f, 0.0f};
-char buf[20] = {'.','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0'};
+char buf[20] = { '.', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0',
+                 '0', '0', '0', '0', '0', '0', '0', '0' };
 // Magnetometer calibration coefficient
-float const A[9] ={0.9725,-0.0033,0.0087,-0.0033,1.0049,0.0449,0.0087,0.0449,1.0254};
-float const B[3] ={318.6698,-104.7335,543.1834};
+float const A[9] = { 0.9725, -0.0033, 0.0087, -0.0033, 1.0049, 0.0449, 0.0087,
+                     0.0449, 1.0254 };
+float const B[3] = { 318.6698, -104.7335, 543.1834 };
 //
 //#pragma DATA_SECTION(imu, "CpuToCla1MsgRAM");
 //#pragma DATA_SECTION(quat, "Cla1ToCpuMsgRAM"); //Cla1ToCpuMsgRAM
 //
 void init(void);
 void reset(void);
-void scisend_data(float ax,float ay,float az, float gx,float gy,float gz, float mx,float my, float mz);
-void scisend_Magdata(float mx,float my, float mz);
+void scisend_data(float ax, float ay, float az, float gx, float gy, float gz,
+                  float mx, float my, float mz);
+void scisend_Magdata(float mx, float my, float mz);
 void scisend_Euler(void);
 //
 int MagCalibrate = 0;
 void main(void)
 {
     // Local Variables to hold latest sensor data values
-    float Accelx, Accely, Accelz, Gyrox, Gyroy, Gyroz, Magx, Magy, Magz, mmx,mmy,mmz;
+    float Accelx, Accely, Accelz, Gyrox, Gyroy, Gyroz, Magx, Magy, Magz, mmx,
+            mmy, mmz;
     float q0, q1, q2, q3, q4, q5, q6, q7, theta, phi, psi;  //,  Bx, By, Bz, ;
     int i;
     //  Step 1. Initialize System Control:
@@ -83,7 +86,7 @@ void main(void)
     // parameter initialization
     param_initialize();
     //led test
-    if (testled==1)
+    if (testled == 1)
     {
         for (;;)
         {
@@ -102,20 +105,20 @@ void main(void)
     //check sensor configuration
     readSensorConfig();
     // Gyro calibration
-    Gyrox =0.0;
-    Gyroy =0.0;
-    Gyroz =0.0;
-    for (i=0;i<1000;i++)
+    Gyrox = 0.0;
+    Gyroy = 0.0;
+    Gyroz = 0.0;
+    for (i = 0; i < 1000; i++)
     {
         readGyroData(imu_raw.gyroCount);  // Read the x/y/z adc values
-        Gyrox += (float) imu_raw.gyroCount[0] ;
-        Gyroy += (float) imu_raw.gyroCount[1] ;
-        Gyroz += (float) imu_raw.gyroCount[2] ;
+        Gyrox += (float) imu_raw.gyroCount[0];
+        Gyroy += (float) imu_raw.gyroCount[1];
+        Gyroz += (float) imu_raw.gyroCount[2];
     }
-    para.gyroBias[0] = Gyrox/1000;
-    para.gyroBias[1] = Gyroy/1000;
-    para.gyroBias[2] = Gyroz/1000;
-    while(1)
+    para.gyroBias[0] = Gyrox / 1000;
+    para.gyroBias[1] = Gyroy / 1000;
+    para.gyroBias[2] = Gyroz / 1000;
+    while (1)
     {
         // Switch to user bank 0
         writeByte(ICM20948_ADDRESS, REG_BANK_SEL, 0x00);
@@ -126,58 +129,64 @@ void main(void)
             readAccelData(imu_raw.accelCount);  // Read the x/y/z adc values
             // Now we'll calculate the accleration value into actual g's
             // This depends on scale being set
-            Accelx = ((float)imu_raw.accelCount[0] * para.aRes - para.accelBias[0])*SENSORS_GRAVITY_EARTH;
-            Accely = ((float)imu_raw.accelCount[1] * para.aRes - para.accelBias[1])*SENSORS_GRAVITY_EARTH;
-            Accelz =  ((float)imu_raw.accelCount[2] * para.aRes - para.accelBias[2])*SENSORS_GRAVITY_EARTH;
+            Accelx = ((float) imu_raw.accelCount[0] * para.aRes
+                    - para.accelBias[0]) * SENSORS_GRAVITY_EARTH;
+            Accely = ((float) imu_raw.accelCount[1] * para.aRes
+                    - para.accelBias[1]) * SENSORS_GRAVITY_EARTH;
+            Accelz = ((float) imu_raw.accelCount[2] * para.aRes
+                    - para.accelBias[2]) * SENSORS_GRAVITY_EARTH;
             //>>>>> the accelerometer reading is found to be inverted. Therefore, the value need to be negated <<<<
             // swap ax and ay, invert az to align to NED axes, apply low pass filter
-            imu.ax = 0.5*(-Accely + imu.ax);
-            imu.ay = 0.5*(-Accelx + imu.ay);
-            imu.az = 0.5*(Accelz +  imu.az);
+            imu.ax = 0.5 * (-Accely + imu.ax);
+            imu.ay = 0.5 * (-Accelx + imu.ay);
+            imu.az = 0.5 * (Accelz + imu.az);
             //
             readGyroData(imu_raw.gyroCount);  // Read the x/y/z adc values
             // Calculate the gyro value into actual degrees per second
             // This depends on scale being set
 
-            Gyrox = ((float)imu_raw.gyroCount[0] - para.gyroBias[0]) * para.gRes*DEG_TO_RAD;
-            Gyroy = ((float)imu_raw.gyroCount[1] - para.gyroBias[1])* para.gRes*DEG_TO_RAD;
-            Gyroz = ((float)imu_raw.gyroCount[2] - para.gyroBias[2])* para.gRes*DEG_TO_RAD;
+            Gyrox = ((float) imu_raw.gyroCount[0] - para.gyroBias[0])
+                    * para.gRes * DEG_TO_RAD;
+            Gyroy = ((float) imu_raw.gyroCount[1] - para.gyroBias[1])
+                    * para.gRes * DEG_TO_RAD;
+            Gyroz = ((float) imu_raw.gyroCount[2] - para.gyroBias[2])
+                    * para.gRes * DEG_TO_RAD;
             // swap gx and gy, invert gz to align to NED axes
-            imu.gx = 0.5*(Gyroy + imu.gx);
-            imu.gy = 0.5*(Gyrox + imu.gy);
-            imu.gz = 0.5*(-Gyroz + imu.gz);
+            imu.gx = 0.5 * (Gyroy + imu.gx);
+            imu.gy = 0.5 * (Gyrox + imu.gy);
+            imu.gz = 0.5 * (-Gyroz + imu.gz);
             readMagData(imu_raw.magCount);  // Read the x/y/z adc values
 
             // Calculate the magnetometer values in milliGauss
             // Include factory calibration per data sheet and user environmental
             // corrections
             // Get actual magnetometer value, this depends on scale being set
-            Magx = (float)imu_raw.magCount[0] * para.mRes - para.magBias[0];
-            Magy = (float)imu_raw.magCount[1] * para.mRes - para.magBias[1];
-            Magz= (float)imu_raw.magCount[2] * para.mRes - para.magBias[2];
-            if(MagCalibrate)
+            Magx = (float) imu_raw.magCount[0] * para.mRes - para.magBias[0];
+            Magy = (float) imu_raw.magCount[1] * para.mRes - para.magBias[1];
+            Magz = (float) imu_raw.magCount[2] * para.mRes - para.magBias[2];
+            if (MagCalibrate)
             {
                 // swap mx and -my to align to NED axes , apply lowpass filter and calibration
-                mmx = (0.5*(-Magy + imu.mx)) - B[0];
-                mmy = (0.5*(Magx + imu.my))  - B[1];
-                mmz = (0.5*(Magz + imu.mz))  - B[2];
-                imu.mx = mmx*A[0] + mmy*A[3] + mmz*A[6];
-                imu.my = mmx*A[1] + mmy*A[4] + mmz*A[7];
-                imu.mz = mmx*A[2] + mmy*A[5] + mmz*A[8];
+                mmx = (0.5 * (-Magy + imu.mx)) - B[0];
+                mmy = (0.5 * (Magx + imu.my)) - B[1];
+                mmz = (0.5 * (Magz + imu.mz)) - B[2];
+                imu.mx = mmx * A[0] + mmy * A[3] + mmz * A[6];
+                imu.my = mmx * A[1] + mmy * A[4] + mmz * A[7];
+                imu.mz = mmx * A[2] + mmy * A[5] + mmz * A[8];
             }
             else
             {
                 // swap mx and -my to align to NED axes , apply lowpass filter
-                imu.mx = (0.5*(-Magy + imu.mx));
-                imu.my = (0.5*(Magx + imu.my));
-                imu.mz = (0.5*(Magz + imu.mz));
+                imu.mx = (0.5 * (-Magy + imu.mx));
+                imu.my = (0.5 * (Magx + imu.my));
+                imu.mz = (0.5 * (Magz + imu.mz));
             }
         } // if (readByte(ICM20948_ADDRESS, INT_STATUS) & 0x01)
-        // Must be called before updating quaternions!
+          // Must be called before updating quaternions!
         updateTime();
         // AHRS
-        EKFQ(imu.ax, imu.ay, imu.az, imu.gx, imu.gy,
-             imu.gz, imu.mx, imu.my, imu.mz, tm.deltat);
+        EKFQ(imu.ax, imu.ay, imu.az, imu.gx, imu.gy, imu.gz, imu.mx, imu.my,
+             imu.mz, tm.deltat);
         q0 = ekf_t.x[0];
         q1 = ekf_t.x[1];
         q2 = ekf_t.x[2];
@@ -187,12 +196,12 @@ void main(void)
         q6 = ekf_t.x[6];
         q7 = ekf_t.x[7];
         // http://en.wikipedia.org/wiki/Conversion_between_quaternions_and_Euler_angles
-        float qkk =q1* q3 - q0 * q2;
-        if(qkk > 0.499) // pitch approaching 90 and above
+        float qkk = q1 * q3 - q0 * q2;
+        if (qkk > 0.499) // pitch approaching 90 and above
         {
             theta = -asinf(1.0);
         }
-        else if(qkk < -0.499)
+        else if (qkk < -0.499)
         {
             theta = -asinf(-1.0);
         }
@@ -200,37 +209,46 @@ void main(void)
         {
             theta = -asinf(2.0f * qkk);
         }
-        phi  = atan2f(2.0f * (q0 * q1+ q2* q3), q0 * q0- q1* q1- q2 * q2 + q3 * q3);
-        psi  = atan2f(2.0f * (q5 * q6 + q4 * q7), q4 * q4 + q5 * q5 - q6 * q6 - q7 * q7);
+        phi = atan2f(2.0f * (q0 * q1 + q2 * q3),
+                     q0 * q0 - q1 * q1 - q2 * q2 + q3 * q3);
+        psi = atan2f(2.0f * (q5 * q6 + q4 * q7),
+                     q4 * q4 + q5 * q5 - q6 * q6 - q7 * q7);
         //
         att.pitch = theta * RAD_TO_DEG;
         att.roll = phi * RAD_TO_DEG;
-        psi  *= RAD_TO_DEG;
+        psi *= RAD_TO_DEG;
         // Declination of Busan (35�13'56.6"N 129�05'14.8"E) is
         //    8.16�  W  � 0.32�   on 2020-10-05
         // - http://www.ngdc.noaa.gov/geomag-web/#declination
-        att.yaw  = headingwrap(psi- 8.16);
+        att.yaw = headingwrap(psi - 8.16);
         //send over serial port
 //         scisend_data(imu.ax,imu.ay,imu.az,imu.gx,imu.gy, imu.gz, imu.mx,imu.my,imu.mz);
 //         scisend_Magdata(imu.mx,imu.my,imu.mz);
 //         scisend_Euler();
 // send data via serial with mavlink protocol
-          // Encode
-//          float rollspeed=0.2;
-//          float pitchspeed=0.2;
-//          float yawspeed =0.2;
-//
-//          mavlink_msg_attitude_pack(100,200, &message,10,3.25,3.25,3.25,rollspeed,pitchspeed,yawspeed);
-          //mavlink_msg_raw_imu_pack(100,200, &message, 0, imu.ax, imu.ay, imu.az, imu.gx, imu.gy, imu.gz, imu.mx, imu.my, imu.mz,0,20);
-//          mavlink_msg_command_long_encode(system_id, companion_id, &message, &com);
-          mavlink_msg_heartbeat_pack(1, 200, &message, 2, 0,32,20,2);
+// Encode
+        /* Mavlink heartbeat send */
+        mavlink_msg_heartbeat_pack(1, 200, &message, 2, 0, 32, 20, 2);
+        // Translate message to buffer
+        unsigned len = mavlink_msg_to_send_buffer((uint8_t*) buff, &message);
+        for (i = 0; i <= len; i++)
+        {
+            scia_xmit(buff[i]);
+        }
+        /* IMU data exporting */
+        float rollspeed = 0.2;
+        float pitchspeed = 0.2;
+        float yawspeed = 0.2;
 
-            // Translate message to buffer
-          unsigned len = mavlink_msg_to_send_buffer((uint8_t*)buff, &message);
-          for (i = 0; i <= len; i++)
-          {
-              scia_xmit(buff[i]);
-          }
+        mavlink_msg_attitude_pack(100, 200, &message, 10, 3.25, 3.25, 3.25,
+                                  rollspeed, pitchspeed, yawspeed);
+//        mavlink_msg_raw_imu_pack(100,200, &message, 0, imu.ax, imu.ay, imu.az, imu.gx, imu.gy, imu.gz, imu.mx, imu.my, imu.mz,0,20);
+//        mavlink_msg_command_long_encode(system_id, companion_id, &message, &com);
+        len = mavlink_msg_to_send_buffer((uint8_t*) buff, &message);
+        for (i = 0; i <= len; i++)
+        {
+            scia_xmit(buff[i]);
+        }
     }
 }
 /*------------------------------------------------------------------------*/
@@ -241,7 +259,7 @@ void init(void)
     // Switch to user bank 0
     writeByte(ICM20948_ADDRESS, REG_BANK_SEL, 0x00);
     // check chip ID
-    if (readByte(ICM20948_ADDRESS, WHO_AM_I_ICM20948) ==0xEA)
+    if (readByte(ICM20948_ADDRESS, WHO_AM_I_ICM20948) == 0xEA)
     {
         // Reset
         reset();
@@ -260,16 +278,22 @@ void init(void)
         DELAY_US(200000);
         // Read the WHO_AM_I register of the magnetometer, this is a good test of
         // communication
-        if (ak09916WhoAmI_SPI() !=0x09)
+        if (ak09916WhoAmI_SPI() != 0x09)
         {
-            asm(" ESTOP0");             //Emulation stop
-            for(;;){};                  //Loop forever
+            asm(" ESTOP0");
+            //Emulation stop
+            for (;;)
+            {
+            };                  //Loop forever
         }
     }
     else
     {
-        asm(" ESTOP0");             //Emulation stop
-        for(;;){};                  //Loop forever
+        asm(" ESTOP0");
+        //Emulation stop
+        for (;;)
+        {
+        };                  //Loop forever
     }
 }
 //
@@ -277,7 +301,7 @@ void reset(void)
 {
     writeByte(ICM20948_ADDRESS, PWR_MGMT_1, READ_FLAG);
     DELAY_US(20000);
-    while(readByte(ICM20948_ADDRESS, PWR_MGMT_1) == READ_FLAG)
+    while (readByte(ICM20948_ADDRESS, PWR_MGMT_1) == READ_FLAG)
     {
         DELAY_US(10000);
     }
@@ -504,10 +528,11 @@ void scisend_Magdata(float mx, float my, float mz)
 }
 
 //
-void scisend_Euler(void){
+void scisend_Euler(void)
+{
     int k;
     int atStep = 0;
-    if (writeFloat(tm.deltat) )
+    if (writeFloat(tm.deltat))
     {
 
         for (k = 0; k <= 5; k++)
@@ -547,5 +572,4 @@ void scisend_Euler(void){
         atStep = 0;
     }
 }
-
 
