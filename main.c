@@ -227,28 +227,20 @@ void main(void)
 //         scisend_Euler();
 // send data via serial with mavlink protocol
 // Encode
-        /* Mavlink heartbeat send */
-        mavlink_msg_heartbeat_pack(1, 200, &message, 2, 0, 32, 20, 2);
-        // Translate message to buffer
-        unsigned len = mavlink_msg_to_send_buffer((uint8_t*) buff, &message);
-        for (i = 0; i <= len; i++)
-        {
-            scia_xmit(buff[i]);
-        }
         /* IMU data exporting */
-        float rollspeed = 0.2;
-        float pitchspeed = 0.2;
-        float yawspeed = 0.2;
-
-        mavlink_msg_attitude_pack(100, 200, &message, 10, 3.25, 3.25, 3.25,
-                                  rollspeed, pitchspeed, yawspeed);
-//        mavlink_msg_raw_imu_pack(100,200, &message, 0, imu.ax, imu.ay, imu.az, imu.gx, imu.gy, imu.gz, imu.mx, imu.my, imu.mz,0,20);
-//        mavlink_msg_command_long_encode(system_id, companion_id, &message, &com);
-        len = mavlink_msg_to_send_buffer((uint8_t*) buff, &message);
-        for (i = 0; i <= len; i++)
-        {
-            scia_xmit(buff[i]);
-        }
+//        float rollspeed = 0.2;
+//        float pitchspeed = 0.2;
+//        float yawspeed = 0.2;
+//
+//        mavlink_msg_attitude_pack(100, 200, &message, 10, 3.25, 3.25, 3.25,
+//                                  rollspeed, pitchspeed, yawspeed);
+////        mavlink_msg_raw_imu_pack(100,200, &message, 0, imu.ax, imu.ay, imu.az, imu.gx, imu.gy, imu.gz, imu.mx, imu.my, imu.mz,0,20);
+////        mavlink_msg_command_long_encode(system_id, companion_id, &message, &com);
+//        len = mavlink_msg_to_send_buffer((uint8_t*) buff, &message);
+//        for (i = 0; i <= len; i++)
+//        {
+//            scia_xmit(buff[i]);
+//        }
     }
 }
 /*------------------------------------------------------------------------*/

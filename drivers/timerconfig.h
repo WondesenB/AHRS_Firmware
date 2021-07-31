@@ -9,10 +9,14 @@
 #define DRIVERS_TIMERCONFIG_H_
 
 #include "F28x_Project.h"
+#include <common/mavlink.h>
+extern mavlink_message_t message;
+extern char buff[300];
 
 void timer_config(void);
 __interrupt void cpu_timer0_isr(void);
 __interrupt void cpu_timer1_isr(void);
+__interrupt void cpu_timer2_isr(void);
 
 
 
