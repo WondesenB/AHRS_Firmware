@@ -214,13 +214,13 @@ void main(void)
         psi = atan2f(2.0f * (q5 * q6 + q4 * q7),
                      q4 * q4 + q5 * q5 - q6 * q6 - q7 * q7);
         //
-        att.pitch = theta * RAD_TO_DEG;
-        att.roll = phi * RAD_TO_DEG;
-        psi *= RAD_TO_DEG;
+        att.pitch = theta ;//* RAD_TO_DEG;
+        att.roll = phi ;//* RAD_TO_DEG;
+//        psi *= RAD_TO_DEG;
         // Declination of Busan (35�13'56.6"N 129�05'14.8"E) is
         //    8.16�  W  � 0.32�   on 2020-10-05
         // - http://www.ngdc.noaa.gov/geomag-web/#declination
-        att.yaw = headingwrap(psi - 8.16);
+        att.yaw = psi-8.16*DEG_TO_RAD;//headingwrap(psi - 8.16);
         //send over serial port
 //         scisend_data(imu.ax,imu.ay,imu.az,imu.gx,imu.gy, imu.gz, imu.mx,imu.my,imu.mz);
 //         scisend_Magdata(imu.mx,imu.my,imu.mz);
@@ -228,19 +228,19 @@ void main(void)
 // send data via serial with mavlink protocol
 // Encode
         /* IMU data exporting */
-//        float rollspeed = 0.2;
-//        float pitchspeed = 0.2;
-//        float yawspeed = 0.2;
-//
-//        mavlink_msg_attitude_pack(100, 200, &message, 10, 3.25, 3.25, 3.25,
-//                                  rollspeed, pitchspeed, yawspeed);
-////        mavlink_msg_raw_imu_pack(100,200, &message, 0, imu.ax, imu.ay, imu.az, imu.gx, imu.gy, imu.gz, imu.mx, imu.my, imu.mz,0,20);
-////        mavlink_msg_command_long_encode(system_id, companion_id, &message, &com);
-//        len = mavlink_msg_to_send_buffer((uint8_t*) buff, &message);
-//        for (i = 0; i <= len; i++)
-//        {
-//            scia_xmit(buff[i]);
-//        }
+        float rollspeed = 0.2;
+        float pitchspeed = 0.2;
+        float yawspeed = 0.2;
+
+        mavlink_msg_attitude_pack(1, 1, &message,tm.time_millis,att.roll, att.pitch, att.yaw,
+                                  rollspeed, pitchspeed, yawspeed);
+//        mavlink_msg_raw_imu_pack(100,200, &message, 0, imu.ax, imu.ay, imu.az, imu.gx, imu.gy, imu.gz, imu.mx, imu.my, imu.mz,0,20);
+//        mavlink_msg_command_long_encode(system_id, companion_id, &message, &com);
+        unsigned leng = mavlink_msg_to_send_buffer((uint8_t*) buff, &message);
+        for (i = 0; i < leng; i++)
+        {
+            scia_xmit(buff[i]);
+        }
     }
 }
 /*------------------------------------------------------------------------*/

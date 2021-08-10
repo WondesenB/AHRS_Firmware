@@ -85,7 +85,7 @@ __interrupt void cpu_timer2_isr(void)
    /* Mavlink heartbeat send */
 /*   static inline uint16_t mavlink_msg_heartbeat_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                   uint8_t type, uint8_t autopilot, uint8_t base_mode, uint32_t custom_mode, uint8_t system_status);*/
-   mavlink_msg_heartbeat_pack(100, 200, &message,1, 0, 128, 8, 0);
+   mavlink_msg_heartbeat_pack(1, 1, &message,1, 0, 128, 8, 0);
    // Translate message to buffer
    unsigned len = mavlink_msg_to_send_buffer((uint8_t*) buff, &message);
    for (i = 0; i < len; i++)
