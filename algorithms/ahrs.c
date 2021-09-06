@@ -60,85 +60,97 @@ static void model(struct EKF_Q * ekf, float omega[3],float T)
      int k,  w;
      int n =Nsta;
 // determine State transition matrix    Fk
-    for( k=0; k<n; k++)
-    {
-       for ( w=0; w<n; w++)
-        {
-            if(w == k )
-            {
-                ekf->F[k][w] =1;
-            }
-            // wx , -wx
-            else if ((k==1 && w== 0) || (k==2 && w ==3))
-            {
-                ekf->F[k][w] = omega[0]*0.5*T;
-            }
-            else if ((k==0 && w== 1) || (k==3 && w ==2))
-            {
-                ekf->F[k][w] = (omega[0] * -1)*0.5*T;
-            }
-            // wy , -wy
-            else if ((k==2 && w== 0) || (k==3 && w ==1))
-            {
-                ekf->F[k][w] = omega[1]*0.5*T;
-            }
-            else if ((k==0 && w== 2) || (k==1 && w ==3))
-            {
-                ekf->F[k][w] = (omega[1]*-1)*0.5*T;
-            }
-            // wz , -wz
-            else if ((k==3 && w== 0) || (k==1 && w ==2))
-            {
-                ekf->F[k][w] = omega[2]*0.5*T;
-            }
-            else if ((k==0 && w== 3) || (k==2 && w ==1))
-            {
-                ekf->F[k][w] = (omega[2]* -1)*0.5*T;
-            }
-            // wx , -wx
-            else if ((k==5 && w== 4) || (k==6 && w ==7))
-            {
-                ekf->F[k][w] = omega[0]*0.5*T;
-            }
-            else if ((k==4 && w== 5) || (k==7 && w ==6))
-            {
-                ekf->F[k][w] = (omega[0] * -1)*0.5*T;
-            }
-            // wy , -wy
-            else if ((k==6 && w== 4) || (k==7 && w ==5))
-            {
-                ekf->F[k][w] = omega[1]*0.5*T;
-            }
-            else if ((k==4 && w== 6) || (k==5 && w ==7))
-            {
-                ekf->F[k][w] = (omega[1]*-1)*0.5*T;
-            }
-            // wz , -wz
-            else if ((k==7 && w== 4) || (k==5 && w ==6))
-            {
-                ekf->F[k][w] = omega[2]*0.5*T;
-            }
-            else if ((k==4 && w== 7) || (k==6 && w ==5))
-            {
-                ekf->F[k][w] = (omega[2]* -1)*0.5*T;
-            }
-            else
-            {
-                ekf->F[k][w] = 0.00;
-            }
-        }
-    }
+     ekf->F[0][0] = 1.0;
+     ekf->F[0][1] = (omega[0] * -1)*0.5*T;
+     ekf->F[0][2] = (omega[1]*-1)*0.5*T;
+     ekf->F[0][3] = (omega[2]* -1)*0.5*T;
+     ekf->F[0][4] = 0.0;
+     ekf->F[0][5] = 0.0;
+     ekf->F[0][6] = 0.0;
+     ekf->F[0][7] = 0.0;
+
+     ekf->F[1][0] = omega[0]*0.5*T;
+     ekf->F[1][1] = 1.0;
+     ekf->F[1][2] = omega[2]*0.5*T;
+     ekf->F[1][3] = omega[1]*-1*0.5*T;
+     ekf->F[1][4] = 0.0;
+     ekf->F[1][5] = 0.0;
+     ekf->F[1][6] = 0.0;
+     ekf->F[1][7] = 0.0;
+
+     ekf->F[2][0] = omega[1]*0.5*T;
+     ekf->F[2][1] = (omega[2]* -1)*0.5*T;
+     ekf->F[2][2] = 1.0;
+     ekf->F[2][3] = omega[0]*0.5*T;
+     ekf->F[2][4] = 0.0;
+     ekf->F[2][5] = 0.0;
+     ekf->F[2][6] = 0.0;
+     ekf->F[2][7] = 0.0;
+
+     ekf->F[3][0] = omega[2]*0.5*T;
+     ekf->F[3][1] = omega[1]*0.5*T;
+     ekf->F[3][2] = (omega[0] * -1)*0.5*T;
+     ekf->F[3][3] = 1.0;
+     ekf->F[3][4] = 0.0;
+     ekf->F[3][5] = 0.0;
+     ekf->F[3][6] = 0.0;
+     ekf->F[3][7] = 0.0;
+
+     ekf->F[4][0] = 0.0;
+     ekf->F[4][1] = 0.0;
+     ekf->F[4][2] = 0.0;
+     ekf->F[4][3] = 0.0;
+     ekf->F[4][4] = 1.0;
+     ekf->F[4][5] = (omega[0] * -1)*0.5*T;
+     ekf->F[4][6] = (omega[1]*-1)*0.5*T;
+     ekf->F[4][7] = (omega[2]* -1)*0.5*T;
+
+     ekf->F[5][0] = 0.0;
+     ekf->F[5][1] = 0.0;
+     ekf->F[5][2] = 0.0;
+     ekf->F[5][3] = 0.0;
+     ekf->F[5][4] = omega[0]*0.5*T;
+     ekf->F[5][5] = 1.0;
+     ekf->F[5][6] = omega[2]*0.5*T;
+     ekf->F[5][7] = (omega[1]*-1)*0.5*T;
+
+     ekf->F[6][0] = 0.0;
+     ekf->F[6][1] = 0.0;
+     ekf->F[6][2] = 0.0;
+     ekf->F[6][3] = 0.0;
+     ekf->F[6][4] = omega[1]*0.5*T;
+     ekf->F[6][5] = (omega[2]* -1)*0.5*T;
+     ekf->F[6][6] = 1.0;
+     ekf->F[6][7] = omega[0]*0.5*T;
+
+     ekf->F[7][0] = 0.0;
+     ekf->F[7][1] = 0.0;
+     ekf->F[7][2] = 0.0;
+     ekf->F[7][3] = 0.0;
+     ekf->F[7][4] = omega[2]*0.5*T;
+     ekf->F[7][5] = omega[1]*0.5*T;
+     ekf->F[7][6] = (omega[0] * -1)*0.5*T;
+     ekf->F[7][7] = 1.0;
+
      // predict current state  fk(x)
-     float temp_sum =0.0;
-    for (k=0; k<n; k++)
-    {
-        for(w=0;w<n;w++)
-        {
-            temp_sum +=ekf->F[k][w]*ekf->x[w];
-        }
-        ekf->fx[k] = temp_sum;
-        temp_sum =0.0;
-    }
+     ekf->fx[0] = ekf->F[0][0] * ekf->x[0] + ekf->F[0][1] * ekf->x[1]
+             + ekf->F[0][2] * ekf->x[2] + ekf->F[0][3] * ekf->x[3];
+     ekf->fx[1] = ekf->F[1][0] * ekf->x[0] + ekf->F[1][1] * ekf->x[1]
+             + ekf->F[1][2] * ekf->x[2] + ekf->F[1][3] * ekf->x[3];
+     ekf->fx[2] = ekf->F[2][0] * ekf->x[0] + ekf->F[2][1] * ekf->x[1]
+             + ekf->F[2][2] * ekf->x[2] + ekf->F[2][3] * ekf->x[3];
+     ekf->fx[3] = ekf->F[3][0] * ekf->x[0] + ekf->F[3][1] * ekf->x[1]
+             + ekf->F[3][2] * ekf->x[2] + ekf->F[3][3] * ekf->x[3];
+
+     ekf->fx[4] = ekf->F[4][4] * ekf->x[4] + ekf->F[4][5] * ekf->x[5]
+             + ekf->F[4][6] * ekf->x[6] + ekf->F[4][7] * ekf->x[7];
+     ekf->fx[5] = ekf->F[5][4] * ekf->x[4] + ekf->F[5][5] * ekf->x[5]
+             + ekf->F[5][6] * ekf->x[6] + ekf->F[5][7] * ekf->x[7];
+     ekf->fx[6] = ekf->F[6][4] * ekf->x[4] + ekf->F[6][5] * ekf->x[5]
+             + ekf->F[6][6] * ekf->x[6] + ekf->F[6][7] * ekf->x[7];
+     ekf->fx[7] = ekf->F[7][4] * ekf->x[4] + ekf->F[7][5] * ekf->x[5]
+             + ekf->F[7][6] * ekf->x[6] + ekf->F[7][7] * ekf->x[7];
+
     // observation prediction hk(x)
        ekf->hx[0]= 2*(f1*f3-f0*f2)*g;
        ekf->hx[1]= 2*(f2*f3+f0*f1)*g;
