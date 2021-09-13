@@ -47,8 +47,8 @@ static int choldc1(float * a, float * p, int n) {
 static int choldcsl(float * A, float * a, float * p, int n)
 {
     int i,j,k; float sum;
-    for (i = 0; i < n; i++) 
-        for (j = 0; j < n; j++) 
+    for (i = 0; i < n; i++)
+        for (j = 0; j < n; j++)
             a[i*n+j] = A[i*n+j];
     if (choldc1(a, p, n)) return 1;
     for (i = 0; i < n; i++) {
@@ -205,7 +205,9 @@ static void mat_addeye(float * a, int n)
 
 /* TinyEKF code ------------------------------------------------------------------- */
 
-#include <ekfq.h>
+void ekf_init(void * ekf, int n, int m);
+int ekf_step(void * ekf, float * z);
+
 
 typedef struct {
 
