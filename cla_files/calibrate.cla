@@ -1,0 +1,61 @@
+/*
+ * calibrate.cla
+ *
+ *  Created on: Sep 14, 2021
+ *      Author: wb
+ */
+
+
+#include "cla_shared.h"
+
+__interrupt void Cla1Task1 ( void )
+{
+    //
+    //Local Variables
+    //
+    int16_t i; //unsigned integer valued Table index
+   for (i=0;i<10;i++)
+   {
+
+   }
+
+}
+
+interrupt void Cla1Task2 ( void )
+{
+
+}
+
+interrupt void Cla1Task3 ( void )
+{
+
+}
+
+interrupt void Cla1Task4 ( void )
+{
+
+}
+
+interrupt void Cla1Task5 ( void )
+{
+
+}
+
+interrupt void Cla1Task6 ( void )
+{
+
+}
+
+interrupt void Cla1Task7 ( void )
+{
+
+}
+
+interrupt void Cla1Task8 ( void )
+{
+
+}
+
+
+
+
