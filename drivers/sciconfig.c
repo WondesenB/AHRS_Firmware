@@ -74,5 +74,5 @@ void scia_xmit(int16_t a)
         while (ScibRegs.SCIFFTX.bit.TXFFST != 0) {}
         ScibRegs.SCITXBUF.all =a;
     }
-    DELAY_US(500);
+    DELAY_US(100);
 }
