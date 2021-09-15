@@ -10,13 +10,51 @@
 
 __interrupt void Cla1Task1 ( void )
 {
-    //
-    //Local Variables
-    //
-    int16_t i; //unsigned integer valued Table index
-   for (i=0;i<10;i++)
+   float chordx, chordy, chordz, chordavg;
+   uint16_t jj;
+   for (jj = 0; jj < 3; jj++)
    {
+       if (Mag[jj] > Magmax[jj])
+       {
+           Magmax[jj] = Mag[jj];
+       }
+       if (Mag[jj] < Magmin[jj])
+       {
+           Magmin[jj] = Mag[jj];
+       }
+       count++;
+       if(__mgt(count,1000))
+       {
+           count=0;
+       }
+   }
+   if(count==1000)
+   {
+       // Get hard iron correction
+       // Get 'average' x mag bias in counts
+       B[0] = (Magmax[0] + Magmin[0]) / 2;
+       // Get 'average' y mag bias in counts
+       B[1] = (Magmax[1] + Magmin[1]) / 2;
+       // Get 'average' z mag bias in counts
+       B[2] = (Magmax[2] + Magmin[2]) / 2;
 
+       // Get soft iron correction estimate
+       // Get average x axis max chord length in counts
+       chordx= (Magmax[0] - Magmin[0]) / 2;
+       // Get average y axis max chord length in counts
+       chordy= (Magmax[1] - Magmin[1]) / 2;
+       // Get average z axis max chord length in counts
+       chordz = (Magmax[2] - Magmin[2]) / 2;
+       chordavg = (chordx + chordy + chordz)/3;
+       A[0] = chordavg/chordx;
+       A[1]=0.0;
+       A[2]=0.0;
+       A[3]=0.0;
+       A[4] = chordavg/chordy;
+       A[5]=0.0;
+       A[6]=0.0;
+       A[7]=0.0;
+       A[8] = chordavg/chordz;
    }
 
 }
@@ -53,7 +91,25 @@ interrupt void Cla1Task7 ( void )
 
 interrupt void Cla1Task8 ( void )
 {
-
+    A[0] = 0.9725;
+    A[1]=-0.0033;
+    A[2]=0.0087;
+    A[3]=-0.0033;
+    A[4] = 1.0049;
+    A[5]=0.0449;
+    A[6]=0.0087;
+    A[7]=0.0449;
+    A[8] = 1.0254;
+    B[0] = 318.6698;
+    B[1] = -104.7335;
+    B[2] = 543.1834;
+    count =0;
+    Magmax[0]=-4900;
+    Magmax[1]=-4900;
+    Magmax[2]=-4900;
+    Magmin[0]=4900;
+    Magmin[1]=4900;
+    Magmin[2]=4900;
 }
 
 

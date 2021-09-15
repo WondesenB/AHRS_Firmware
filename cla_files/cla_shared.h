@@ -17,12 +17,15 @@
 //
 // Globals
 //
-
 //
 //Task 1 (C) Variables
 //
-extern float x;           //Holds the input argument to the task
-extern float y;        //The arsine of the input argument
+extern int32_t count;
+extern float Magmax[3];
+extern float Magmin[3];
+extern float Mag[3];
+extern float A[9];           //Holds the input argument to the task
+extern float B[3];           //The arsine of the input argument
 //
 //Task 2 (C) Variables
 //
