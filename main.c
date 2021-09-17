@@ -21,7 +21,9 @@ struct sensorConfigdata sensorConfig;
 struct EKF_Q ekf_t;
 //
 mavlink_message_t message;
+mavlink_message_t message_raw;
 char buff[300];
+char buff_raw[300];
 
 //float quat[8]= {1.0f, 0.0f, 0.0f, 0.0f,1.0f, 0.0f, 0.0f, 0.0f};
 char buf[20] = { '.', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0',
@@ -227,9 +229,9 @@ void main(void)
             if (MagCalibrate)
             {
                 // swap mx and -my to align to NED axes , apply lowpass filter and calibration
-                mmx = (0.5 * (-Magy + imu.mx)) - B[0];
-                mmy = (0.5 * (Magx + imu.my)) - B[1];
-                mmz = (0.5 * (Magz + imu.mz)) - B[2];
+                mmx = (0.5 * (-Magy + imu.mx)) -  B[0];
+                mmy = (0.5 * (Magx + imu.my))  -  B[1];
+                mmz = (0.5 * (Magz + imu.mz))  -  B[2];
                 imu.mx = mmx * A[0] + mmy * A[3] + mmz * A[6];
                 imu.my = mmx * A[1] + mmy * A[4] + mmz * A[7];
                 imu.mz = mmx * A[2] + mmy * A[5] + mmz * A[8];
@@ -292,14 +294,21 @@ void main(void)
         float pitchspeed = 0.2;
         float yawspeed = 0.2;
 //
-        mavlink_msg_attitude_pack(1, 1, &message, tm.time_millis,att.roll, att.pitch, att.yaw,
-                                  rollspeed, pitchspeed, yawspeed);
-//        mavlink_msg_raw_imu_pack(100,200, &message, 0, imu.ax, imu.ay, imu.az, imu.gx, imu.gy, imu.gz, imu.mx, imu.my, imu.mz,0,20);
-//        mavlink_msg_command_long_encode(system_id, companion_id, &message, &com);
-        unsigned  leng = mavlink_msg_to_send_buffer((uint8_t*) buff, &message);
+        mavlink_msg_attitude_pack(1, 1, &message, tm.time_millis, att.roll,
+                                  att.pitch, att.yaw, rollspeed, pitchspeed,
+                                  yawspeed);
+        mavlink_msg_hil_sensor_pack(1, 1, &message_raw, tm.Now, imu.ax, imu.ay,
+                                    imu.az, imu.gx, imu.gy, imu.gz, imu.mx,
+                                    imu.my, imu.mz, 0,0,0,20,31,0);
+        unsigned leng = mavlink_msg_to_send_buffer((uint8_t*) buff, &message);
+        unsigned leng_raw = mavlink_msg_to_send_buffer((uint8_t*) buff_raw,&message_raw);
         for (i = 0; i <= leng; i++)
         {
             scia_xmit(buff[i]);
+        }
+        for (i = 0; i <= leng_raw; i++)
+        {
+            scia_xmit(buff_raw[i]);
         }
     }
 }
