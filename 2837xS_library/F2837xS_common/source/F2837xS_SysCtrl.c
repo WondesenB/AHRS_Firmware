@@ -57,7 +57,7 @@ using std::memcpy;
 #define STATUS_SUCCESS       1
 #define TMR1SYSCLKCTR        0xF0000000
 #define TMR2INPCLKCTR        0x800
-#define _FLASH
+//#define _FLASH
 //
 // Functions that will be run from RAM need to be assigned to a different
 // section.  This section will then be mapped to a load and run address using

@@ -12,7 +12,7 @@
 
 //SPI Interface
 #define READ_FLAG 0x80
-#define CS_PIN  15  // 15 (training kit)  or 19 (sensor module)
+#define CS_PIN  19  // 15 (training kit)  or 19 (sensor module)
 #if (CS_PIN==15)
 #define CS_HIGH GpioDataRegs.GPASET.bit.GPIO15 = 1;
 #define CS_LOW GpioDataRegs.GPACLEAR.bit.GPIO15 = 1;
