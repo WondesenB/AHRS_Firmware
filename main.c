@@ -38,7 +38,7 @@ void scisend_data(float ax, float ay, float az, float gx, float gy, float gz,
 void scisend_Magdata(float mx, float my, float mz);
 void scisend_Euler(void);
 //
-int MagCalibrate = 0;
+int MagCalibrate = 1;
 
 //
 //
@@ -225,32 +225,35 @@ void main(void)
             // Include factory calibration per data sheet and user environmental
             // corrections
             // Get actual magnetometer value, this depends on scale being set
-            Magx = (float) imu_raw.magCount[0] * para.mRes - para.magBias[0];
-            Magy = (float) imu_raw.magCount[1] * para.mRes - para.magBias[1];
-            Magz = (float) imu_raw.magCount[2] * para.mRes - para.magBias[2];
+            Magx = (float) ((imu_raw.magCount[1] * para.mRes - para.magBias[1])*-1);
+            Magy = (float) (imu_raw.magCount[0] * para.mRes - para.magBias[0]);
+            Magz = (float) (imu_raw.magCount[2] * para.mRes - para.magBias[2]);
             Mag[0]= Magx;
             Mag[1]= Magy;
             Mag[2]= Magz;
+            if(tm.time_millis > 1200)
+            {
+                imu.mx = 0.5*(Magx+mmx);
+                imu.my = 0.5*(Magy+mmy);
+                imu.mz = 0.5*(Magz+mmz);
+            }
+            mmx = Magx;
+            mmy = Magy;
+            mmz = Magz;
             //Calculate magnetic calibration coefficients
-            Cla1ForceTask1();
+//            Cla1ForceTask1();
             //
             if (MagCalibrate)
             {
                 // swap mx and -my to align to NED axes , apply lowpass filter and calibration
-                mmx = (0.5 * (-Magy + imu.mx)) -  B[0];
-                mmy = (0.5 * (Magx + imu.my))  -  B[1];
-                mmz = (0.5 * (Magz + imu.mz))  -  B[2];
-                imu.mx = mmx * A[0] + mmy * A[3] + mmz * A[6];
-                imu.my = mmx * A[1] + mmy * A[4] + mmz * A[7];
-                imu.mz = mmx * A[2] + mmy * A[5] + mmz * A[8];
+                Magx = imu.mx -  B[0];
+                Magy = imu.my -  B[1];
+                Magz = imu.mz  -  B[2];
+                imu.mx = Magx * A[0] + Magy * A[3] + Magz * A[6];
+                imu.my = Magx * A[1] + Magy * A[4] + Magz * A[7];
+                imu.mz = Magx * A[2] + Magy * A[5] + Magz * A[8];
             }
-            else
-            {
-                // swap mx and -my to align to NED axes , apply lowpass filter
-                imu.mx = (0.5 * (-Magy + imu.mx));
-                imu.my = (0.5 * (Magx + imu.my));
-                imu.mz = (0.5 * (Magz + imu.mz));
-            }
+
         } // if (readByte(ICM20948_ADDRESS, INT_STATUS) & 0x01)
           // Must be called before updating quaternions!
         updateTime();
@@ -281,10 +284,10 @@ void main(void)
         }
         phi = atan2f(2.0f * (q0 * q1 + q2 * q3),
                      q0 * q0 - q1 * q1 - q2 * q2 + q3 * q3);
-//        psi = atan2f(2.0f * (q5 * q6 + q4 * q7),
-//                     q4 * q4 + q5 * q5 - q6 * q6 - q7 * q7);
-        psi = atan2f(2.0f * (q1 * q2 + q0 * q3),
-                            q0 * q0 + q1 * q1 - q2 * q2 - q3 * q3);
+        psi = atan2f(2.0f * (q5 * q6 + q4 * q7),
+                     q4 * q4 + q5 * q5 - q6 * q6 - q7 * q7);
+//        psi = atan2f(2.0f * (q1 * q2 + q0 * q3),
+//                            q0 * q0 + q1 * q1 - q2 * q2 - q3 * q3);
         //
         att.pitch = theta;// * RAD_TO_DEG;
         att.roll = phi ;//* RAD_TO_DEG;
