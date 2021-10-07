@@ -10,6 +10,8 @@
 #include "datatype_convert.h"
 #include <common/mavlink.h>
 #include "cla_shared.h"
+#include "ms5611_barometer.h"
+
 #define SENSORS_GRAVITY_EARTH  9.80665  /**< Earth's gravity in m/s^2 */
 #define  testled  0
 struct parameters para;
@@ -36,7 +38,7 @@ void scisend_data(float ax, float ay, float az, float gx, float gy, float gz,
 void scisend_Magdata(float mx, float my, float mz);
 void scisend_Euler(void);
 //
-int MagCalibrate = 1;
+int MagCalibrate = 0;
 
 //
 //
@@ -70,8 +72,6 @@ float Magmax[3];
 float Magmin[3];
 #endif //__cplusplus
 // Magnetometer calibration coefficient
-
-
 //
 
 void CLA_configClaMemory(void);
@@ -85,7 +85,10 @@ __interrupt void cla1Isr6();
 __interrupt void cla1Isr7();
 __interrupt void cla1Isr8();
 
-
+//
+int64_t   refP,P;
+double Alt, relativeAlt;
+//enum Stps steps;
 // main
 void main(void)
 {
@@ -135,12 +138,15 @@ void main(void)
     spi_pin_config();
     // sci configuration
     sci_pin_config();
+    // I2C configuration
+    initI2C();
     // Enable global Interrupts and higher priority real-time debug events:
     EINT;  // Enable Global interrupt INTM
     ERTM;  // Enable Global realtime interrupt DBGM
     // parameter initialization
     param_initialize();
-
+    //Initialize barometer sensor
+    initialize_Barosensor();
     //led test
     if (testled == 1)
     {
@@ -176,6 +182,8 @@ void main(void)
     para.gyroBias[2] = Gyroz / 1000;
     while (1)
     {
+        //get altitude
+        estimateAltitude();
         // Switch to user bank 0
         writeByte(ICM20948_ADDRESS, REG_BANK_SEL, 0x00);
         // If intPin goes high, all data registers have new data
@@ -273,10 +281,11 @@ void main(void)
         }
         phi = atan2f(2.0f * (q0 * q1 + q2 * q3),
                      q0 * q0 - q1 * q1 - q2 * q2 + q3 * q3);
-//        psi = atan2f(2.0f * (q1 * q2 + q0 * q3),
-//                     q0 * q0 + q1 * q1 - q2 * q2 - q3 * q3);
-        psi = atan2f(2.0f * (q5 * q6 + q4 * q7),
-                     q4 * q4 + q5 * q5 - q6 * q6 - q7 * q7);
+//        psi = atan2f(2.0f * (q5 * q6 + q4 * q7),
+//                     q4 * q4 + q5 * q5 - q6 * q6 - q7 * q7);
+        psi = atan2f(2.0f * (q1 * q2 + q0 * q3),
+                            q0 * q0 + q1 * q1 - q2 * q2 - q3 * q3);
+        //
         att.pitch = theta;// * RAD_TO_DEG;
         att.roll = phi ;//* RAD_TO_DEG;
 //        psi *= RAD_TO_DEG;
@@ -300,9 +309,9 @@ void main(void)
                                   yawspeed);
         mavlink_msg_hil_sensor_pack(1, 1, &message_raw, tm.Now, imu.ax, imu.ay,
                                     imu.az, imu.gx, imu.gy, imu.gz, imu.mx,
-                                    imu.my, imu.mz, 0,0,0,20,31,0);
-        unsigned leng = mavlink_msg_to_send_buffer((uint8_t*) buff, &message);
-        unsigned leng_raw = mavlink_msg_to_send_buffer((uint8_t*) buff_raw,&message_raw);
+                                    imu.my, imu.mz, P,P-refP,relativeAlt,20,31,0);
+        unsigned leng = mavlink_msg_to_send_buffer((Uint8_t*) buff, &message);
+        unsigned leng_raw = mavlink_msg_to_send_buffer((Uint8_t*) buff_raw,&message_raw);
         for (i = 0; i <= leng; i++)
         {
             scia_xmit(buff[i]);
