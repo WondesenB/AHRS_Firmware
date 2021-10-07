@@ -273,9 +273,10 @@ void main(void)
         }
         phi = atan2f(2.0f * (q0 * q1 + q2 * q3),
                      q0 * q0 - q1 * q1 - q2 * q2 + q3 * q3);
-        psi = atan2f(2.0f * (q1 * q2 + q0 * q3),
-                     q0 * q0 + q1 * q1 - q2 * q2 - q3 * q3);
-        //
+//        psi = atan2f(2.0f * (q1 * q2 + q0 * q3),
+//                     q0 * q0 + q1 * q1 - q2 * q2 - q3 * q3);
+        psi = atan2f(2.0f * (q5 * q6 + q4 * q7),
+                     q4 * q4 + q5 * q5 - q6 * q6 - q7 * q7);
         att.pitch = theta;// * RAD_TO_DEG;
         att.roll = phi ;//* RAD_TO_DEG;
 //        psi *= RAD_TO_DEG;
