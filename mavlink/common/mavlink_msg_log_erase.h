@@ -5,8 +5,8 @@
 
 
 typedef struct __mavlink_log_erase_t {
- uint8_t target_system; /*<  System ID*/
- uint8_t target_component; /*<  Component ID*/
+ Uint8_t target_system; /*<  System ID*/
+ Uint8_t target_component; /*<  Component ID*/
 } mavlink_log_erase_t;
 
 #define MAVLINK_MSG_ID_LOG_ERASE_LEN 2
@@ -48,8 +48,8 @@ typedef struct __mavlink_log_erase_t {
  * @param target_component  Component ID
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_log_erase_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
-                               uint8_t target_system, uint8_t target_component)
+static inline uint16_t mavlink_msg_log_erase_pack(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg,
+                               Uint8_t target_system, Uint8_t target_component)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_LOG_ERASE_LEN];
@@ -79,9 +79,9 @@ static inline uint16_t mavlink_msg_log_erase_pack(uint8_t system_id, uint8_t com
  * @param target_component  Component ID
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_log_erase_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_log_erase_pack_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan,
                                mavlink_message_t* msg,
-                                   uint8_t target_system,uint8_t target_component)
+                                   Uint8_t target_system,Uint8_t target_component)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_LOG_ERASE_LEN];
@@ -109,7 +109,7 @@ static inline uint16_t mavlink_msg_log_erase_pack_chan(uint8_t system_id, uint8_
  * @param msg The MAVLink message to compress the data into
  * @param log_erase C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_log_erase_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_log_erase_t* log_erase)
+static inline uint16_t mavlink_msg_log_erase_encode(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg, const mavlink_log_erase_t* log_erase)
 {
     return mavlink_msg_log_erase_pack(system_id, component_id, msg, log_erase->target_system, log_erase->target_component);
 }
@@ -123,7 +123,7 @@ static inline uint16_t mavlink_msg_log_erase_encode(uint8_t system_id, uint8_t c
  * @param msg The MAVLink message to compress the data into
  * @param log_erase C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_log_erase_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_log_erase_t* log_erase)
+static inline uint16_t mavlink_msg_log_erase_encode_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan, mavlink_message_t* msg, const mavlink_log_erase_t* log_erase)
 {
     return mavlink_msg_log_erase_pack_chan(system_id, component_id, chan, msg, log_erase->target_system, log_erase->target_component);
 }
@@ -137,7 +137,7 @@ static inline uint16_t mavlink_msg_log_erase_encode_chan(uint8_t system_id, uint
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_log_erase_send(mavlink_channel_t chan, uint8_t target_system, uint8_t target_component)
+static inline void mavlink_msg_log_erase_send(mavlink_channel_t chan, Uint8_t target_system, Uint8_t target_component)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_LOG_ERASE_LEN];
@@ -176,7 +176,7 @@ static inline void mavlink_msg_log_erase_send_struct(mavlink_channel_t chan, con
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_log_erase_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint8_t target_system, uint8_t target_component)
+static inline void mavlink_msg_log_erase_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  Uint8_t target_system, Uint8_t target_component)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char *buf = (char *)msgbuf;
@@ -204,7 +204,7 @@ static inline void mavlink_msg_log_erase_send_buf(mavlink_message_t *msgbuf, mav
  *
  * @return  System ID
  */
-static inline uint8_t mavlink_msg_log_erase_get_target_system(const mavlink_message_t* msg)
+static inline Uint8_t mavlink_msg_log_erase_get_target_system(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  0);
 }
@@ -214,7 +214,7 @@ static inline uint8_t mavlink_msg_log_erase_get_target_system(const mavlink_mess
  *
  * @return  Component ID
  */
-static inline uint8_t mavlink_msg_log_erase_get_target_component(const mavlink_message_t* msg)
+static inline Uint8_t mavlink_msg_log_erase_get_target_component(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  1);
 }
@@ -231,7 +231,7 @@ static inline void mavlink_msg_log_erase_decode(const mavlink_message_t* msg, ma
     log_erase->target_system = mavlink_msg_log_erase_get_target_system(msg);
     log_erase->target_component = mavlink_msg_log_erase_get_target_component(msg);
 #else
-        uint8_t len = msg->len < MAVLINK_MSG_ID_LOG_ERASE_LEN? msg->len : MAVLINK_MSG_ID_LOG_ERASE_LEN;
+        Uint8_t len = msg->len < MAVLINK_MSG_ID_LOG_ERASE_LEN? msg->len : MAVLINK_MSG_ID_LOG_ERASE_LEN;
         memset(log_erase, 0, MAVLINK_MSG_ID_LOG_ERASE_LEN);
     memcpy(log_erase, _MAV_PAYLOAD(msg), len);
 #endif

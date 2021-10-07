@@ -14,24 +14,24 @@ typedef struct __mavlink_high_latency2_t {
  uint16_t target_distance; /*< [dam] Distance to target waypoint or position*/
  uint16_t wp_num; /*<  Current waypoint number*/
  uint16_t failure_flags; /*<  Bitmap of failure flags.*/
- uint8_t type; /*<  Type of the MAV (quadrotor, helicopter, etc.)*/
- uint8_t autopilot; /*<  Autopilot type / class. Use MAV_AUTOPILOT_INVALID for components that are not flight controllers.*/
- uint8_t heading; /*< [deg/2] Heading*/
- uint8_t target_heading; /*< [deg/2] Heading setpoint*/
- uint8_t throttle; /*< [%] Throttle*/
- uint8_t airspeed; /*< [m/s*5] Airspeed*/
- uint8_t airspeed_sp; /*< [m/s*5] Airspeed setpoint*/
- uint8_t groundspeed; /*< [m/s*5] Groundspeed*/
- uint8_t windspeed; /*< [m/s*5] Windspeed*/
- uint8_t wind_heading; /*< [deg/2] Wind heading*/
- uint8_t eph; /*< [dm] Maximum error horizontal position since last message*/
- uint8_t epv; /*< [dm] Maximum error vertical position since last message*/
- int8_t temperature_air; /*< [degC] Air temperature from airspeed sensor*/
- int8_t climb_rate; /*< [dm/s] Maximum climb rate magnitude since last message*/
- int8_t battery; /*< [%] Battery level (-1 if field not provided).*/
- int8_t custom0; /*<  Field for custom payload.*/
- int8_t custom1; /*<  Field for custom payload.*/
- int8_t custom2; /*<  Field for custom payload.*/
+ Uint8_t type; /*<  Type of the MAV (quadrotor, helicopter, etc.)*/
+ Uint8_t autopilot; /*<  Autopilot type / class. Use MAV_AUTOPILOT_INVALID for components that are not flight controllers.*/
+ Uint8_t heading; /*< [deg/2] Heading*/
+ Uint8_t target_heading; /*< [deg/2] Heading setpoint*/
+ Uint8_t throttle; /*< [%] Throttle*/
+ Uint8_t airspeed; /*< [m/s*5] Airspeed*/
+ Uint8_t airspeed_sp; /*< [m/s*5] Airspeed setpoint*/
+ Uint8_t groundspeed; /*< [m/s*5] Groundspeed*/
+ Uint8_t windspeed; /*< [m/s*5] Windspeed*/
+ Uint8_t wind_heading; /*< [deg/2] Wind heading*/
+ Uint8_t eph; /*< [dm] Maximum error horizontal position since last message*/
+ Uint8_t epv; /*< [dm] Maximum error vertical position since last message*/
+ Int8_t temperature_air; /*< [degC] Air temperature from airspeed sensor*/
+ Int8_t climb_rate; /*< [dm/s] Maximum climb rate magnitude since last message*/
+ Int8_t battery; /*< [%] Battery level (-1 if field not provided).*/
+ Int8_t custom0; /*<  Field for custom payload.*/
+ Int8_t custom1; /*<  Field for custom payload.*/
+ Int8_t custom2; /*<  Field for custom payload.*/
 } mavlink_high_latency2_t;
 
 #define MAVLINK_MSG_ID_HIGH_LATENCY2_LEN 42
@@ -148,8 +148,8 @@ typedef struct __mavlink_high_latency2_t {
  * @param custom2  Field for custom payload.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_high_latency2_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
-                               uint32_t timestamp, uint8_t type, uint8_t autopilot, uint16_t custom_mode, int32_t latitude, int32_t longitude, int16_t altitude, int16_t target_altitude, uint8_t heading, uint8_t target_heading, uint16_t target_distance, uint8_t throttle, uint8_t airspeed, uint8_t airspeed_sp, uint8_t groundspeed, uint8_t windspeed, uint8_t wind_heading, uint8_t eph, uint8_t epv, int8_t temperature_air, int8_t climb_rate, int8_t battery, uint16_t wp_num, uint16_t failure_flags, int8_t custom0, int8_t custom1, int8_t custom2)
+static inline uint16_t mavlink_msg_high_latency2_pack(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg,
+                               uint32_t timestamp, Uint8_t type, Uint8_t autopilot, uint16_t custom_mode, int32_t latitude, int32_t longitude, int16_t altitude, int16_t target_altitude, Uint8_t heading, Uint8_t target_heading, uint16_t target_distance, Uint8_t throttle, Uint8_t airspeed, Uint8_t airspeed_sp, Uint8_t groundspeed, Uint8_t windspeed, Uint8_t wind_heading, Uint8_t eph, Uint8_t epv, Int8_t temperature_air, Int8_t climb_rate, Int8_t battery, uint16_t wp_num, uint16_t failure_flags, Int8_t custom0, Int8_t custom1, Int8_t custom2)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_HIGH_LATENCY2_LEN];
@@ -254,9 +254,9 @@ static inline uint16_t mavlink_msg_high_latency2_pack(uint8_t system_id, uint8_t
  * @param custom2  Field for custom payload.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_high_latency2_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_high_latency2_pack_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan,
                                mavlink_message_t* msg,
-                                   uint32_t timestamp,uint8_t type,uint8_t autopilot,uint16_t custom_mode,int32_t latitude,int32_t longitude,int16_t altitude,int16_t target_altitude,uint8_t heading,uint8_t target_heading,uint16_t target_distance,uint8_t throttle,uint8_t airspeed,uint8_t airspeed_sp,uint8_t groundspeed,uint8_t windspeed,uint8_t wind_heading,uint8_t eph,uint8_t epv,int8_t temperature_air,int8_t climb_rate,int8_t battery,uint16_t wp_num,uint16_t failure_flags,int8_t custom0,int8_t custom1,int8_t custom2)
+                                   uint32_t timestamp,Uint8_t type,Uint8_t autopilot,uint16_t custom_mode,int32_t latitude,int32_t longitude,int16_t altitude,int16_t target_altitude,Uint8_t heading,Uint8_t target_heading,uint16_t target_distance,Uint8_t throttle,Uint8_t airspeed,Uint8_t airspeed_sp,Uint8_t groundspeed,Uint8_t windspeed,Uint8_t wind_heading,Uint8_t eph,Uint8_t epv,Int8_t temperature_air,Int8_t climb_rate,Int8_t battery,uint16_t wp_num,uint16_t failure_flags,Int8_t custom0,Int8_t custom1,Int8_t custom2)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_HIGH_LATENCY2_LEN];
@@ -334,7 +334,7 @@ static inline uint16_t mavlink_msg_high_latency2_pack_chan(uint8_t system_id, ui
  * @param msg The MAVLink message to compress the data into
  * @param high_latency2 C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_high_latency2_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_high_latency2_t* high_latency2)
+static inline uint16_t mavlink_msg_high_latency2_encode(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg, const mavlink_high_latency2_t* high_latency2)
 {
     return mavlink_msg_high_latency2_pack(system_id, component_id, msg, high_latency2->timestamp, high_latency2->type, high_latency2->autopilot, high_latency2->custom_mode, high_latency2->latitude, high_latency2->longitude, high_latency2->altitude, high_latency2->target_altitude, high_latency2->heading, high_latency2->target_heading, high_latency2->target_distance, high_latency2->throttle, high_latency2->airspeed, high_latency2->airspeed_sp, high_latency2->groundspeed, high_latency2->windspeed, high_latency2->wind_heading, high_latency2->eph, high_latency2->epv, high_latency2->temperature_air, high_latency2->climb_rate, high_latency2->battery, high_latency2->wp_num, high_latency2->failure_flags, high_latency2->custom0, high_latency2->custom1, high_latency2->custom2);
 }
@@ -348,7 +348,7 @@ static inline uint16_t mavlink_msg_high_latency2_encode(uint8_t system_id, uint8
  * @param msg The MAVLink message to compress the data into
  * @param high_latency2 C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_high_latency2_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_high_latency2_t* high_latency2)
+static inline uint16_t mavlink_msg_high_latency2_encode_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan, mavlink_message_t* msg, const mavlink_high_latency2_t* high_latency2)
 {
     return mavlink_msg_high_latency2_pack_chan(system_id, component_id, chan, msg, high_latency2->timestamp, high_latency2->type, high_latency2->autopilot, high_latency2->custom_mode, high_latency2->latitude, high_latency2->longitude, high_latency2->altitude, high_latency2->target_altitude, high_latency2->heading, high_latency2->target_heading, high_latency2->target_distance, high_latency2->throttle, high_latency2->airspeed, high_latency2->airspeed_sp, high_latency2->groundspeed, high_latency2->windspeed, high_latency2->wind_heading, high_latency2->eph, high_latency2->epv, high_latency2->temperature_air, high_latency2->climb_rate, high_latency2->battery, high_latency2->wp_num, high_latency2->failure_flags, high_latency2->custom0, high_latency2->custom1, high_latency2->custom2);
 }
@@ -387,7 +387,7 @@ static inline uint16_t mavlink_msg_high_latency2_encode_chan(uint8_t system_id, 
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_high_latency2_send(mavlink_channel_t chan, uint32_t timestamp, uint8_t type, uint8_t autopilot, uint16_t custom_mode, int32_t latitude, int32_t longitude, int16_t altitude, int16_t target_altitude, uint8_t heading, uint8_t target_heading, uint16_t target_distance, uint8_t throttle, uint8_t airspeed, uint8_t airspeed_sp, uint8_t groundspeed, uint8_t windspeed, uint8_t wind_heading, uint8_t eph, uint8_t epv, int8_t temperature_air, int8_t climb_rate, int8_t battery, uint16_t wp_num, uint16_t failure_flags, int8_t custom0, int8_t custom1, int8_t custom2)
+static inline void mavlink_msg_high_latency2_send(mavlink_channel_t chan, uint32_t timestamp, Uint8_t type, Uint8_t autopilot, uint16_t custom_mode, int32_t latitude, int32_t longitude, int16_t altitude, int16_t target_altitude, Uint8_t heading, Uint8_t target_heading, uint16_t target_distance, Uint8_t throttle, Uint8_t airspeed, Uint8_t airspeed_sp, Uint8_t groundspeed, Uint8_t windspeed, Uint8_t wind_heading, Uint8_t eph, Uint8_t epv, Int8_t temperature_air, Int8_t climb_rate, Int8_t battery, uint16_t wp_num, uint16_t failure_flags, Int8_t custom0, Int8_t custom1, Int8_t custom2)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_HIGH_LATENCY2_LEN];
@@ -476,7 +476,7 @@ static inline void mavlink_msg_high_latency2_send_struct(mavlink_channel_t chan,
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_high_latency2_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint32_t timestamp, uint8_t type, uint8_t autopilot, uint16_t custom_mode, int32_t latitude, int32_t longitude, int16_t altitude, int16_t target_altitude, uint8_t heading, uint8_t target_heading, uint16_t target_distance, uint8_t throttle, uint8_t airspeed, uint8_t airspeed_sp, uint8_t groundspeed, uint8_t windspeed, uint8_t wind_heading, uint8_t eph, uint8_t epv, int8_t temperature_air, int8_t climb_rate, int8_t battery, uint16_t wp_num, uint16_t failure_flags, int8_t custom0, int8_t custom1, int8_t custom2)
+static inline void mavlink_msg_high_latency2_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint32_t timestamp, Uint8_t type, Uint8_t autopilot, uint16_t custom_mode, int32_t latitude, int32_t longitude, int16_t altitude, int16_t target_altitude, Uint8_t heading, Uint8_t target_heading, uint16_t target_distance, Uint8_t throttle, Uint8_t airspeed, Uint8_t airspeed_sp, Uint8_t groundspeed, Uint8_t windspeed, Uint8_t wind_heading, Uint8_t eph, Uint8_t epv, Int8_t temperature_air, Int8_t climb_rate, Int8_t battery, uint16_t wp_num, uint16_t failure_flags, Int8_t custom0, Int8_t custom1, Int8_t custom2)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char *buf = (char *)msgbuf;
@@ -564,7 +564,7 @@ static inline uint32_t mavlink_msg_high_latency2_get_timestamp(const mavlink_mes
  *
  * @return  Type of the MAV (quadrotor, helicopter, etc.)
  */
-static inline uint8_t mavlink_msg_high_latency2_get_type(const mavlink_message_t* msg)
+static inline Uint8_t mavlink_msg_high_latency2_get_type(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  24);
 }
@@ -574,7 +574,7 @@ static inline uint8_t mavlink_msg_high_latency2_get_type(const mavlink_message_t
  *
  * @return  Autopilot type / class. Use MAV_AUTOPILOT_INVALID for components that are not flight controllers.
  */
-static inline uint8_t mavlink_msg_high_latency2_get_autopilot(const mavlink_message_t* msg)
+static inline Uint8_t mavlink_msg_high_latency2_get_autopilot(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  25);
 }
@@ -634,7 +634,7 @@ static inline int16_t mavlink_msg_high_latency2_get_target_altitude(const mavlin
  *
  * @return [deg/2] Heading
  */
-static inline uint8_t mavlink_msg_high_latency2_get_heading(const mavlink_message_t* msg)
+static inline Uint8_t mavlink_msg_high_latency2_get_heading(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  26);
 }
@@ -644,7 +644,7 @@ static inline uint8_t mavlink_msg_high_latency2_get_heading(const mavlink_messag
  *
  * @return [deg/2] Heading setpoint
  */
-static inline uint8_t mavlink_msg_high_latency2_get_target_heading(const mavlink_message_t* msg)
+static inline Uint8_t mavlink_msg_high_latency2_get_target_heading(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  27);
 }
@@ -664,7 +664,7 @@ static inline uint16_t mavlink_msg_high_latency2_get_target_distance(const mavli
  *
  * @return [%] Throttle
  */
-static inline uint8_t mavlink_msg_high_latency2_get_throttle(const mavlink_message_t* msg)
+static inline Uint8_t mavlink_msg_high_latency2_get_throttle(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  28);
 }
@@ -674,7 +674,7 @@ static inline uint8_t mavlink_msg_high_latency2_get_throttle(const mavlink_messa
  *
  * @return [m/s*5] Airspeed
  */
-static inline uint8_t mavlink_msg_high_latency2_get_airspeed(const mavlink_message_t* msg)
+static inline Uint8_t mavlink_msg_high_latency2_get_airspeed(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  29);
 }
@@ -684,7 +684,7 @@ static inline uint8_t mavlink_msg_high_latency2_get_airspeed(const mavlink_messa
  *
  * @return [m/s*5] Airspeed setpoint
  */
-static inline uint8_t mavlink_msg_high_latency2_get_airspeed_sp(const mavlink_message_t* msg)
+static inline Uint8_t mavlink_msg_high_latency2_get_airspeed_sp(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  30);
 }
@@ -694,7 +694,7 @@ static inline uint8_t mavlink_msg_high_latency2_get_airspeed_sp(const mavlink_me
  *
  * @return [m/s*5] Groundspeed
  */
-static inline uint8_t mavlink_msg_high_latency2_get_groundspeed(const mavlink_message_t* msg)
+static inline Uint8_t mavlink_msg_high_latency2_get_groundspeed(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  31);
 }
@@ -704,7 +704,7 @@ static inline uint8_t mavlink_msg_high_latency2_get_groundspeed(const mavlink_me
  *
  * @return [m/s*5] Windspeed
  */
-static inline uint8_t mavlink_msg_high_latency2_get_windspeed(const mavlink_message_t* msg)
+static inline Uint8_t mavlink_msg_high_latency2_get_windspeed(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  32);
 }
@@ -714,7 +714,7 @@ static inline uint8_t mavlink_msg_high_latency2_get_windspeed(const mavlink_mess
  *
  * @return [deg/2] Wind heading
  */
-static inline uint8_t mavlink_msg_high_latency2_get_wind_heading(const mavlink_message_t* msg)
+static inline Uint8_t mavlink_msg_high_latency2_get_wind_heading(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  33);
 }
@@ -724,7 +724,7 @@ static inline uint8_t mavlink_msg_high_latency2_get_wind_heading(const mavlink_m
  *
  * @return [dm] Maximum error horizontal position since last message
  */
-static inline uint8_t mavlink_msg_high_latency2_get_eph(const mavlink_message_t* msg)
+static inline Uint8_t mavlink_msg_high_latency2_get_eph(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  34);
 }
@@ -734,7 +734,7 @@ static inline uint8_t mavlink_msg_high_latency2_get_eph(const mavlink_message_t*
  *
  * @return [dm] Maximum error vertical position since last message
  */
-static inline uint8_t mavlink_msg_high_latency2_get_epv(const mavlink_message_t* msg)
+static inline Uint8_t mavlink_msg_high_latency2_get_epv(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  35);
 }
@@ -744,7 +744,7 @@ static inline uint8_t mavlink_msg_high_latency2_get_epv(const mavlink_message_t*
  *
  * @return [degC] Air temperature from airspeed sensor
  */
-static inline int8_t mavlink_msg_high_latency2_get_temperature_air(const mavlink_message_t* msg)
+static inline Int8_t mavlink_msg_high_latency2_get_temperature_air(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_int8_t(msg,  36);
 }
@@ -754,7 +754,7 @@ static inline int8_t mavlink_msg_high_latency2_get_temperature_air(const mavlink
  *
  * @return [dm/s] Maximum climb rate magnitude since last message
  */
-static inline int8_t mavlink_msg_high_latency2_get_climb_rate(const mavlink_message_t* msg)
+static inline Int8_t mavlink_msg_high_latency2_get_climb_rate(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_int8_t(msg,  37);
 }
@@ -764,7 +764,7 @@ static inline int8_t mavlink_msg_high_latency2_get_climb_rate(const mavlink_mess
  *
  * @return [%] Battery level (-1 if field not provided).
  */
-static inline int8_t mavlink_msg_high_latency2_get_battery(const mavlink_message_t* msg)
+static inline Int8_t mavlink_msg_high_latency2_get_battery(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_int8_t(msg,  38);
 }
@@ -794,7 +794,7 @@ static inline uint16_t mavlink_msg_high_latency2_get_failure_flags(const mavlink
  *
  * @return  Field for custom payload.
  */
-static inline int8_t mavlink_msg_high_latency2_get_custom0(const mavlink_message_t* msg)
+static inline Int8_t mavlink_msg_high_latency2_get_custom0(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_int8_t(msg,  39);
 }
@@ -804,7 +804,7 @@ static inline int8_t mavlink_msg_high_latency2_get_custom0(const mavlink_message
  *
  * @return  Field for custom payload.
  */
-static inline int8_t mavlink_msg_high_latency2_get_custom1(const mavlink_message_t* msg)
+static inline Int8_t mavlink_msg_high_latency2_get_custom1(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_int8_t(msg,  40);
 }
@@ -814,7 +814,7 @@ static inline int8_t mavlink_msg_high_latency2_get_custom1(const mavlink_message
  *
  * @return  Field for custom payload.
  */
-static inline int8_t mavlink_msg_high_latency2_get_custom2(const mavlink_message_t* msg)
+static inline Int8_t mavlink_msg_high_latency2_get_custom2(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_int8_t(msg,  41);
 }
@@ -856,7 +856,7 @@ static inline void mavlink_msg_high_latency2_decode(const mavlink_message_t* msg
     high_latency2->custom1 = mavlink_msg_high_latency2_get_custom1(msg);
     high_latency2->custom2 = mavlink_msg_high_latency2_get_custom2(msg);
 #else
-        uint8_t len = msg->len < MAVLINK_MSG_ID_HIGH_LATENCY2_LEN? msg->len : MAVLINK_MSG_ID_HIGH_LATENCY2_LEN;
+        Uint8_t len = msg->len < MAVLINK_MSG_ID_HIGH_LATENCY2_LEN? msg->len : MAVLINK_MSG_ID_HIGH_LATENCY2_LEN;
         memset(high_latency2, 0, MAVLINK_MSG_ID_HIGH_LATENCY2_LEN);
     memcpy(high_latency2, _MAV_PAYLOAD(msg), len);
 #endif

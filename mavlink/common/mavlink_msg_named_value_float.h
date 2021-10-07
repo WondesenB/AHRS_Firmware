@@ -52,7 +52,7 @@ typedef struct __mavlink_named_value_float_t {
  * @param value  Floating point value
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_named_value_float_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_named_value_float_pack(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg,
                                uint32_t time_boot_ms, const char *name, float value)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -84,7 +84,7 @@ static inline uint16_t mavlink_msg_named_value_float_pack(uint8_t system_id, uin
  * @param value  Floating point value
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_named_value_float_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_named_value_float_pack_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan,
                                mavlink_message_t* msg,
                                    uint32_t time_boot_ms,const char *name,float value)
 {
@@ -114,7 +114,7 @@ static inline uint16_t mavlink_msg_named_value_float_pack_chan(uint8_t system_id
  * @param msg The MAVLink message to compress the data into
  * @param named_value_float C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_named_value_float_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_named_value_float_t* named_value_float)
+static inline uint16_t mavlink_msg_named_value_float_encode(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg, const mavlink_named_value_float_t* named_value_float)
 {
     return mavlink_msg_named_value_float_pack(system_id, component_id, msg, named_value_float->time_boot_ms, named_value_float->name, named_value_float->value);
 }
@@ -128,7 +128,7 @@ static inline uint16_t mavlink_msg_named_value_float_encode(uint8_t system_id, u
  * @param msg The MAVLink message to compress the data into
  * @param named_value_float C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_named_value_float_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_named_value_float_t* named_value_float)
+static inline uint16_t mavlink_msg_named_value_float_encode_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan, mavlink_message_t* msg, const mavlink_named_value_float_t* named_value_float)
 {
     return mavlink_msg_named_value_float_pack_chan(system_id, component_id, chan, msg, named_value_float->time_boot_ms, named_value_float->name, named_value_float->value);
 }
@@ -248,7 +248,7 @@ static inline void mavlink_msg_named_value_float_decode(const mavlink_message_t*
     named_value_float->value = mavlink_msg_named_value_float_get_value(msg);
     mavlink_msg_named_value_float_get_name(msg, named_value_float->name);
 #else
-        uint8_t len = msg->len < MAVLINK_MSG_ID_NAMED_VALUE_FLOAT_LEN? msg->len : MAVLINK_MSG_ID_NAMED_VALUE_FLOAT_LEN;
+        Uint8_t len = msg->len < MAVLINK_MSG_ID_NAMED_VALUE_FLOAT_LEN? msg->len : MAVLINK_MSG_ID_NAMED_VALUE_FLOAT_LEN;
         memset(named_value_float, 0, MAVLINK_MSG_ID_NAMED_VALUE_FLOAT_LEN);
     memcpy(named_value_float, _MAV_PAYLOAD(msg), len);
 #endif

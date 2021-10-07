@@ -76,7 +76,7 @@ typedef struct __mavlink_wind_cov_t {
  * @param vert_accuracy [m] Vertical speed 1-STD accuracy
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_wind_cov_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_wind_cov_pack(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg,
                                uint64_t time_usec, float wind_x, float wind_y, float wind_z, float var_horiz, float var_vert, float wind_alt, float horiz_accuracy, float vert_accuracy)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -128,7 +128,7 @@ static inline uint16_t mavlink_msg_wind_cov_pack(uint8_t system_id, uint8_t comp
  * @param vert_accuracy [m] Vertical speed 1-STD accuracy
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_wind_cov_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_wind_cov_pack_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan,
                                mavlink_message_t* msg,
                                    uint64_t time_usec,float wind_x,float wind_y,float wind_z,float var_horiz,float var_vert,float wind_alt,float horiz_accuracy,float vert_accuracy)
 {
@@ -172,7 +172,7 @@ static inline uint16_t mavlink_msg_wind_cov_pack_chan(uint8_t system_id, uint8_t
  * @param msg The MAVLink message to compress the data into
  * @param wind_cov C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_wind_cov_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_wind_cov_t* wind_cov)
+static inline uint16_t mavlink_msg_wind_cov_encode(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg, const mavlink_wind_cov_t* wind_cov)
 {
     return mavlink_msg_wind_cov_pack(system_id, component_id, msg, wind_cov->time_usec, wind_cov->wind_x, wind_cov->wind_y, wind_cov->wind_z, wind_cov->var_horiz, wind_cov->var_vert, wind_cov->wind_alt, wind_cov->horiz_accuracy, wind_cov->vert_accuracy);
 }
@@ -186,7 +186,7 @@ static inline uint16_t mavlink_msg_wind_cov_encode(uint8_t system_id, uint8_t co
  * @param msg The MAVLink message to compress the data into
  * @param wind_cov C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_wind_cov_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_wind_cov_t* wind_cov)
+static inline uint16_t mavlink_msg_wind_cov_encode_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan, mavlink_message_t* msg, const mavlink_wind_cov_t* wind_cov)
 {
     return mavlink_msg_wind_cov_pack_chan(system_id, component_id, chan, msg, wind_cov->time_usec, wind_cov->wind_x, wind_cov->wind_y, wind_cov->wind_z, wind_cov->var_horiz, wind_cov->var_vert, wind_cov->wind_alt, wind_cov->horiz_accuracy, wind_cov->vert_accuracy);
 }
@@ -406,7 +406,7 @@ static inline void mavlink_msg_wind_cov_decode(const mavlink_message_t* msg, mav
     wind_cov->horiz_accuracy = mavlink_msg_wind_cov_get_horiz_accuracy(msg);
     wind_cov->vert_accuracy = mavlink_msg_wind_cov_get_vert_accuracy(msg);
 #else
-        uint8_t len = msg->len < MAVLINK_MSG_ID_WIND_COV_LEN? msg->len : MAVLINK_MSG_ID_WIND_COV_LEN;
+        Uint8_t len = msg->len < MAVLINK_MSG_ID_WIND_COV_LEN? msg->len : MAVLINK_MSG_ID_WIND_COV_LEN;
         memset(wind_cov, 0, MAVLINK_MSG_ID_WIND_COV_LEN);
     memcpy(wind_cov, _MAV_PAYLOAD(msg), len);
 #endif

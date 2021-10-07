@@ -72,7 +72,7 @@ typedef struct __mavlink_winch_status_t {
  * @param status  Status flags
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_winch_status_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_winch_status_pack(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg,
                                uint64_t time_usec, float line_length, float speed, float tension, float voltage, float current, int16_t temperature, uint32_t status)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -121,7 +121,7 @@ static inline uint16_t mavlink_msg_winch_status_pack(uint8_t system_id, uint8_t 
  * @param status  Status flags
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_winch_status_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_winch_status_pack_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan,
                                mavlink_message_t* msg,
                                    uint64_t time_usec,float line_length,float speed,float tension,float voltage,float current,int16_t temperature,uint32_t status)
 {
@@ -163,7 +163,7 @@ static inline uint16_t mavlink_msg_winch_status_pack_chan(uint8_t system_id, uin
  * @param msg The MAVLink message to compress the data into
  * @param winch_status C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_winch_status_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_winch_status_t* winch_status)
+static inline uint16_t mavlink_msg_winch_status_encode(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg, const mavlink_winch_status_t* winch_status)
 {
     return mavlink_msg_winch_status_pack(system_id, component_id, msg, winch_status->time_usec, winch_status->line_length, winch_status->speed, winch_status->tension, winch_status->voltage, winch_status->current, winch_status->temperature, winch_status->status);
 }
@@ -177,7 +177,7 @@ static inline uint16_t mavlink_msg_winch_status_encode(uint8_t system_id, uint8_
  * @param msg The MAVLink message to compress the data into
  * @param winch_status C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_winch_status_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_winch_status_t* winch_status)
+static inline uint16_t mavlink_msg_winch_status_encode_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan, mavlink_message_t* msg, const mavlink_winch_status_t* winch_status)
 {
     return mavlink_msg_winch_status_pack_chan(system_id, component_id, chan, msg, winch_status->time_usec, winch_status->line_length, winch_status->speed, winch_status->tension, winch_status->voltage, winch_status->current, winch_status->temperature, winch_status->status);
 }
@@ -381,7 +381,7 @@ static inline void mavlink_msg_winch_status_decode(const mavlink_message_t* msg,
     winch_status->status = mavlink_msg_winch_status_get_status(msg);
     winch_status->temperature = mavlink_msg_winch_status_get_temperature(msg);
 #else
-        uint8_t len = msg->len < MAVLINK_MSG_ID_WINCH_STATUS_LEN? msg->len : MAVLINK_MSG_ID_WINCH_STATUS_LEN;
+        Uint8_t len = msg->len < MAVLINK_MSG_ID_WINCH_STATUS_LEN? msg->len : MAVLINK_MSG_ID_WINCH_STATUS_LEN;
         memset(winch_status, 0, MAVLINK_MSG_ID_WINCH_STATUS_LEN);
     memcpy(winch_status, _MAV_PAYLOAD(msg), len);
 #endif

@@ -14,8 +14,8 @@ typedef struct __mavlink_link_node_status_t {
  uint16_t rx_parse_err; /*< [bytes] Number of bytes that could not be parsed correctly.*/
  uint16_t tx_overflows; /*< [bytes] Transmit buffer overflows. This number wraps around as it reaches UINT16_MAX*/
  uint16_t rx_overflows; /*< [bytes] Receive buffer overflows. This number wraps around as it reaches UINT16_MAX*/
- uint8_t tx_buf; /*< [%] Remaining free transmit buffer space*/
- uint8_t rx_buf; /*< [%] Remaining free receive buffer space*/
+ Uint8_t tx_buf; /*< [%] Remaining free transmit buffer space*/
+ Uint8_t rx_buf; /*< [%] Remaining free receive buffer space*/
 } mavlink_link_node_status_t;
 
 #define MAVLINK_MSG_ID_LINK_NODE_STATUS_LEN 36
@@ -84,8 +84,8 @@ typedef struct __mavlink_link_node_status_t {
  * @param messages_lost  Messages lost (estimated from counting seq)
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_link_node_status_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
-                               uint64_t timestamp, uint8_t tx_buf, uint8_t rx_buf, uint32_t tx_rate, uint32_t rx_rate, uint16_t rx_parse_err, uint16_t tx_overflows, uint16_t rx_overflows, uint32_t messages_sent, uint32_t messages_received, uint32_t messages_lost)
+static inline uint16_t mavlink_msg_link_node_status_pack(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg,
+                               uint64_t timestamp, Uint8_t tx_buf, Uint8_t rx_buf, uint32_t tx_rate, uint32_t rx_rate, uint16_t rx_parse_err, uint16_t tx_overflows, uint16_t rx_overflows, uint32_t messages_sent, uint32_t messages_received, uint32_t messages_lost)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_LINK_NODE_STATUS_LEN];
@@ -142,9 +142,9 @@ static inline uint16_t mavlink_msg_link_node_status_pack(uint8_t system_id, uint
  * @param messages_lost  Messages lost (estimated from counting seq)
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_link_node_status_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_link_node_status_pack_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan,
                                mavlink_message_t* msg,
-                                   uint64_t timestamp,uint8_t tx_buf,uint8_t rx_buf,uint32_t tx_rate,uint32_t rx_rate,uint16_t rx_parse_err,uint16_t tx_overflows,uint16_t rx_overflows,uint32_t messages_sent,uint32_t messages_received,uint32_t messages_lost)
+                                   uint64_t timestamp,Uint8_t tx_buf,Uint8_t rx_buf,uint32_t tx_rate,uint32_t rx_rate,uint16_t rx_parse_err,uint16_t tx_overflows,uint16_t rx_overflows,uint32_t messages_sent,uint32_t messages_received,uint32_t messages_lost)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_LINK_NODE_STATUS_LEN];
@@ -190,7 +190,7 @@ static inline uint16_t mavlink_msg_link_node_status_pack_chan(uint8_t system_id,
  * @param msg The MAVLink message to compress the data into
  * @param link_node_status C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_link_node_status_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_link_node_status_t* link_node_status)
+static inline uint16_t mavlink_msg_link_node_status_encode(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg, const mavlink_link_node_status_t* link_node_status)
 {
     return mavlink_msg_link_node_status_pack(system_id, component_id, msg, link_node_status->timestamp, link_node_status->tx_buf, link_node_status->rx_buf, link_node_status->tx_rate, link_node_status->rx_rate, link_node_status->rx_parse_err, link_node_status->tx_overflows, link_node_status->rx_overflows, link_node_status->messages_sent, link_node_status->messages_received, link_node_status->messages_lost);
 }
@@ -204,7 +204,7 @@ static inline uint16_t mavlink_msg_link_node_status_encode(uint8_t system_id, ui
  * @param msg The MAVLink message to compress the data into
  * @param link_node_status C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_link_node_status_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_link_node_status_t* link_node_status)
+static inline uint16_t mavlink_msg_link_node_status_encode_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan, mavlink_message_t* msg, const mavlink_link_node_status_t* link_node_status)
 {
     return mavlink_msg_link_node_status_pack_chan(system_id, component_id, chan, msg, link_node_status->timestamp, link_node_status->tx_buf, link_node_status->rx_buf, link_node_status->tx_rate, link_node_status->rx_rate, link_node_status->rx_parse_err, link_node_status->tx_overflows, link_node_status->rx_overflows, link_node_status->messages_sent, link_node_status->messages_received, link_node_status->messages_lost);
 }
@@ -227,7 +227,7 @@ static inline uint16_t mavlink_msg_link_node_status_encode_chan(uint8_t system_i
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_link_node_status_send(mavlink_channel_t chan, uint64_t timestamp, uint8_t tx_buf, uint8_t rx_buf, uint32_t tx_rate, uint32_t rx_rate, uint16_t rx_parse_err, uint16_t tx_overflows, uint16_t rx_overflows, uint32_t messages_sent, uint32_t messages_received, uint32_t messages_lost)
+static inline void mavlink_msg_link_node_status_send(mavlink_channel_t chan, uint64_t timestamp, Uint8_t tx_buf, Uint8_t rx_buf, uint32_t tx_rate, uint32_t rx_rate, uint16_t rx_parse_err, uint16_t tx_overflows, uint16_t rx_overflows, uint32_t messages_sent, uint32_t messages_received, uint32_t messages_lost)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_LINK_NODE_STATUS_LEN];
@@ -284,7 +284,7 @@ static inline void mavlink_msg_link_node_status_send_struct(mavlink_channel_t ch
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_link_node_status_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint64_t timestamp, uint8_t tx_buf, uint8_t rx_buf, uint32_t tx_rate, uint32_t rx_rate, uint16_t rx_parse_err, uint16_t tx_overflows, uint16_t rx_overflows, uint32_t messages_sent, uint32_t messages_received, uint32_t messages_lost)
+static inline void mavlink_msg_link_node_status_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint64_t timestamp, Uint8_t tx_buf, Uint8_t rx_buf, uint32_t tx_rate, uint32_t rx_rate, uint16_t rx_parse_err, uint16_t tx_overflows, uint16_t rx_overflows, uint32_t messages_sent, uint32_t messages_received, uint32_t messages_lost)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char *buf = (char *)msgbuf;
@@ -340,7 +340,7 @@ static inline uint64_t mavlink_msg_link_node_status_get_timestamp(const mavlink_
  *
  * @return [%] Remaining free transmit buffer space
  */
-static inline uint8_t mavlink_msg_link_node_status_get_tx_buf(const mavlink_message_t* msg)
+static inline Uint8_t mavlink_msg_link_node_status_get_tx_buf(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  34);
 }
@@ -350,7 +350,7 @@ static inline uint8_t mavlink_msg_link_node_status_get_tx_buf(const mavlink_mess
  *
  * @return [%] Remaining free receive buffer space
  */
-static inline uint8_t mavlink_msg_link_node_status_get_rx_buf(const mavlink_message_t* msg)
+static inline Uint8_t mavlink_msg_link_node_status_get_rx_buf(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  35);
 }
@@ -456,7 +456,7 @@ static inline void mavlink_msg_link_node_status_decode(const mavlink_message_t* 
     link_node_status->tx_buf = mavlink_msg_link_node_status_get_tx_buf(msg);
     link_node_status->rx_buf = mavlink_msg_link_node_status_get_rx_buf(msg);
 #else
-        uint8_t len = msg->len < MAVLINK_MSG_ID_LINK_NODE_STATUS_LEN? msg->len : MAVLINK_MSG_ID_LINK_NODE_STATUS_LEN;
+        Uint8_t len = msg->len < MAVLINK_MSG_ID_LINK_NODE_STATUS_LEN? msg->len : MAVLINK_MSG_ID_LINK_NODE_STATUS_LEN;
         memset(link_node_status, 0, MAVLINK_MSG_ID_LINK_NODE_STATUS_LEN);
     memcpy(link_node_status, _MAV_PAYLOAD(msg), len);
 #endif

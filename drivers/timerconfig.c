@@ -86,7 +86,7 @@ __interrupt void cpu_timer2_isr(void)
                                   uint8_t type, uint8_t autopilot, uint8_t base_mode, uint32_t custom_mode, uint8_t system_status);*/
    mavlink_msg_heartbeat_pack(1, 1, &message,1, 0, 128, 8, 0);
    // Translate message to buffer
-   unsigned len = mavlink_msg_to_send_buffer((uint8_t*) buff, &message);
+   unsigned len = mavlink_msg_to_send_buffer((Uint8_t*) buff, &message);
    for (i = 0; i < len; i++)
    {
        scia_xmit(buff[i]);

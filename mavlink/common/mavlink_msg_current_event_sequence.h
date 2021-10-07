@@ -6,7 +6,7 @@
 
 typedef struct __mavlink_current_event_sequence_t {
  uint16_t sequence; /*<  Sequence number.*/
- uint8_t flags; /*<  Flag bitset.*/
+ Uint8_t flags; /*<  Flag bitset.*/
 } mavlink_current_event_sequence_t;
 
 #define MAVLINK_MSG_ID_CURRENT_EVENT_SEQUENCE_LEN 3
@@ -48,8 +48,8 @@ typedef struct __mavlink_current_event_sequence_t {
  * @param flags  Flag bitset.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_current_event_sequence_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
-                               uint16_t sequence, uint8_t flags)
+static inline uint16_t mavlink_msg_current_event_sequence_pack(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg,
+                               uint16_t sequence, Uint8_t flags)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_CURRENT_EVENT_SEQUENCE_LEN];
@@ -79,9 +79,9 @@ static inline uint16_t mavlink_msg_current_event_sequence_pack(uint8_t system_id
  * @param flags  Flag bitset.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_current_event_sequence_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_current_event_sequence_pack_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan,
                                mavlink_message_t* msg,
-                                   uint16_t sequence,uint8_t flags)
+                                   uint16_t sequence,Uint8_t flags)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_CURRENT_EVENT_SEQUENCE_LEN];
@@ -109,7 +109,7 @@ static inline uint16_t mavlink_msg_current_event_sequence_pack_chan(uint8_t syst
  * @param msg The MAVLink message to compress the data into
  * @param current_event_sequence C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_current_event_sequence_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_current_event_sequence_t* current_event_sequence)
+static inline uint16_t mavlink_msg_current_event_sequence_encode(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg, const mavlink_current_event_sequence_t* current_event_sequence)
 {
     return mavlink_msg_current_event_sequence_pack(system_id, component_id, msg, current_event_sequence->sequence, current_event_sequence->flags);
 }
@@ -123,7 +123,7 @@ static inline uint16_t mavlink_msg_current_event_sequence_encode(uint8_t system_
  * @param msg The MAVLink message to compress the data into
  * @param current_event_sequence C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_current_event_sequence_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_current_event_sequence_t* current_event_sequence)
+static inline uint16_t mavlink_msg_current_event_sequence_encode_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan, mavlink_message_t* msg, const mavlink_current_event_sequence_t* current_event_sequence)
 {
     return mavlink_msg_current_event_sequence_pack_chan(system_id, component_id, chan, msg, current_event_sequence->sequence, current_event_sequence->flags);
 }
@@ -137,7 +137,7 @@ static inline uint16_t mavlink_msg_current_event_sequence_encode_chan(uint8_t sy
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_current_event_sequence_send(mavlink_channel_t chan, uint16_t sequence, uint8_t flags)
+static inline void mavlink_msg_current_event_sequence_send(mavlink_channel_t chan, uint16_t sequence, Uint8_t flags)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_CURRENT_EVENT_SEQUENCE_LEN];
@@ -176,7 +176,7 @@ static inline void mavlink_msg_current_event_sequence_send_struct(mavlink_channe
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_current_event_sequence_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint16_t sequence, uint8_t flags)
+static inline void mavlink_msg_current_event_sequence_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint16_t sequence, Uint8_t flags)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char *buf = (char *)msgbuf;
@@ -214,7 +214,7 @@ static inline uint16_t mavlink_msg_current_event_sequence_get_sequence(const mav
  *
  * @return  Flag bitset.
  */
-static inline uint8_t mavlink_msg_current_event_sequence_get_flags(const mavlink_message_t* msg)
+static inline Uint8_t mavlink_msg_current_event_sequence_get_flags(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  2);
 }
@@ -231,7 +231,7 @@ static inline void mavlink_msg_current_event_sequence_decode(const mavlink_messa
     current_event_sequence->sequence = mavlink_msg_current_event_sequence_get_sequence(msg);
     current_event_sequence->flags = mavlink_msg_current_event_sequence_get_flags(msg);
 #else
-        uint8_t len = msg->len < MAVLINK_MSG_ID_CURRENT_EVENT_SEQUENCE_LEN? msg->len : MAVLINK_MSG_ID_CURRENT_EVENT_SEQUENCE_LEN;
+        Uint8_t len = msg->len < MAVLINK_MSG_ID_CURRENT_EVENT_SEQUENCE_LEN? msg->len : MAVLINK_MSG_ID_CURRENT_EVENT_SEQUENCE_LEN;
         memset(current_event_sequence, 0, MAVLINK_MSG_ID_CURRENT_EVENT_SEQUENCE_LEN);
     memcpy(current_event_sequence, _MAV_PAYLOAD(msg), len);
 #endif

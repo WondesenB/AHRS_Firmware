@@ -5,10 +5,10 @@
 
 
 typedef struct __mavlink_open_drone_id_self_id_t {
- uint8_t target_system; /*<  System ID (0 for broadcast).*/
- uint8_t target_component; /*<  Component ID (0 for broadcast).*/
- uint8_t id_or_mac[20]; /*<  Only used for drone ID data received from other UAs. See detailed description at https://mavlink.io/en/services/opendroneid.html. */
- uint8_t description_type; /*<  Indicates the type of the description field.*/
+ Uint8_t target_system; /*<  System ID (0 for broadcast).*/
+ Uint8_t target_component; /*<  Component ID (0 for broadcast).*/
+ Uint8_t id_or_mac[20]; /*<  Only used for drone ID data received from other UAs. See detailed description at https://mavlink.io/en/services/opendroneid.html. */
+ Uint8_t description_type; /*<  Indicates the type of the description field.*/
  char description[23]; /*<  Text description or numeric value expressed as ASCII characters. Shall be filled with nulls in the unused portion of the field.*/
 } mavlink_open_drone_id_self_id_t;
 
@@ -61,8 +61,8 @@ typedef struct __mavlink_open_drone_id_self_id_t {
  * @param description  Text description or numeric value expressed as ASCII characters. Shall be filled with nulls in the unused portion of the field.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_open_drone_id_self_id_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
-                               uint8_t target_system, uint8_t target_component, const uint8_t *id_or_mac, uint8_t description_type, const char *description)
+static inline uint16_t mavlink_msg_open_drone_id_self_id_pack(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg,
+                               Uint8_t target_system, Uint8_t target_component, const Uint8_t *id_or_mac, Uint8_t description_type, const char *description)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_OPEN_DRONE_ID_SELF_ID_LEN];
@@ -77,7 +77,7 @@ static inline uint16_t mavlink_msg_open_drone_id_self_id_pack(uint8_t system_id,
     packet.target_system = target_system;
     packet.target_component = target_component;
     packet.description_type = description_type;
-    mav_array_memcpy(packet.id_or_mac, id_or_mac, sizeof(uint8_t)*20);
+    mav_array_memcpy(packet.id_or_mac, id_or_mac, sizeof(Uint8_t)*20);
     mav_array_memcpy(packet.description, description, sizeof(char)*23);
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_OPEN_DRONE_ID_SELF_ID_LEN);
 #endif
@@ -99,9 +99,9 @@ static inline uint16_t mavlink_msg_open_drone_id_self_id_pack(uint8_t system_id,
  * @param description  Text description or numeric value expressed as ASCII characters. Shall be filled with nulls in the unused portion of the field.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_open_drone_id_self_id_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_open_drone_id_self_id_pack_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan,
                                mavlink_message_t* msg,
-                                   uint8_t target_system,uint8_t target_component,const uint8_t *id_or_mac,uint8_t description_type,const char *description)
+                                   Uint8_t target_system,Uint8_t target_component,const Uint8_t *id_or_mac,Uint8_t description_type,const char *description)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_OPEN_DRONE_ID_SELF_ID_LEN];
@@ -116,7 +116,7 @@ static inline uint16_t mavlink_msg_open_drone_id_self_id_pack_chan(uint8_t syste
     packet.target_system = target_system;
     packet.target_component = target_component;
     packet.description_type = description_type;
-    mav_array_memcpy(packet.id_or_mac, id_or_mac, sizeof(uint8_t)*20);
+    mav_array_memcpy(packet.id_or_mac, id_or_mac, sizeof(Uint8_t)*20);
     mav_array_memcpy(packet.description, description, sizeof(char)*23);
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_OPEN_DRONE_ID_SELF_ID_LEN);
 #endif
@@ -133,7 +133,7 @@ static inline uint16_t mavlink_msg_open_drone_id_self_id_pack_chan(uint8_t syste
  * @param msg The MAVLink message to compress the data into
  * @param open_drone_id_self_id C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_open_drone_id_self_id_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_open_drone_id_self_id_t* open_drone_id_self_id)
+static inline uint16_t mavlink_msg_open_drone_id_self_id_encode(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg, const mavlink_open_drone_id_self_id_t* open_drone_id_self_id)
 {
     return mavlink_msg_open_drone_id_self_id_pack(system_id, component_id, msg, open_drone_id_self_id->target_system, open_drone_id_self_id->target_component, open_drone_id_self_id->id_or_mac, open_drone_id_self_id->description_type, open_drone_id_self_id->description);
 }
@@ -147,7 +147,7 @@ static inline uint16_t mavlink_msg_open_drone_id_self_id_encode(uint8_t system_i
  * @param msg The MAVLink message to compress the data into
  * @param open_drone_id_self_id C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_open_drone_id_self_id_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_open_drone_id_self_id_t* open_drone_id_self_id)
+static inline uint16_t mavlink_msg_open_drone_id_self_id_encode_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan, mavlink_message_t* msg, const mavlink_open_drone_id_self_id_t* open_drone_id_self_id)
 {
     return mavlink_msg_open_drone_id_self_id_pack_chan(system_id, component_id, chan, msg, open_drone_id_self_id->target_system, open_drone_id_self_id->target_component, open_drone_id_self_id->id_or_mac, open_drone_id_self_id->description_type, open_drone_id_self_id->description);
 }
@@ -164,7 +164,7 @@ static inline uint16_t mavlink_msg_open_drone_id_self_id_encode_chan(uint8_t sys
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_open_drone_id_self_id_send(mavlink_channel_t chan, uint8_t target_system, uint8_t target_component, const uint8_t *id_or_mac, uint8_t description_type, const char *description)
+static inline void mavlink_msg_open_drone_id_self_id_send(mavlink_channel_t chan, Uint8_t target_system, Uint8_t target_component, const Uint8_t *id_or_mac, Uint8_t description_type, const char *description)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_OPEN_DRONE_ID_SELF_ID_LEN];
@@ -179,7 +179,7 @@ static inline void mavlink_msg_open_drone_id_self_id_send(mavlink_channel_t chan
     packet.target_system = target_system;
     packet.target_component = target_component;
     packet.description_type = description_type;
-    mav_array_memcpy(packet.id_or_mac, id_or_mac, sizeof(uint8_t)*20);
+    mav_array_memcpy(packet.id_or_mac, id_or_mac, sizeof(Uint8_t)*20);
     mav_array_memcpy(packet.description, description, sizeof(char)*23);
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_OPEN_DRONE_ID_SELF_ID, (const char *)&packet, MAVLINK_MSG_ID_OPEN_DRONE_ID_SELF_ID_MIN_LEN, MAVLINK_MSG_ID_OPEN_DRONE_ID_SELF_ID_LEN, MAVLINK_MSG_ID_OPEN_DRONE_ID_SELF_ID_CRC);
 #endif
@@ -207,7 +207,7 @@ static inline void mavlink_msg_open_drone_id_self_id_send_struct(mavlink_channel
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_open_drone_id_self_id_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint8_t target_system, uint8_t target_component, const uint8_t *id_or_mac, uint8_t description_type, const char *description)
+static inline void mavlink_msg_open_drone_id_self_id_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  Uint8_t target_system, Uint8_t target_component, const Uint8_t *id_or_mac, Uint8_t description_type, const char *description)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char *buf = (char *)msgbuf;
@@ -222,7 +222,7 @@ static inline void mavlink_msg_open_drone_id_self_id_send_buf(mavlink_message_t 
     packet->target_system = target_system;
     packet->target_component = target_component;
     packet->description_type = description_type;
-    mav_array_memcpy(packet->id_or_mac, id_or_mac, sizeof(uint8_t)*20);
+    mav_array_memcpy(packet->id_or_mac, id_or_mac, sizeof(Uint8_t)*20);
     mav_array_memcpy(packet->description, description, sizeof(char)*23);
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_OPEN_DRONE_ID_SELF_ID, (const char *)packet, MAVLINK_MSG_ID_OPEN_DRONE_ID_SELF_ID_MIN_LEN, MAVLINK_MSG_ID_OPEN_DRONE_ID_SELF_ID_LEN, MAVLINK_MSG_ID_OPEN_DRONE_ID_SELF_ID_CRC);
 #endif
@@ -239,7 +239,7 @@ static inline void mavlink_msg_open_drone_id_self_id_send_buf(mavlink_message_t 
  *
  * @return  System ID (0 for broadcast).
  */
-static inline uint8_t mavlink_msg_open_drone_id_self_id_get_target_system(const mavlink_message_t* msg)
+static inline Uint8_t mavlink_msg_open_drone_id_self_id_get_target_system(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  0);
 }
@@ -249,7 +249,7 @@ static inline uint8_t mavlink_msg_open_drone_id_self_id_get_target_system(const 
  *
  * @return  Component ID (0 for broadcast).
  */
-static inline uint8_t mavlink_msg_open_drone_id_self_id_get_target_component(const mavlink_message_t* msg)
+static inline Uint8_t mavlink_msg_open_drone_id_self_id_get_target_component(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  1);
 }
@@ -259,7 +259,7 @@ static inline uint8_t mavlink_msg_open_drone_id_self_id_get_target_component(con
  *
  * @return  Only used for drone ID data received from other UAs. See detailed description at https://mavlink.io/en/services/opendroneid.html. 
  */
-static inline uint16_t mavlink_msg_open_drone_id_self_id_get_id_or_mac(const mavlink_message_t* msg, uint8_t *id_or_mac)
+static inline uint16_t mavlink_msg_open_drone_id_self_id_get_id_or_mac(const mavlink_message_t* msg, Uint8_t *id_or_mac)
 {
     return _MAV_RETURN_uint8_t_array(msg, id_or_mac, 20,  2);
 }
@@ -269,7 +269,7 @@ static inline uint16_t mavlink_msg_open_drone_id_self_id_get_id_or_mac(const mav
  *
  * @return  Indicates the type of the description field.
  */
-static inline uint8_t mavlink_msg_open_drone_id_self_id_get_description_type(const mavlink_message_t* msg)
+static inline Uint8_t mavlink_msg_open_drone_id_self_id_get_description_type(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  22);
 }
@@ -299,7 +299,7 @@ static inline void mavlink_msg_open_drone_id_self_id_decode(const mavlink_messag
     open_drone_id_self_id->description_type = mavlink_msg_open_drone_id_self_id_get_description_type(msg);
     mavlink_msg_open_drone_id_self_id_get_description(msg, open_drone_id_self_id->description);
 #else
-        uint8_t len = msg->len < MAVLINK_MSG_ID_OPEN_DRONE_ID_SELF_ID_LEN? msg->len : MAVLINK_MSG_ID_OPEN_DRONE_ID_SELF_ID_LEN;
+        Uint8_t len = msg->len < MAVLINK_MSG_ID_OPEN_DRONE_ID_SELF_ID_LEN? msg->len : MAVLINK_MSG_ID_OPEN_DRONE_ID_SELF_ID_LEN;
         memset(open_drone_id_self_id, 0, MAVLINK_MSG_ID_OPEN_DRONE_ID_SELF_ID_LEN);
     memcpy(open_drone_id_self_id, _MAV_PAYLOAD(msg), len);
 #endif

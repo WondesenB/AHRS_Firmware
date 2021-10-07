@@ -60,7 +60,7 @@ typedef struct __mavlink_time_estimate_to_target_t {
  * @param commanded_action [s] Estimated time for completing the current commanded action (i.e. Go To, Takeoff, Land, etc.). -1 means no action active and/or no estimate available.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_time_estimate_to_target_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_time_estimate_to_target_pack(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg,
                                int32_t safe_return, int32_t land, int32_t mission_next_item, int32_t mission_end, int32_t commanded_action)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -100,7 +100,7 @@ static inline uint16_t mavlink_msg_time_estimate_to_target_pack(uint8_t system_i
  * @param commanded_action [s] Estimated time for completing the current commanded action (i.e. Go To, Takeoff, Land, etc.). -1 means no action active and/or no estimate available.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_time_estimate_to_target_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_time_estimate_to_target_pack_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan,
                                mavlink_message_t* msg,
                                    int32_t safe_return,int32_t land,int32_t mission_next_item,int32_t mission_end,int32_t commanded_action)
 {
@@ -136,7 +136,7 @@ static inline uint16_t mavlink_msg_time_estimate_to_target_pack_chan(uint8_t sys
  * @param msg The MAVLink message to compress the data into
  * @param time_estimate_to_target C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_time_estimate_to_target_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_time_estimate_to_target_t* time_estimate_to_target)
+static inline uint16_t mavlink_msg_time_estimate_to_target_encode(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg, const mavlink_time_estimate_to_target_t* time_estimate_to_target)
 {
     return mavlink_msg_time_estimate_to_target_pack(system_id, component_id, msg, time_estimate_to_target->safe_return, time_estimate_to_target->land, time_estimate_to_target->mission_next_item, time_estimate_to_target->mission_end, time_estimate_to_target->commanded_action);
 }
@@ -150,7 +150,7 @@ static inline uint16_t mavlink_msg_time_estimate_to_target_encode(uint8_t system
  * @param msg The MAVLink message to compress the data into
  * @param time_estimate_to_target C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_time_estimate_to_target_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_time_estimate_to_target_t* time_estimate_to_target)
+static inline uint16_t mavlink_msg_time_estimate_to_target_encode_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan, mavlink_message_t* msg, const mavlink_time_estimate_to_target_t* time_estimate_to_target)
 {
     return mavlink_msg_time_estimate_to_target_pack_chan(system_id, component_id, chan, msg, time_estimate_to_target->safe_return, time_estimate_to_target->land, time_estimate_to_target->mission_next_item, time_estimate_to_target->mission_end, time_estimate_to_target->commanded_action);
 }
@@ -306,7 +306,7 @@ static inline void mavlink_msg_time_estimate_to_target_decode(const mavlink_mess
     time_estimate_to_target->mission_end = mavlink_msg_time_estimate_to_target_get_mission_end(msg);
     time_estimate_to_target->commanded_action = mavlink_msg_time_estimate_to_target_get_commanded_action(msg);
 #else
-        uint8_t len = msg->len < MAVLINK_MSG_ID_TIME_ESTIMATE_TO_TARGET_LEN? msg->len : MAVLINK_MSG_ID_TIME_ESTIMATE_TO_TARGET_LEN;
+        Uint8_t len = msg->len < MAVLINK_MSG_ID_TIME_ESTIMATE_TO_TARGET_LEN? msg->len : MAVLINK_MSG_ID_TIME_ESTIMATE_TO_TARGET_LEN;
         memset(time_estimate_to_target, 0, MAVLINK_MSG_ID_TIME_ESTIMATE_TO_TARGET_LEN);
     memcpy(time_estimate_to_target, _MAV_PAYLOAD(msg), len);
 #endif

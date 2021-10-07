@@ -14,9 +14,9 @@ typedef struct __mavlink_gps2_raw_t {
  uint16_t epv; /*<  GPS VDOP vertical dilution of position (unitless * 100). If unknown, set to: UINT16_MAX*/
  uint16_t vel; /*< [cm/s] GPS ground speed. If unknown, set to: UINT16_MAX*/
  uint16_t cog; /*< [cdeg] Course over ground (NOT heading, but direction of movement): 0.0..359.99 degrees. If unknown, set to: UINT16_MAX*/
- uint8_t fix_type; /*<  GPS fix type.*/
- uint8_t satellites_visible; /*<  Number of satellites visible. If unknown, set to UINT8_MAX*/
- uint8_t dgps_numch; /*<  Number of DGPS satellites*/
+ Uint8_t fix_type; /*<  GPS fix type.*/
+ Uint8_t satellites_visible; /*<  Number of satellites visible. If unknown, set to UINT8_MAX*/
+ Uint8_t dgps_numch; /*<  Number of DGPS satellites*/
  uint16_t yaw; /*< [cdeg] Yaw in earth frame from north. Use 0 if this GPS does not provide yaw. Use UINT16_MAX if this GPS is configured to provide yaw and is currently unable to provide it. Use 36000 for north.*/
  int32_t alt_ellipsoid; /*< [mm] Altitude (above WGS84, EGM96 ellipsoid). Positive for up.*/
  uint32_t h_acc; /*< [mm] Position uncertainty.*/
@@ -112,8 +112,8 @@ typedef struct __mavlink_gps2_raw_t {
  * @param hdg_acc [degE5] Heading / track uncertainty
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_gps2_raw_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
-                               uint64_t time_usec, uint8_t fix_type, int32_t lat, int32_t lon, int32_t alt, uint16_t eph, uint16_t epv, uint16_t vel, uint16_t cog, uint8_t satellites_visible, uint8_t dgps_numch, uint32_t dgps_age, uint16_t yaw, int32_t alt_ellipsoid, uint32_t h_acc, uint32_t v_acc, uint32_t vel_acc, uint32_t hdg_acc)
+static inline uint16_t mavlink_msg_gps2_raw_pack(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg,
+                               uint64_t time_usec, Uint8_t fix_type, int32_t lat, int32_t lon, int32_t alt, uint16_t eph, uint16_t epv, uint16_t vel, uint16_t cog, Uint8_t satellites_visible, Uint8_t dgps_numch, uint32_t dgps_age, uint16_t yaw, int32_t alt_ellipsoid, uint32_t h_acc, uint32_t v_acc, uint32_t vel_acc, uint32_t hdg_acc)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_GPS2_RAW_LEN];
@@ -191,9 +191,9 @@ static inline uint16_t mavlink_msg_gps2_raw_pack(uint8_t system_id, uint8_t comp
  * @param hdg_acc [degE5] Heading / track uncertainty
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_gps2_raw_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_gps2_raw_pack_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan,
                                mavlink_message_t* msg,
-                                   uint64_t time_usec,uint8_t fix_type,int32_t lat,int32_t lon,int32_t alt,uint16_t eph,uint16_t epv,uint16_t vel,uint16_t cog,uint8_t satellites_visible,uint8_t dgps_numch,uint32_t dgps_age,uint16_t yaw,int32_t alt_ellipsoid,uint32_t h_acc,uint32_t v_acc,uint32_t vel_acc,uint32_t hdg_acc)
+                                   uint64_t time_usec,Uint8_t fix_type,int32_t lat,int32_t lon,int32_t alt,uint16_t eph,uint16_t epv,uint16_t vel,uint16_t cog,Uint8_t satellites_visible,Uint8_t dgps_numch,uint32_t dgps_age,uint16_t yaw,int32_t alt_ellipsoid,uint32_t h_acc,uint32_t v_acc,uint32_t vel_acc,uint32_t hdg_acc)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_GPS2_RAW_LEN];
@@ -253,7 +253,7 @@ static inline uint16_t mavlink_msg_gps2_raw_pack_chan(uint8_t system_id, uint8_t
  * @param msg The MAVLink message to compress the data into
  * @param gps2_raw C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_gps2_raw_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_gps2_raw_t* gps2_raw)
+static inline uint16_t mavlink_msg_gps2_raw_encode(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg, const mavlink_gps2_raw_t* gps2_raw)
 {
     return mavlink_msg_gps2_raw_pack(system_id, component_id, msg, gps2_raw->time_usec, gps2_raw->fix_type, gps2_raw->lat, gps2_raw->lon, gps2_raw->alt, gps2_raw->eph, gps2_raw->epv, gps2_raw->vel, gps2_raw->cog, gps2_raw->satellites_visible, gps2_raw->dgps_numch, gps2_raw->dgps_age, gps2_raw->yaw, gps2_raw->alt_ellipsoid, gps2_raw->h_acc, gps2_raw->v_acc, gps2_raw->vel_acc, gps2_raw->hdg_acc);
 }
@@ -267,7 +267,7 @@ static inline uint16_t mavlink_msg_gps2_raw_encode(uint8_t system_id, uint8_t co
  * @param msg The MAVLink message to compress the data into
  * @param gps2_raw C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_gps2_raw_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_gps2_raw_t* gps2_raw)
+static inline uint16_t mavlink_msg_gps2_raw_encode_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan, mavlink_message_t* msg, const mavlink_gps2_raw_t* gps2_raw)
 {
     return mavlink_msg_gps2_raw_pack_chan(system_id, component_id, chan, msg, gps2_raw->time_usec, gps2_raw->fix_type, gps2_raw->lat, gps2_raw->lon, gps2_raw->alt, gps2_raw->eph, gps2_raw->epv, gps2_raw->vel, gps2_raw->cog, gps2_raw->satellites_visible, gps2_raw->dgps_numch, gps2_raw->dgps_age, gps2_raw->yaw, gps2_raw->alt_ellipsoid, gps2_raw->h_acc, gps2_raw->v_acc, gps2_raw->vel_acc, gps2_raw->hdg_acc);
 }
@@ -297,7 +297,7 @@ static inline uint16_t mavlink_msg_gps2_raw_encode_chan(uint8_t system_id, uint8
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_gps2_raw_send(mavlink_channel_t chan, uint64_t time_usec, uint8_t fix_type, int32_t lat, int32_t lon, int32_t alt, uint16_t eph, uint16_t epv, uint16_t vel, uint16_t cog, uint8_t satellites_visible, uint8_t dgps_numch, uint32_t dgps_age, uint16_t yaw, int32_t alt_ellipsoid, uint32_t h_acc, uint32_t v_acc, uint32_t vel_acc, uint32_t hdg_acc)
+static inline void mavlink_msg_gps2_raw_send(mavlink_channel_t chan, uint64_t time_usec, Uint8_t fix_type, int32_t lat, int32_t lon, int32_t alt, uint16_t eph, uint16_t epv, uint16_t vel, uint16_t cog, Uint8_t satellites_visible, Uint8_t dgps_numch, uint32_t dgps_age, uint16_t yaw, int32_t alt_ellipsoid, uint32_t h_acc, uint32_t v_acc, uint32_t vel_acc, uint32_t hdg_acc)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_GPS2_RAW_LEN];
@@ -368,7 +368,7 @@ static inline void mavlink_msg_gps2_raw_send_struct(mavlink_channel_t chan, cons
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_gps2_raw_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint64_t time_usec, uint8_t fix_type, int32_t lat, int32_t lon, int32_t alt, uint16_t eph, uint16_t epv, uint16_t vel, uint16_t cog, uint8_t satellites_visible, uint8_t dgps_numch, uint32_t dgps_age, uint16_t yaw, int32_t alt_ellipsoid, uint32_t h_acc, uint32_t v_acc, uint32_t vel_acc, uint32_t hdg_acc)
+static inline void mavlink_msg_gps2_raw_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint64_t time_usec, Uint8_t fix_type, int32_t lat, int32_t lon, int32_t alt, uint16_t eph, uint16_t epv, uint16_t vel, uint16_t cog, Uint8_t satellites_visible, Uint8_t dgps_numch, uint32_t dgps_age, uint16_t yaw, int32_t alt_ellipsoid, uint32_t h_acc, uint32_t v_acc, uint32_t vel_acc, uint32_t hdg_acc)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char *buf = (char *)msgbuf;
@@ -438,7 +438,7 @@ static inline uint64_t mavlink_msg_gps2_raw_get_time_usec(const mavlink_message_
  *
  * @return  GPS fix type.
  */
-static inline uint8_t mavlink_msg_gps2_raw_get_fix_type(const mavlink_message_t* msg)
+static inline Uint8_t mavlink_msg_gps2_raw_get_fix_type(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  32);
 }
@@ -518,7 +518,7 @@ static inline uint16_t mavlink_msg_gps2_raw_get_cog(const mavlink_message_t* msg
  *
  * @return  Number of satellites visible. If unknown, set to UINT8_MAX
  */
-static inline uint8_t mavlink_msg_gps2_raw_get_satellites_visible(const mavlink_message_t* msg)
+static inline Uint8_t mavlink_msg_gps2_raw_get_satellites_visible(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  33);
 }
@@ -528,7 +528,7 @@ static inline uint8_t mavlink_msg_gps2_raw_get_satellites_visible(const mavlink_
  *
  * @return  Number of DGPS satellites
  */
-static inline uint8_t mavlink_msg_gps2_raw_get_dgps_numch(const mavlink_message_t* msg)
+static inline Uint8_t mavlink_msg_gps2_raw_get_dgps_numch(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  34);
 }
@@ -631,7 +631,7 @@ static inline void mavlink_msg_gps2_raw_decode(const mavlink_message_t* msg, mav
     gps2_raw->vel_acc = mavlink_msg_gps2_raw_get_vel_acc(msg);
     gps2_raw->hdg_acc = mavlink_msg_gps2_raw_get_hdg_acc(msg);
 #else
-        uint8_t len = msg->len < MAVLINK_MSG_ID_GPS2_RAW_LEN? msg->len : MAVLINK_MSG_ID_GPS2_RAW_LEN;
+        Uint8_t len = msg->len < MAVLINK_MSG_ID_GPS2_RAW_LEN? msg->len : MAVLINK_MSG_ID_GPS2_RAW_LEN;
         memset(gps2_raw, 0, MAVLINK_MSG_ID_GPS2_RAW_LEN);
     memcpy(gps2_raw, _MAV_PAYLOAD(msg), len);
 #endif

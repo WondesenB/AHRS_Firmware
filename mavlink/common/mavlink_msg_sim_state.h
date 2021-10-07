@@ -124,7 +124,7 @@ typedef struct __mavlink_sim_state_t {
  * @param vd [m/s] True velocity in down direction in earth-fixed NED frame
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_sim_state_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_sim_state_pack(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg,
                                float q1, float q2, float q3, float q4, float roll, float pitch, float yaw, float xacc, float yacc, float zacc, float xgyro, float ygyro, float zgyro, float lat, float lon, float alt, float std_dev_horz, float std_dev_vert, float vn, float ve, float vd)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -212,7 +212,7 @@ static inline uint16_t mavlink_msg_sim_state_pack(uint8_t system_id, uint8_t com
  * @param vd [m/s] True velocity in down direction in earth-fixed NED frame
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_sim_state_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_sim_state_pack_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan,
                                mavlink_message_t* msg,
                                    float q1,float q2,float q3,float q4,float roll,float pitch,float yaw,float xacc,float yacc,float zacc,float xgyro,float ygyro,float zgyro,float lat,float lon,float alt,float std_dev_horz,float std_dev_vert,float vn,float ve,float vd)
 {
@@ -280,7 +280,7 @@ static inline uint16_t mavlink_msg_sim_state_pack_chan(uint8_t system_id, uint8_
  * @param msg The MAVLink message to compress the data into
  * @param sim_state C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_sim_state_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_sim_state_t* sim_state)
+static inline uint16_t mavlink_msg_sim_state_encode(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg, const mavlink_sim_state_t* sim_state)
 {
     return mavlink_msg_sim_state_pack(system_id, component_id, msg, sim_state->q1, sim_state->q2, sim_state->q3, sim_state->q4, sim_state->roll, sim_state->pitch, sim_state->yaw, sim_state->xacc, sim_state->yacc, sim_state->zacc, sim_state->xgyro, sim_state->ygyro, sim_state->zgyro, sim_state->lat, sim_state->lon, sim_state->alt, sim_state->std_dev_horz, sim_state->std_dev_vert, sim_state->vn, sim_state->ve, sim_state->vd);
 }
@@ -294,7 +294,7 @@ static inline uint16_t mavlink_msg_sim_state_encode(uint8_t system_id, uint8_t c
  * @param msg The MAVLink message to compress the data into
  * @param sim_state C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_sim_state_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_sim_state_t* sim_state)
+static inline uint16_t mavlink_msg_sim_state_encode_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan, mavlink_message_t* msg, const mavlink_sim_state_t* sim_state)
 {
     return mavlink_msg_sim_state_pack_chan(system_id, component_id, chan, msg, sim_state->q1, sim_state->q2, sim_state->q3, sim_state->q4, sim_state->roll, sim_state->pitch, sim_state->yaw, sim_state->xacc, sim_state->yacc, sim_state->zacc, sim_state->xgyro, sim_state->ygyro, sim_state->zgyro, sim_state->lat, sim_state->lon, sim_state->alt, sim_state->std_dev_horz, sim_state->std_dev_vert, sim_state->vn, sim_state->ve, sim_state->vd);
 }
@@ -706,7 +706,7 @@ static inline void mavlink_msg_sim_state_decode(const mavlink_message_t* msg, ma
     sim_state->ve = mavlink_msg_sim_state_get_ve(msg);
     sim_state->vd = mavlink_msg_sim_state_get_vd(msg);
 #else
-        uint8_t len = msg->len < MAVLINK_MSG_ID_SIM_STATE_LEN? msg->len : MAVLINK_MSG_ID_SIM_STATE_LEN;
+        Uint8_t len = msg->len < MAVLINK_MSG_ID_SIM_STATE_LEN? msg->len : MAVLINK_MSG_ID_SIM_STATE_LEN;
         memset(sim_state, 0, MAVLINK_MSG_ID_SIM_STATE_LEN);
     memcpy(sim_state, _MAV_PAYLOAD(msg), len);
 #endif

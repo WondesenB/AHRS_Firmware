@@ -10,10 +10,10 @@ typedef struct __mavlink_param_map_rc_t {
  float param_value_min; /*<  Minimum param value. The protocol does not define if this overwrites an onboard minimum value. (Depends on implementation)*/
  float param_value_max; /*<  Maximum param value. The protocol does not define if this overwrites an onboard maximum value. (Depends on implementation)*/
  int16_t param_index; /*<  Parameter index. Send -1 to use the param ID field as identifier (else the param id will be ignored), send -2 to disable any existing map for this rc_channel_index.*/
- uint8_t target_system; /*<  System ID*/
- uint8_t target_component; /*<  Component ID*/
+ Uint8_t target_system; /*<  System ID*/
+ Uint8_t target_component; /*<  Component ID*/
  char param_id[16]; /*<  Onboard parameter id, terminated by NULL if the length is less than 16 human-readable chars and WITHOUT null termination (NULL) byte if the length is exactly 16 chars - applications have to provide 16+1 bytes storage if the ID is stored as string*/
- uint8_t parameter_rc_channel_index; /*<  Index of parameter RC channel. Not equal to the RC channel id. Typically corresponds to a potentiometer-knob on the RC.*/
+ Uint8_t parameter_rc_channel_index; /*<  Index of parameter RC channel. Not equal to the RC channel id. Typically corresponds to a potentiometer-knob on the RC.*/
 } mavlink_param_map_rc_t;
 
 #define MAVLINK_MSG_ID_PARAM_MAP_RC_LEN 37
@@ -76,8 +76,8 @@ typedef struct __mavlink_param_map_rc_t {
  * @param param_value_max  Maximum param value. The protocol does not define if this overwrites an onboard maximum value. (Depends on implementation)
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_param_map_rc_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
-                               uint8_t target_system, uint8_t target_component, const char *param_id, int16_t param_index, uint8_t parameter_rc_channel_index, float param_value0, float scale, float param_value_min, float param_value_max)
+static inline uint16_t mavlink_msg_param_map_rc_pack(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg,
+                               Uint8_t target_system, Uint8_t target_component, const char *param_id, int16_t param_index, Uint8_t parameter_rc_channel_index, float param_value0, float scale, float param_value_min, float param_value_max)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_PARAM_MAP_RC_LEN];
@@ -126,9 +126,9 @@ static inline uint16_t mavlink_msg_param_map_rc_pack(uint8_t system_id, uint8_t 
  * @param param_value_max  Maximum param value. The protocol does not define if this overwrites an onboard maximum value. (Depends on implementation)
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_param_map_rc_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_param_map_rc_pack_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan,
                                mavlink_message_t* msg,
-                                   uint8_t target_system,uint8_t target_component,const char *param_id,int16_t param_index,uint8_t parameter_rc_channel_index,float param_value0,float scale,float param_value_min,float param_value_max)
+                                   Uint8_t target_system,Uint8_t target_component,const char *param_id,int16_t param_index,Uint8_t parameter_rc_channel_index,float param_value0,float scale,float param_value_min,float param_value_max)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_PARAM_MAP_RC_LEN];
@@ -168,7 +168,7 @@ static inline uint16_t mavlink_msg_param_map_rc_pack_chan(uint8_t system_id, uin
  * @param msg The MAVLink message to compress the data into
  * @param param_map_rc C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_param_map_rc_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_param_map_rc_t* param_map_rc)
+static inline uint16_t mavlink_msg_param_map_rc_encode(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg, const mavlink_param_map_rc_t* param_map_rc)
 {
     return mavlink_msg_param_map_rc_pack(system_id, component_id, msg, param_map_rc->target_system, param_map_rc->target_component, param_map_rc->param_id, param_map_rc->param_index, param_map_rc->parameter_rc_channel_index, param_map_rc->param_value0, param_map_rc->scale, param_map_rc->param_value_min, param_map_rc->param_value_max);
 }
@@ -182,7 +182,7 @@ static inline uint16_t mavlink_msg_param_map_rc_encode(uint8_t system_id, uint8_
  * @param msg The MAVLink message to compress the data into
  * @param param_map_rc C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_param_map_rc_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_param_map_rc_t* param_map_rc)
+static inline uint16_t mavlink_msg_param_map_rc_encode_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan, mavlink_message_t* msg, const mavlink_param_map_rc_t* param_map_rc)
 {
     return mavlink_msg_param_map_rc_pack_chan(system_id, component_id, chan, msg, param_map_rc->target_system, param_map_rc->target_component, param_map_rc->param_id, param_map_rc->param_index, param_map_rc->parameter_rc_channel_index, param_map_rc->param_value0, param_map_rc->scale, param_map_rc->param_value_min, param_map_rc->param_value_max);
 }
@@ -203,7 +203,7 @@ static inline uint16_t mavlink_msg_param_map_rc_encode_chan(uint8_t system_id, u
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_param_map_rc_send(mavlink_channel_t chan, uint8_t target_system, uint8_t target_component, const char *param_id, int16_t param_index, uint8_t parameter_rc_channel_index, float param_value0, float scale, float param_value_min, float param_value_max)
+static inline void mavlink_msg_param_map_rc_send(mavlink_channel_t chan, Uint8_t target_system, Uint8_t target_component, const char *param_id, int16_t param_index, Uint8_t parameter_rc_channel_index, float param_value0, float scale, float param_value_min, float param_value_max)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_PARAM_MAP_RC_LEN];
@@ -254,7 +254,7 @@ static inline void mavlink_msg_param_map_rc_send_struct(mavlink_channel_t chan, 
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_param_map_rc_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint8_t target_system, uint8_t target_component, const char *param_id, int16_t param_index, uint8_t parameter_rc_channel_index, float param_value0, float scale, float param_value_min, float param_value_max)
+static inline void mavlink_msg_param_map_rc_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  Uint8_t target_system, Uint8_t target_component, const char *param_id, int16_t param_index, Uint8_t parameter_rc_channel_index, float param_value0, float scale, float param_value_min, float param_value_max)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char *buf = (char *)msgbuf;
@@ -294,7 +294,7 @@ static inline void mavlink_msg_param_map_rc_send_buf(mavlink_message_t *msgbuf, 
  *
  * @return  System ID
  */
-static inline uint8_t mavlink_msg_param_map_rc_get_target_system(const mavlink_message_t* msg)
+static inline Uint8_t mavlink_msg_param_map_rc_get_target_system(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  18);
 }
@@ -304,7 +304,7 @@ static inline uint8_t mavlink_msg_param_map_rc_get_target_system(const mavlink_m
  *
  * @return  Component ID
  */
-static inline uint8_t mavlink_msg_param_map_rc_get_target_component(const mavlink_message_t* msg)
+static inline Uint8_t mavlink_msg_param_map_rc_get_target_component(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  19);
 }
@@ -334,7 +334,7 @@ static inline int16_t mavlink_msg_param_map_rc_get_param_index(const mavlink_mes
  *
  * @return  Index of parameter RC channel. Not equal to the RC channel id. Typically corresponds to a potentiometer-knob on the RC.
  */
-static inline uint8_t mavlink_msg_param_map_rc_get_parameter_rc_channel_index(const mavlink_message_t* msg)
+static inline Uint8_t mavlink_msg_param_map_rc_get_parameter_rc_channel_index(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  36);
 }
@@ -398,7 +398,7 @@ static inline void mavlink_msg_param_map_rc_decode(const mavlink_message_t* msg,
     mavlink_msg_param_map_rc_get_param_id(msg, param_map_rc->param_id);
     param_map_rc->parameter_rc_channel_index = mavlink_msg_param_map_rc_get_parameter_rc_channel_index(msg);
 #else
-        uint8_t len = msg->len < MAVLINK_MSG_ID_PARAM_MAP_RC_LEN? msg->len : MAVLINK_MSG_ID_PARAM_MAP_RC_LEN;
+        Uint8_t len = msg->len < MAVLINK_MSG_ID_PARAM_MAP_RC_LEN? msg->len : MAVLINK_MSG_ID_PARAM_MAP_RC_LEN;
         memset(param_map_rc, 0, MAVLINK_MSG_ID_PARAM_MAP_RC_LEN);
     memcpy(param_map_rc, _MAV_PAYLOAD(msg), len);
 #endif

@@ -76,7 +76,7 @@ typedef struct __mavlink_global_position_int_t {
  * @param hdg [cdeg] Vehicle heading (yaw angle), 0.0..359.99 degrees. If unknown, set to: UINT16_MAX
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_global_position_int_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_global_position_int_pack(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg,
                                uint32_t time_boot_ms, int32_t lat, int32_t lon, int32_t alt, int32_t relative_alt, int16_t vx, int16_t vy, int16_t vz, uint16_t hdg)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -128,7 +128,7 @@ static inline uint16_t mavlink_msg_global_position_int_pack(uint8_t system_id, u
  * @param hdg [cdeg] Vehicle heading (yaw angle), 0.0..359.99 degrees. If unknown, set to: UINT16_MAX
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_global_position_int_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_global_position_int_pack_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan,
                                mavlink_message_t* msg,
                                    uint32_t time_boot_ms,int32_t lat,int32_t lon,int32_t alt,int32_t relative_alt,int16_t vx,int16_t vy,int16_t vz,uint16_t hdg)
 {
@@ -172,7 +172,7 @@ static inline uint16_t mavlink_msg_global_position_int_pack_chan(uint8_t system_
  * @param msg The MAVLink message to compress the data into
  * @param global_position_int C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_global_position_int_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_global_position_int_t* global_position_int)
+static inline uint16_t mavlink_msg_global_position_int_encode(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg, const mavlink_global_position_int_t* global_position_int)
 {
     return mavlink_msg_global_position_int_pack(system_id, component_id, msg, global_position_int->time_boot_ms, global_position_int->lat, global_position_int->lon, global_position_int->alt, global_position_int->relative_alt, global_position_int->vx, global_position_int->vy, global_position_int->vz, global_position_int->hdg);
 }
@@ -186,7 +186,7 @@ static inline uint16_t mavlink_msg_global_position_int_encode(uint8_t system_id,
  * @param msg The MAVLink message to compress the data into
  * @param global_position_int C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_global_position_int_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_global_position_int_t* global_position_int)
+static inline uint16_t mavlink_msg_global_position_int_encode_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan, mavlink_message_t* msg, const mavlink_global_position_int_t* global_position_int)
 {
     return mavlink_msg_global_position_int_pack_chan(system_id, component_id, chan, msg, global_position_int->time_boot_ms, global_position_int->lat, global_position_int->lon, global_position_int->alt, global_position_int->relative_alt, global_position_int->vx, global_position_int->vy, global_position_int->vz, global_position_int->hdg);
 }
@@ -406,7 +406,7 @@ static inline void mavlink_msg_global_position_int_decode(const mavlink_message_
     global_position_int->vz = mavlink_msg_global_position_int_get_vz(msg);
     global_position_int->hdg = mavlink_msg_global_position_int_get_hdg(msg);
 #else
-        uint8_t len = msg->len < MAVLINK_MSG_ID_GLOBAL_POSITION_INT_LEN? msg->len : MAVLINK_MSG_ID_GLOBAL_POSITION_INT_LEN;
+        Uint8_t len = msg->len < MAVLINK_MSG_ID_GLOBAL_POSITION_INT_LEN? msg->len : MAVLINK_MSG_ID_GLOBAL_POSITION_INT_LEN;
         memset(global_position_int, 0, MAVLINK_MSG_ID_GLOBAL_POSITION_INT_LEN);
     memcpy(global_position_int, _MAV_PAYLOAD(msg), len);
 #endif

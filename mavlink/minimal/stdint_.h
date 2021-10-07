@@ -34,7 +34,7 @@
 /* There is some amount of overlap with <sys/types.h> as known by inet code */
 #ifndef __int8_t_defined
 # define __int8_t_defined
-typedef signed char                int8_t;
+typedef signed char                Int8_t;
 //typedef short int                int16_t;
 //typedef int                        int32_t;
 # if __WORDSIZE == 64
@@ -46,7 +46,7 @@ __extension__
 #endif
 
 /* Unsigned.  */
-typedef unsigned char                uint8_t;
+typedef unsigned char                Uint8_t;
 //typedef unsigned short int        uint16_t;
 #ifndef __uint32_t_defined
 //typedef unsigned int                uint32_t;

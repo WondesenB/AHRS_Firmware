@@ -48,7 +48,7 @@ typedef struct __mavlink_timesync_t {
  * @param ts1  Time sync timestamp 2
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_timesync_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_timesync_pack(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg,
                                int64_t tc1, int64_t ts1)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -79,7 +79,7 @@ static inline uint16_t mavlink_msg_timesync_pack(uint8_t system_id, uint8_t comp
  * @param ts1  Time sync timestamp 2
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_timesync_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_timesync_pack_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan,
                                mavlink_message_t* msg,
                                    int64_t tc1,int64_t ts1)
 {
@@ -109,7 +109,7 @@ static inline uint16_t mavlink_msg_timesync_pack_chan(uint8_t system_id, uint8_t
  * @param msg The MAVLink message to compress the data into
  * @param timesync C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_timesync_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_timesync_t* timesync)
+static inline uint16_t mavlink_msg_timesync_encode(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg, const mavlink_timesync_t* timesync)
 {
     return mavlink_msg_timesync_pack(system_id, component_id, msg, timesync->tc1, timesync->ts1);
 }
@@ -123,7 +123,7 @@ static inline uint16_t mavlink_msg_timesync_encode(uint8_t system_id, uint8_t co
  * @param msg The MAVLink message to compress the data into
  * @param timesync C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_timesync_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_timesync_t* timesync)
+static inline uint16_t mavlink_msg_timesync_encode_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan, mavlink_message_t* msg, const mavlink_timesync_t* timesync)
 {
     return mavlink_msg_timesync_pack_chan(system_id, component_id, chan, msg, timesync->tc1, timesync->ts1);
 }
@@ -231,7 +231,7 @@ static inline void mavlink_msg_timesync_decode(const mavlink_message_t* msg, mav
     timesync->tc1 = mavlink_msg_timesync_get_tc1(msg);
     timesync->ts1 = mavlink_msg_timesync_get_ts1(msg);
 #else
-        uint8_t len = msg->len < MAVLINK_MSG_ID_TIMESYNC_LEN? msg->len : MAVLINK_MSG_ID_TIMESYNC_LEN;
+        Uint8_t len = msg->len < MAVLINK_MSG_ID_TIMESYNC_LEN? msg->len : MAVLINK_MSG_ID_TIMESYNC_LEN;
         memset(timesync, 0, MAVLINK_MSG_ID_TIMESYNC_LEN);
     memcpy(timesync, _MAV_PAYLOAD(msg), len);
 #endif

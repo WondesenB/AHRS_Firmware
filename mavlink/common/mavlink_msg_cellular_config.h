@@ -5,14 +5,14 @@
 
 
 typedef struct __mavlink_cellular_config_t {
- uint8_t enable_lte; /*<  Enable/disable LTE. 0: setting unchanged, 1: disabled, 2: enabled. Current setting when sent back as a response.*/
- uint8_t enable_pin; /*<  Enable/disable PIN on the SIM card. 0: setting unchanged, 1: disabled, 2: enabled. Current setting when sent back as a response.*/
+ Uint8_t enable_lte; /*<  Enable/disable LTE. 0: setting unchanged, 1: disabled, 2: enabled. Current setting when sent back as a response.*/
+ Uint8_t enable_pin; /*<  Enable/disable PIN on the SIM card. 0: setting unchanged, 1: disabled, 2: enabled. Current setting when sent back as a response.*/
  char pin[16]; /*<  PIN sent to the SIM card. Blank when PIN is disabled. Empty when message is sent back as a response.*/
  char new_pin[16]; /*<  New PIN when changing the PIN. Blank to leave it unchanged. Empty when message is sent back as a response.*/
  char apn[32]; /*<  Name of the cellular APN. Blank to leave it unchanged. Current APN when sent back as a response.*/
  char puk[16]; /*<  Required PUK code in case the user failed to authenticate 3 times with the PIN. Empty when message is sent back as a response.*/
- uint8_t roaming; /*<  Enable/disable roaming. 0: setting unchanged, 1: disabled, 2: enabled. Current setting when sent back as a response.*/
- uint8_t response; /*<  Message acceptance response (sent back to GS).*/
+ Uint8_t roaming; /*<  Enable/disable roaming. 0: setting unchanged, 1: disabled, 2: enabled. Current setting when sent back as a response.*/
+ Uint8_t response; /*<  Message acceptance response (sent back to GS).*/
 } mavlink_cellular_config_t;
 
 #define MAVLINK_MSG_ID_CELLULAR_CONFIG_LEN 84
@@ -75,8 +75,8 @@ typedef struct __mavlink_cellular_config_t {
  * @param response  Message acceptance response (sent back to GS).
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_cellular_config_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
-                               uint8_t enable_lte, uint8_t enable_pin, const char *pin, const char *new_pin, const char *apn, const char *puk, uint8_t roaming, uint8_t response)
+static inline uint16_t mavlink_msg_cellular_config_pack(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg,
+                               Uint8_t enable_lte, Uint8_t enable_pin, const char *pin, const char *new_pin, const char *apn, const char *puk, Uint8_t roaming, Uint8_t response)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_CELLULAR_CONFIG_LEN];
@@ -122,9 +122,9 @@ static inline uint16_t mavlink_msg_cellular_config_pack(uint8_t system_id, uint8
  * @param response  Message acceptance response (sent back to GS).
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_cellular_config_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_cellular_config_pack_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan,
                                mavlink_message_t* msg,
-                                   uint8_t enable_lte,uint8_t enable_pin,const char *pin,const char *new_pin,const char *apn,const char *puk,uint8_t roaming,uint8_t response)
+                                   Uint8_t enable_lte,Uint8_t enable_pin,const char *pin,const char *new_pin,const char *apn,const char *puk,Uint8_t roaming,Uint8_t response)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_CELLULAR_CONFIG_LEN];
@@ -162,7 +162,7 @@ static inline uint16_t mavlink_msg_cellular_config_pack_chan(uint8_t system_id, 
  * @param msg The MAVLink message to compress the data into
  * @param cellular_config C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_cellular_config_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_cellular_config_t* cellular_config)
+static inline uint16_t mavlink_msg_cellular_config_encode(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg, const mavlink_cellular_config_t* cellular_config)
 {
     return mavlink_msg_cellular_config_pack(system_id, component_id, msg, cellular_config->enable_lte, cellular_config->enable_pin, cellular_config->pin, cellular_config->new_pin, cellular_config->apn, cellular_config->puk, cellular_config->roaming, cellular_config->response);
 }
@@ -176,7 +176,7 @@ static inline uint16_t mavlink_msg_cellular_config_encode(uint8_t system_id, uin
  * @param msg The MAVLink message to compress the data into
  * @param cellular_config C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_cellular_config_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_cellular_config_t* cellular_config)
+static inline uint16_t mavlink_msg_cellular_config_encode_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan, mavlink_message_t* msg, const mavlink_cellular_config_t* cellular_config)
 {
     return mavlink_msg_cellular_config_pack_chan(system_id, component_id, chan, msg, cellular_config->enable_lte, cellular_config->enable_pin, cellular_config->pin, cellular_config->new_pin, cellular_config->apn, cellular_config->puk, cellular_config->roaming, cellular_config->response);
 }
@@ -196,7 +196,7 @@ static inline uint16_t mavlink_msg_cellular_config_encode_chan(uint8_t system_id
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_cellular_config_send(mavlink_channel_t chan, uint8_t enable_lte, uint8_t enable_pin, const char *pin, const char *new_pin, const char *apn, const char *puk, uint8_t roaming, uint8_t response)
+static inline void mavlink_msg_cellular_config_send(mavlink_channel_t chan, Uint8_t enable_lte, Uint8_t enable_pin, const char *pin, const char *new_pin, const char *apn, const char *puk, Uint8_t roaming, Uint8_t response)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_CELLULAR_CONFIG_LEN];
@@ -245,7 +245,7 @@ static inline void mavlink_msg_cellular_config_send_struct(mavlink_channel_t cha
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_cellular_config_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint8_t enable_lte, uint8_t enable_pin, const char *pin, const char *new_pin, const char *apn, const char *puk, uint8_t roaming, uint8_t response)
+static inline void mavlink_msg_cellular_config_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  Uint8_t enable_lte, Uint8_t enable_pin, const char *pin, const char *new_pin, const char *apn, const char *puk, Uint8_t roaming, Uint8_t response)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char *buf = (char *)msgbuf;
@@ -283,7 +283,7 @@ static inline void mavlink_msg_cellular_config_send_buf(mavlink_message_t *msgbu
  *
  * @return  Enable/disable LTE. 0: setting unchanged, 1: disabled, 2: enabled. Current setting when sent back as a response.
  */
-static inline uint8_t mavlink_msg_cellular_config_get_enable_lte(const mavlink_message_t* msg)
+static inline Uint8_t mavlink_msg_cellular_config_get_enable_lte(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  0);
 }
@@ -293,7 +293,7 @@ static inline uint8_t mavlink_msg_cellular_config_get_enable_lte(const mavlink_m
  *
  * @return  Enable/disable PIN on the SIM card. 0: setting unchanged, 1: disabled, 2: enabled. Current setting when sent back as a response.
  */
-static inline uint8_t mavlink_msg_cellular_config_get_enable_pin(const mavlink_message_t* msg)
+static inline Uint8_t mavlink_msg_cellular_config_get_enable_pin(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  1);
 }
@@ -343,7 +343,7 @@ static inline uint16_t mavlink_msg_cellular_config_get_puk(const mavlink_message
  *
  * @return  Enable/disable roaming. 0: setting unchanged, 1: disabled, 2: enabled. Current setting when sent back as a response.
  */
-static inline uint8_t mavlink_msg_cellular_config_get_roaming(const mavlink_message_t* msg)
+static inline Uint8_t mavlink_msg_cellular_config_get_roaming(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  82);
 }
@@ -353,7 +353,7 @@ static inline uint8_t mavlink_msg_cellular_config_get_roaming(const mavlink_mess
  *
  * @return  Message acceptance response (sent back to GS).
  */
-static inline uint8_t mavlink_msg_cellular_config_get_response(const mavlink_message_t* msg)
+static inline Uint8_t mavlink_msg_cellular_config_get_response(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  83);
 }
@@ -376,7 +376,7 @@ static inline void mavlink_msg_cellular_config_decode(const mavlink_message_t* m
     cellular_config->roaming = mavlink_msg_cellular_config_get_roaming(msg);
     cellular_config->response = mavlink_msg_cellular_config_get_response(msg);
 #else
-        uint8_t len = msg->len < MAVLINK_MSG_ID_CELLULAR_CONFIG_LEN? msg->len : MAVLINK_MSG_ID_CELLULAR_CONFIG_LEN;
+        Uint8_t len = msg->len < MAVLINK_MSG_ID_CELLULAR_CONFIG_LEN? msg->len : MAVLINK_MSG_ID_CELLULAR_CONFIG_LEN;
         memset(cellular_config, 0, MAVLINK_MSG_ID_CELLULAR_CONFIG_LEN);
     memcpy(cellular_config, _MAV_PAYLOAD(msg), len);
 #endif

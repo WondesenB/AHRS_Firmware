@@ -10,7 +10,7 @@ typedef struct __mavlink_orbit_execution_status_t {
  int32_t x; /*<  X coordinate of center point. Coordinate system depends on frame field: local = x position in meters * 1e4, global = latitude in degrees * 1e7.*/
  int32_t y; /*<  Y coordinate of center point.  Coordinate system depends on frame field: local = x position in meters * 1e4, global = latitude in degrees * 1e7.*/
  float z; /*< [m] Altitude of center point. Coordinate system depends on frame field.*/
- uint8_t frame; /*<  The coordinate system of the fields: x, y, z.*/
+ Uint8_t frame; /*<  The coordinate system of the fields: x, y, z.*/
 } mavlink_orbit_execution_status_t;
 
 #define MAVLINK_MSG_ID_ORBIT_EXECUTION_STATUS_LEN 25
@@ -64,8 +64,8 @@ typedef struct __mavlink_orbit_execution_status_t {
  * @param z [m] Altitude of center point. Coordinate system depends on frame field.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_orbit_execution_status_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
-                               uint64_t time_usec, float radius, uint8_t frame, int32_t x, int32_t y, float z)
+static inline uint16_t mavlink_msg_orbit_execution_status_pack(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg,
+                               uint64_t time_usec, float radius, Uint8_t frame, int32_t x, int32_t y, float z)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_ORBIT_EXECUTION_STATUS_LEN];
@@ -107,9 +107,9 @@ static inline uint16_t mavlink_msg_orbit_execution_status_pack(uint8_t system_id
  * @param z [m] Altitude of center point. Coordinate system depends on frame field.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_orbit_execution_status_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_orbit_execution_status_pack_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan,
                                mavlink_message_t* msg,
-                                   uint64_t time_usec,float radius,uint8_t frame,int32_t x,int32_t y,float z)
+                                   uint64_t time_usec,float radius,Uint8_t frame,int32_t x,int32_t y,float z)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_ORBIT_EXECUTION_STATUS_LEN];
@@ -145,7 +145,7 @@ static inline uint16_t mavlink_msg_orbit_execution_status_pack_chan(uint8_t syst
  * @param msg The MAVLink message to compress the data into
  * @param orbit_execution_status C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_orbit_execution_status_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_orbit_execution_status_t* orbit_execution_status)
+static inline uint16_t mavlink_msg_orbit_execution_status_encode(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg, const mavlink_orbit_execution_status_t* orbit_execution_status)
 {
     return mavlink_msg_orbit_execution_status_pack(system_id, component_id, msg, orbit_execution_status->time_usec, orbit_execution_status->radius, orbit_execution_status->frame, orbit_execution_status->x, orbit_execution_status->y, orbit_execution_status->z);
 }
@@ -159,7 +159,7 @@ static inline uint16_t mavlink_msg_orbit_execution_status_encode(uint8_t system_
  * @param msg The MAVLink message to compress the data into
  * @param orbit_execution_status C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_orbit_execution_status_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_orbit_execution_status_t* orbit_execution_status)
+static inline uint16_t mavlink_msg_orbit_execution_status_encode_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan, mavlink_message_t* msg, const mavlink_orbit_execution_status_t* orbit_execution_status)
 {
     return mavlink_msg_orbit_execution_status_pack_chan(system_id, component_id, chan, msg, orbit_execution_status->time_usec, orbit_execution_status->radius, orbit_execution_status->frame, orbit_execution_status->x, orbit_execution_status->y, orbit_execution_status->z);
 }
@@ -177,7 +177,7 @@ static inline uint16_t mavlink_msg_orbit_execution_status_encode_chan(uint8_t sy
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_orbit_execution_status_send(mavlink_channel_t chan, uint64_t time_usec, float radius, uint8_t frame, int32_t x, int32_t y, float z)
+static inline void mavlink_msg_orbit_execution_status_send(mavlink_channel_t chan, uint64_t time_usec, float radius, Uint8_t frame, int32_t x, int32_t y, float z)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_ORBIT_EXECUTION_STATUS_LEN];
@@ -224,7 +224,7 @@ static inline void mavlink_msg_orbit_execution_status_send_struct(mavlink_channe
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_orbit_execution_status_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint64_t time_usec, float radius, uint8_t frame, int32_t x, int32_t y, float z)
+static inline void mavlink_msg_orbit_execution_status_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint64_t time_usec, float radius, Uint8_t frame, int32_t x, int32_t y, float z)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char *buf = (char *)msgbuf;
@@ -280,7 +280,7 @@ static inline float mavlink_msg_orbit_execution_status_get_radius(const mavlink_
  *
  * @return  The coordinate system of the fields: x, y, z.
  */
-static inline uint8_t mavlink_msg_orbit_execution_status_get_frame(const mavlink_message_t* msg)
+static inline Uint8_t mavlink_msg_orbit_execution_status_get_frame(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  24);
 }
@@ -331,7 +331,7 @@ static inline void mavlink_msg_orbit_execution_status_decode(const mavlink_messa
     orbit_execution_status->z = mavlink_msg_orbit_execution_status_get_z(msg);
     orbit_execution_status->frame = mavlink_msg_orbit_execution_status_get_frame(msg);
 #else
-        uint8_t len = msg->len < MAVLINK_MSG_ID_ORBIT_EXECUTION_STATUS_LEN? msg->len : MAVLINK_MSG_ID_ORBIT_EXECUTION_STATUS_LEN;
+        Uint8_t len = msg->len < MAVLINK_MSG_ID_ORBIT_EXECUTION_STATUS_LEN? msg->len : MAVLINK_MSG_ID_ORBIT_EXECUTION_STATUS_LEN;
         memset(orbit_execution_status, 0, MAVLINK_MSG_ID_ORBIT_EXECUTION_STATUS_LEN);
     memcpy(orbit_execution_status, _MAV_PAYLOAD(msg), len);
 #endif

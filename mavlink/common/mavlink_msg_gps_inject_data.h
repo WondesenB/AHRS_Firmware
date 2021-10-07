@@ -5,10 +5,10 @@
 
 
 typedef struct __mavlink_gps_inject_data_t {
- uint8_t target_system; /*<  System ID*/
- uint8_t target_component; /*<  Component ID*/
- uint8_t len; /*< [bytes] Data length*/
- uint8_t data[110]; /*<  Raw data (110 is enough for 12 satellites of RTCMv2)*/
+ Uint8_t target_system; /*<  System ID*/
+ Uint8_t target_component; /*<  Component ID*/
+ Uint8_t len; /*< [bytes] Data length*/
+ Uint8_t data[110]; /*<  Raw data (110 is enough for 12 satellites of RTCMv2)*/
 } mavlink_gps_inject_data_t;
 
 #define MAVLINK_MSG_ID_GPS_INJECT_DATA_LEN 113
@@ -56,8 +56,8 @@ typedef struct __mavlink_gps_inject_data_t {
  * @param data  Raw data (110 is enough for 12 satellites of RTCMv2)
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_gps_inject_data_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
-                               uint8_t target_system, uint8_t target_component, uint8_t len, const uint8_t *data)
+static inline uint16_t mavlink_msg_gps_inject_data_pack(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg,
+                               Uint8_t target_system, Uint8_t target_component, Uint8_t len, const Uint8_t *data)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_GPS_INJECT_DATA_LEN];
@@ -71,7 +71,7 @@ static inline uint16_t mavlink_msg_gps_inject_data_pack(uint8_t system_id, uint8
     packet.target_system = target_system;
     packet.target_component = target_component;
     packet.len = len;
-    mav_array_memcpy(packet.data, data, sizeof(uint8_t)*110);
+    mav_array_memcpy(packet.data, data, sizeof(Uint8_t)*110);
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_GPS_INJECT_DATA_LEN);
 #endif
 
@@ -91,9 +91,9 @@ static inline uint16_t mavlink_msg_gps_inject_data_pack(uint8_t system_id, uint8
  * @param data  Raw data (110 is enough for 12 satellites of RTCMv2)
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_gps_inject_data_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_gps_inject_data_pack_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan,
                                mavlink_message_t* msg,
-                                   uint8_t target_system,uint8_t target_component,uint8_t len,const uint8_t *data)
+                                   Uint8_t target_system,Uint8_t target_component,Uint8_t len,const Uint8_t *data)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_GPS_INJECT_DATA_LEN];
@@ -107,7 +107,7 @@ static inline uint16_t mavlink_msg_gps_inject_data_pack_chan(uint8_t system_id, 
     packet.target_system = target_system;
     packet.target_component = target_component;
     packet.len = len;
-    mav_array_memcpy(packet.data, data, sizeof(uint8_t)*110);
+    mav_array_memcpy(packet.data, data, sizeof(Uint8_t)*110);
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_GPS_INJECT_DATA_LEN);
 #endif
 
@@ -123,7 +123,7 @@ static inline uint16_t mavlink_msg_gps_inject_data_pack_chan(uint8_t system_id, 
  * @param msg The MAVLink message to compress the data into
  * @param gps_inject_data C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_gps_inject_data_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_gps_inject_data_t* gps_inject_data)
+static inline uint16_t mavlink_msg_gps_inject_data_encode(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg, const mavlink_gps_inject_data_t* gps_inject_data)
 {
     return mavlink_msg_gps_inject_data_pack(system_id, component_id, msg, gps_inject_data->target_system, gps_inject_data->target_component, gps_inject_data->len, gps_inject_data->data);
 }
@@ -137,7 +137,7 @@ static inline uint16_t mavlink_msg_gps_inject_data_encode(uint8_t system_id, uin
  * @param msg The MAVLink message to compress the data into
  * @param gps_inject_data C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_gps_inject_data_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_gps_inject_data_t* gps_inject_data)
+static inline uint16_t mavlink_msg_gps_inject_data_encode_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan, mavlink_message_t* msg, const mavlink_gps_inject_data_t* gps_inject_data)
 {
     return mavlink_msg_gps_inject_data_pack_chan(system_id, component_id, chan, msg, gps_inject_data->target_system, gps_inject_data->target_component, gps_inject_data->len, gps_inject_data->data);
 }
@@ -153,7 +153,7 @@ static inline uint16_t mavlink_msg_gps_inject_data_encode_chan(uint8_t system_id
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_gps_inject_data_send(mavlink_channel_t chan, uint8_t target_system, uint8_t target_component, uint8_t len, const uint8_t *data)
+static inline void mavlink_msg_gps_inject_data_send(mavlink_channel_t chan, Uint8_t target_system, Uint8_t target_component, Uint8_t len, const Uint8_t *data)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_GPS_INJECT_DATA_LEN];
@@ -167,7 +167,7 @@ static inline void mavlink_msg_gps_inject_data_send(mavlink_channel_t chan, uint
     packet.target_system = target_system;
     packet.target_component = target_component;
     packet.len = len;
-    mav_array_memcpy(packet.data, data, sizeof(uint8_t)*110);
+    mav_array_memcpy(packet.data, data, sizeof(Uint8_t)*110);
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_GPS_INJECT_DATA, (const char *)&packet, MAVLINK_MSG_ID_GPS_INJECT_DATA_MIN_LEN, MAVLINK_MSG_ID_GPS_INJECT_DATA_LEN, MAVLINK_MSG_ID_GPS_INJECT_DATA_CRC);
 #endif
 }
@@ -194,7 +194,7 @@ static inline void mavlink_msg_gps_inject_data_send_struct(mavlink_channel_t cha
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_gps_inject_data_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint8_t target_system, uint8_t target_component, uint8_t len, const uint8_t *data)
+static inline void mavlink_msg_gps_inject_data_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  Uint8_t target_system, Uint8_t target_component, Uint8_t len, const Uint8_t *data)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char *buf = (char *)msgbuf;
@@ -208,7 +208,7 @@ static inline void mavlink_msg_gps_inject_data_send_buf(mavlink_message_t *msgbu
     packet->target_system = target_system;
     packet->target_component = target_component;
     packet->len = len;
-    mav_array_memcpy(packet->data, data, sizeof(uint8_t)*110);
+    mav_array_memcpy(packet->data, data, sizeof(Uint8_t)*110);
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_GPS_INJECT_DATA, (const char *)packet, MAVLINK_MSG_ID_GPS_INJECT_DATA_MIN_LEN, MAVLINK_MSG_ID_GPS_INJECT_DATA_LEN, MAVLINK_MSG_ID_GPS_INJECT_DATA_CRC);
 #endif
 }
@@ -224,7 +224,7 @@ static inline void mavlink_msg_gps_inject_data_send_buf(mavlink_message_t *msgbu
  *
  * @return  System ID
  */
-static inline uint8_t mavlink_msg_gps_inject_data_get_target_system(const mavlink_message_t* msg)
+static inline Uint8_t mavlink_msg_gps_inject_data_get_target_system(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  0);
 }
@@ -234,7 +234,7 @@ static inline uint8_t mavlink_msg_gps_inject_data_get_target_system(const mavlin
  *
  * @return  Component ID
  */
-static inline uint8_t mavlink_msg_gps_inject_data_get_target_component(const mavlink_message_t* msg)
+static inline Uint8_t mavlink_msg_gps_inject_data_get_target_component(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  1);
 }
@@ -244,7 +244,7 @@ static inline uint8_t mavlink_msg_gps_inject_data_get_target_component(const mav
  *
  * @return [bytes] Data length
  */
-static inline uint8_t mavlink_msg_gps_inject_data_get_len(const mavlink_message_t* msg)
+static inline Uint8_t mavlink_msg_gps_inject_data_get_len(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  2);
 }
@@ -254,7 +254,7 @@ static inline uint8_t mavlink_msg_gps_inject_data_get_len(const mavlink_message_
  *
  * @return  Raw data (110 is enough for 12 satellites of RTCMv2)
  */
-static inline uint16_t mavlink_msg_gps_inject_data_get_data(const mavlink_message_t* msg, uint8_t *data)
+static inline uint16_t mavlink_msg_gps_inject_data_get_data(const mavlink_message_t* msg, Uint8_t *data)
 {
     return _MAV_RETURN_uint8_t_array(msg, data, 110,  3);
 }
@@ -273,7 +273,7 @@ static inline void mavlink_msg_gps_inject_data_decode(const mavlink_message_t* m
     gps_inject_data->len = mavlink_msg_gps_inject_data_get_len(msg);
     mavlink_msg_gps_inject_data_get_data(msg, gps_inject_data->data);
 #else
-        uint8_t len = msg->len < MAVLINK_MSG_ID_GPS_INJECT_DATA_LEN? msg->len : MAVLINK_MSG_ID_GPS_INJECT_DATA_LEN;
+        Uint8_t len = msg->len < MAVLINK_MSG_ID_GPS_INJECT_DATA_LEN? msg->len : MAVLINK_MSG_ID_GPS_INJECT_DATA_LEN;
         memset(gps_inject_data, 0, MAVLINK_MSG_ID_GPS_INJECT_DATA_LEN);
     memcpy(gps_inject_data, _MAV_PAYLOAD(msg), len);
 #endif

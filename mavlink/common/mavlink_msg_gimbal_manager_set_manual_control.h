@@ -10,9 +10,9 @@ typedef struct __mavlink_gimbal_manager_set_manual_control_t {
  float yaw; /*<  Yaw angle unitless (-1..1, positive: to the right, negative: to the left, NaN to be ignored).*/
  float pitch_rate; /*<  Pitch angular rate unitless (-1..1, positive: up, negative: down, NaN to be ignored).*/
  float yaw_rate; /*<  Yaw angular rate unitless (-1..1, positive: to the right, negative: to the left, NaN to be ignored).*/
- uint8_t target_system; /*<  System ID*/
- uint8_t target_component; /*<  Component ID*/
- uint8_t gimbal_device_id; /*<  Component ID of gimbal device to address (or 1-6 for non-MAVLink gimbal), 0 for all gimbal device components. Send command multiple times for more than one gimbal (but not all gimbals).*/
+ Uint8_t target_system; /*<  System ID*/
+ Uint8_t target_component; /*<  Component ID*/
+ Uint8_t gimbal_device_id; /*<  Component ID of gimbal device to address (or 1-6 for non-MAVLink gimbal), 0 for all gimbal device components. Send command multiple times for more than one gimbal (but not all gimbals).*/
 } mavlink_gimbal_manager_set_manual_control_t;
 
 #define MAVLINK_MSG_ID_GIMBAL_MANAGER_SET_MANUAL_CONTROL_LEN 23
@@ -72,8 +72,8 @@ typedef struct __mavlink_gimbal_manager_set_manual_control_t {
  * @param yaw_rate  Yaw angular rate unitless (-1..1, positive: to the right, negative: to the left, NaN to be ignored).
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_gimbal_manager_set_manual_control_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
-                               uint8_t target_system, uint8_t target_component, uint32_t flags, uint8_t gimbal_device_id, float pitch, float yaw, float pitch_rate, float yaw_rate)
+static inline uint16_t mavlink_msg_gimbal_manager_set_manual_control_pack(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg,
+                               Uint8_t target_system, Uint8_t target_component, uint32_t flags, Uint8_t gimbal_device_id, float pitch, float yaw, float pitch_rate, float yaw_rate)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_GIMBAL_MANAGER_SET_MANUAL_CONTROL_LEN];
@@ -121,9 +121,9 @@ static inline uint16_t mavlink_msg_gimbal_manager_set_manual_control_pack(uint8_
  * @param yaw_rate  Yaw angular rate unitless (-1..1, positive: to the right, negative: to the left, NaN to be ignored).
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_gimbal_manager_set_manual_control_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_gimbal_manager_set_manual_control_pack_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan,
                                mavlink_message_t* msg,
-                                   uint8_t target_system,uint8_t target_component,uint32_t flags,uint8_t gimbal_device_id,float pitch,float yaw,float pitch_rate,float yaw_rate)
+                                   Uint8_t target_system,Uint8_t target_component,uint32_t flags,Uint8_t gimbal_device_id,float pitch,float yaw,float pitch_rate,float yaw_rate)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_GIMBAL_MANAGER_SET_MANUAL_CONTROL_LEN];
@@ -163,7 +163,7 @@ static inline uint16_t mavlink_msg_gimbal_manager_set_manual_control_pack_chan(u
  * @param msg The MAVLink message to compress the data into
  * @param gimbal_manager_set_manual_control C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_gimbal_manager_set_manual_control_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_gimbal_manager_set_manual_control_t* gimbal_manager_set_manual_control)
+static inline uint16_t mavlink_msg_gimbal_manager_set_manual_control_encode(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg, const mavlink_gimbal_manager_set_manual_control_t* gimbal_manager_set_manual_control)
 {
     return mavlink_msg_gimbal_manager_set_manual_control_pack(system_id, component_id, msg, gimbal_manager_set_manual_control->target_system, gimbal_manager_set_manual_control->target_component, gimbal_manager_set_manual_control->flags, gimbal_manager_set_manual_control->gimbal_device_id, gimbal_manager_set_manual_control->pitch, gimbal_manager_set_manual_control->yaw, gimbal_manager_set_manual_control->pitch_rate, gimbal_manager_set_manual_control->yaw_rate);
 }
@@ -177,7 +177,7 @@ static inline uint16_t mavlink_msg_gimbal_manager_set_manual_control_encode(uint
  * @param msg The MAVLink message to compress the data into
  * @param gimbal_manager_set_manual_control C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_gimbal_manager_set_manual_control_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_gimbal_manager_set_manual_control_t* gimbal_manager_set_manual_control)
+static inline uint16_t mavlink_msg_gimbal_manager_set_manual_control_encode_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan, mavlink_message_t* msg, const mavlink_gimbal_manager_set_manual_control_t* gimbal_manager_set_manual_control)
 {
     return mavlink_msg_gimbal_manager_set_manual_control_pack_chan(system_id, component_id, chan, msg, gimbal_manager_set_manual_control->target_system, gimbal_manager_set_manual_control->target_component, gimbal_manager_set_manual_control->flags, gimbal_manager_set_manual_control->gimbal_device_id, gimbal_manager_set_manual_control->pitch, gimbal_manager_set_manual_control->yaw, gimbal_manager_set_manual_control->pitch_rate, gimbal_manager_set_manual_control->yaw_rate);
 }
@@ -197,7 +197,7 @@ static inline uint16_t mavlink_msg_gimbal_manager_set_manual_control_encode_chan
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_gimbal_manager_set_manual_control_send(mavlink_channel_t chan, uint8_t target_system, uint8_t target_component, uint32_t flags, uint8_t gimbal_device_id, float pitch, float yaw, float pitch_rate, float yaw_rate)
+static inline void mavlink_msg_gimbal_manager_set_manual_control_send(mavlink_channel_t chan, Uint8_t target_system, Uint8_t target_component, uint32_t flags, Uint8_t gimbal_device_id, float pitch, float yaw, float pitch_rate, float yaw_rate)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_GIMBAL_MANAGER_SET_MANUAL_CONTROL_LEN];
@@ -248,7 +248,7 @@ static inline void mavlink_msg_gimbal_manager_set_manual_control_send_struct(mav
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_gimbal_manager_set_manual_control_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint8_t target_system, uint8_t target_component, uint32_t flags, uint8_t gimbal_device_id, float pitch, float yaw, float pitch_rate, float yaw_rate)
+static inline void mavlink_msg_gimbal_manager_set_manual_control_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  Uint8_t target_system, Uint8_t target_component, uint32_t flags, Uint8_t gimbal_device_id, float pitch, float yaw, float pitch_rate, float yaw_rate)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char *buf = (char *)msgbuf;
@@ -288,7 +288,7 @@ static inline void mavlink_msg_gimbal_manager_set_manual_control_send_buf(mavlin
  *
  * @return  System ID
  */
-static inline uint8_t mavlink_msg_gimbal_manager_set_manual_control_get_target_system(const mavlink_message_t* msg)
+static inline Uint8_t mavlink_msg_gimbal_manager_set_manual_control_get_target_system(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  20);
 }
@@ -298,7 +298,7 @@ static inline uint8_t mavlink_msg_gimbal_manager_set_manual_control_get_target_s
  *
  * @return  Component ID
  */
-static inline uint8_t mavlink_msg_gimbal_manager_set_manual_control_get_target_component(const mavlink_message_t* msg)
+static inline Uint8_t mavlink_msg_gimbal_manager_set_manual_control_get_target_component(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  21);
 }
@@ -318,7 +318,7 @@ static inline uint32_t mavlink_msg_gimbal_manager_set_manual_control_get_flags(c
  *
  * @return  Component ID of gimbal device to address (or 1-6 for non-MAVLink gimbal), 0 for all gimbal device components. Send command multiple times for more than one gimbal (but not all gimbals).
  */
-static inline uint8_t mavlink_msg_gimbal_manager_set_manual_control_get_gimbal_device_id(const mavlink_message_t* msg)
+static inline Uint8_t mavlink_msg_gimbal_manager_set_manual_control_get_gimbal_device_id(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  22);
 }
@@ -381,7 +381,7 @@ static inline void mavlink_msg_gimbal_manager_set_manual_control_decode(const ma
     gimbal_manager_set_manual_control->target_component = mavlink_msg_gimbal_manager_set_manual_control_get_target_component(msg);
     gimbal_manager_set_manual_control->gimbal_device_id = mavlink_msg_gimbal_manager_set_manual_control_get_gimbal_device_id(msg);
 #else
-        uint8_t len = msg->len < MAVLINK_MSG_ID_GIMBAL_MANAGER_SET_MANUAL_CONTROL_LEN? msg->len : MAVLINK_MSG_ID_GIMBAL_MANAGER_SET_MANUAL_CONTROL_LEN;
+        Uint8_t len = msg->len < MAVLINK_MSG_ID_GIMBAL_MANAGER_SET_MANUAL_CONTROL_LEN? msg->len : MAVLINK_MSG_ID_GIMBAL_MANAGER_SET_MANUAL_CONTROL_LEN;
         memset(gimbal_manager_set_manual_control, 0, MAVLINK_MSG_ID_GIMBAL_MANAGER_SET_MANUAL_CONTROL_LEN);
     memcpy(gimbal_manager_set_manual_control, _MAV_PAYLOAD(msg), len);
 #endif

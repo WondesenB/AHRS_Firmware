@@ -56,7 +56,7 @@ typedef struct __mavlink_flight_information_t {
  * @param flight_uuid  Universally unique identifier (UUID) of flight, should correspond to name of log files
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_flight_information_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_flight_information_pack(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg,
                                uint32_t time_boot_ms, uint64_t arming_time_utc, uint64_t takeoff_time_utc, uint64_t flight_uuid)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -93,7 +93,7 @@ static inline uint16_t mavlink_msg_flight_information_pack(uint8_t system_id, ui
  * @param flight_uuid  Universally unique identifier (UUID) of flight, should correspond to name of log files
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_flight_information_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_flight_information_pack_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan,
                                mavlink_message_t* msg,
                                    uint32_t time_boot_ms,uint64_t arming_time_utc,uint64_t takeoff_time_utc,uint64_t flight_uuid)
 {
@@ -127,7 +127,7 @@ static inline uint16_t mavlink_msg_flight_information_pack_chan(uint8_t system_i
  * @param msg The MAVLink message to compress the data into
  * @param flight_information C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_flight_information_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_flight_information_t* flight_information)
+static inline uint16_t mavlink_msg_flight_information_encode(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg, const mavlink_flight_information_t* flight_information)
 {
     return mavlink_msg_flight_information_pack(system_id, component_id, msg, flight_information->time_boot_ms, flight_information->arming_time_utc, flight_information->takeoff_time_utc, flight_information->flight_uuid);
 }
@@ -141,7 +141,7 @@ static inline uint16_t mavlink_msg_flight_information_encode(uint8_t system_id, 
  * @param msg The MAVLink message to compress the data into
  * @param flight_information C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_flight_information_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_flight_information_t* flight_information)
+static inline uint16_t mavlink_msg_flight_information_encode_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan, mavlink_message_t* msg, const mavlink_flight_information_t* flight_information)
 {
     return mavlink_msg_flight_information_pack_chan(system_id, component_id, chan, msg, flight_information->time_boot_ms, flight_information->arming_time_utc, flight_information->takeoff_time_utc, flight_information->flight_uuid);
 }
@@ -281,7 +281,7 @@ static inline void mavlink_msg_flight_information_decode(const mavlink_message_t
     flight_information->flight_uuid = mavlink_msg_flight_information_get_flight_uuid(msg);
     flight_information->time_boot_ms = mavlink_msg_flight_information_get_time_boot_ms(msg);
 #else
-        uint8_t len = msg->len < MAVLINK_MSG_ID_FLIGHT_INFORMATION_LEN? msg->len : MAVLINK_MSG_ID_FLIGHT_INFORMATION_LEN;
+        Uint8_t len = msg->len < MAVLINK_MSG_ID_FLIGHT_INFORMATION_LEN? msg->len : MAVLINK_MSG_ID_FLIGHT_INFORMATION_LEN;
         memset(flight_information, 0, MAVLINK_MSG_ID_FLIGHT_INFORMATION_LEN);
     memcpy(flight_information, _MAV_PAYLOAD(msg), len);
 #endif

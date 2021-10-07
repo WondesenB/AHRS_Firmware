@@ -7,7 +7,7 @@
 typedef struct __mavlink_button_change_t {
  uint32_t time_boot_ms; /*< [ms] Timestamp (time since system boot).*/
  uint32_t last_change_ms; /*< [ms] Time of last change of button state.*/
- uint8_t state; /*<  Bitmap for state of buttons.*/
+ Uint8_t state; /*<  Bitmap for state of buttons.*/
 } mavlink_button_change_t;
 
 #define MAVLINK_MSG_ID_BUTTON_CHANGE_LEN 9
@@ -52,8 +52,8 @@ typedef struct __mavlink_button_change_t {
  * @param state  Bitmap for state of buttons.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_button_change_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
-                               uint32_t time_boot_ms, uint32_t last_change_ms, uint8_t state)
+static inline uint16_t mavlink_msg_button_change_pack(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg,
+                               uint32_t time_boot_ms, uint32_t last_change_ms, Uint8_t state)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_BUTTON_CHANGE_LEN];
@@ -86,9 +86,9 @@ static inline uint16_t mavlink_msg_button_change_pack(uint8_t system_id, uint8_t
  * @param state  Bitmap for state of buttons.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_button_change_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_button_change_pack_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan,
                                mavlink_message_t* msg,
-                                   uint32_t time_boot_ms,uint32_t last_change_ms,uint8_t state)
+                                   uint32_t time_boot_ms,uint32_t last_change_ms,Uint8_t state)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_BUTTON_CHANGE_LEN];
@@ -118,7 +118,7 @@ static inline uint16_t mavlink_msg_button_change_pack_chan(uint8_t system_id, ui
  * @param msg The MAVLink message to compress the data into
  * @param button_change C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_button_change_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_button_change_t* button_change)
+static inline uint16_t mavlink_msg_button_change_encode(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg, const mavlink_button_change_t* button_change)
 {
     return mavlink_msg_button_change_pack(system_id, component_id, msg, button_change->time_boot_ms, button_change->last_change_ms, button_change->state);
 }
@@ -132,7 +132,7 @@ static inline uint16_t mavlink_msg_button_change_encode(uint8_t system_id, uint8
  * @param msg The MAVLink message to compress the data into
  * @param button_change C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_button_change_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_button_change_t* button_change)
+static inline uint16_t mavlink_msg_button_change_encode_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan, mavlink_message_t* msg, const mavlink_button_change_t* button_change)
 {
     return mavlink_msg_button_change_pack_chan(system_id, component_id, chan, msg, button_change->time_boot_ms, button_change->last_change_ms, button_change->state);
 }
@@ -147,7 +147,7 @@ static inline uint16_t mavlink_msg_button_change_encode_chan(uint8_t system_id, 
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_button_change_send(mavlink_channel_t chan, uint32_t time_boot_ms, uint32_t last_change_ms, uint8_t state)
+static inline void mavlink_msg_button_change_send(mavlink_channel_t chan, uint32_t time_boot_ms, uint32_t last_change_ms, Uint8_t state)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_BUTTON_CHANGE_LEN];
@@ -188,7 +188,7 @@ static inline void mavlink_msg_button_change_send_struct(mavlink_channel_t chan,
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_button_change_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint32_t time_boot_ms, uint32_t last_change_ms, uint8_t state)
+static inline void mavlink_msg_button_change_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint32_t time_boot_ms, uint32_t last_change_ms, Uint8_t state)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char *buf = (char *)msgbuf;
@@ -238,7 +238,7 @@ static inline uint32_t mavlink_msg_button_change_get_last_change_ms(const mavlin
  *
  * @return  Bitmap for state of buttons.
  */
-static inline uint8_t mavlink_msg_button_change_get_state(const mavlink_message_t* msg)
+static inline Uint8_t mavlink_msg_button_change_get_state(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  8);
 }
@@ -256,7 +256,7 @@ static inline void mavlink_msg_button_change_decode(const mavlink_message_t* msg
     button_change->last_change_ms = mavlink_msg_button_change_get_last_change_ms(msg);
     button_change->state = mavlink_msg_button_change_get_state(msg);
 #else
-        uint8_t len = msg->len < MAVLINK_MSG_ID_BUTTON_CHANGE_LEN? msg->len : MAVLINK_MSG_ID_BUTTON_CHANGE_LEN;
+        Uint8_t len = msg->len < MAVLINK_MSG_ID_BUTTON_CHANGE_LEN? msg->len : MAVLINK_MSG_ID_BUTTON_CHANGE_LEN;
         memset(button_change, 0, MAVLINK_MSG_ID_BUTTON_CHANGE_LEN);
     memcpy(button_change, _MAV_PAYLOAD(msg), len);
 #endif

@@ -72,7 +72,7 @@ typedef struct __mavlink_vicon_position_estimate_t {
  * @param covariance  Row-major representation of 6x6 pose cross-covariance matrix upper right triangle (states: x, y, z, roll, pitch, yaw; first six entries are the first ROW, next five entries are the second ROW, etc.). If unknown, assign NaN value to first element in the array.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_vicon_position_estimate_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_vicon_position_estimate_pack(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg,
                                uint64_t usec, float x, float y, float z, float roll, float pitch, float yaw, const float *covariance)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -119,7 +119,7 @@ static inline uint16_t mavlink_msg_vicon_position_estimate_pack(uint8_t system_i
  * @param covariance  Row-major representation of 6x6 pose cross-covariance matrix upper right triangle (states: x, y, z, roll, pitch, yaw; first six entries are the first ROW, next five entries are the second ROW, etc.). If unknown, assign NaN value to first element in the array.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_vicon_position_estimate_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_vicon_position_estimate_pack_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan,
                                mavlink_message_t* msg,
                                    uint64_t usec,float x,float y,float z,float roll,float pitch,float yaw,const float *covariance)
 {
@@ -159,7 +159,7 @@ static inline uint16_t mavlink_msg_vicon_position_estimate_pack_chan(uint8_t sys
  * @param msg The MAVLink message to compress the data into
  * @param vicon_position_estimate C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_vicon_position_estimate_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_vicon_position_estimate_t* vicon_position_estimate)
+static inline uint16_t mavlink_msg_vicon_position_estimate_encode(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg, const mavlink_vicon_position_estimate_t* vicon_position_estimate)
 {
     return mavlink_msg_vicon_position_estimate_pack(system_id, component_id, msg, vicon_position_estimate->usec, vicon_position_estimate->x, vicon_position_estimate->y, vicon_position_estimate->z, vicon_position_estimate->roll, vicon_position_estimate->pitch, vicon_position_estimate->yaw, vicon_position_estimate->covariance);
 }
@@ -173,7 +173,7 @@ static inline uint16_t mavlink_msg_vicon_position_estimate_encode(uint8_t system
  * @param msg The MAVLink message to compress the data into
  * @param vicon_position_estimate C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_vicon_position_estimate_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_vicon_position_estimate_t* vicon_position_estimate)
+static inline uint16_t mavlink_msg_vicon_position_estimate_encode_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan, mavlink_message_t* msg, const mavlink_vicon_position_estimate_t* vicon_position_estimate)
 {
     return mavlink_msg_vicon_position_estimate_pack_chan(system_id, component_id, chan, msg, vicon_position_estimate->usec, vicon_position_estimate->x, vicon_position_estimate->y, vicon_position_estimate->z, vicon_position_estimate->roll, vicon_position_estimate->pitch, vicon_position_estimate->yaw, vicon_position_estimate->covariance);
 }
@@ -373,7 +373,7 @@ static inline void mavlink_msg_vicon_position_estimate_decode(const mavlink_mess
     vicon_position_estimate->yaw = mavlink_msg_vicon_position_estimate_get_yaw(msg);
     mavlink_msg_vicon_position_estimate_get_covariance(msg, vicon_position_estimate->covariance);
 #else
-        uint8_t len = msg->len < MAVLINK_MSG_ID_VICON_POSITION_ESTIMATE_LEN? msg->len : MAVLINK_MSG_ID_VICON_POSITION_ESTIMATE_LEN;
+        Uint8_t len = msg->len < MAVLINK_MSG_ID_VICON_POSITION_ESTIMATE_LEN? msg->len : MAVLINK_MSG_ID_VICON_POSITION_ESTIMATE_LEN;
         memset(vicon_position_estimate, 0, MAVLINK_MSG_ID_VICON_POSITION_ESTIMATE_LEN);
     memcpy(vicon_position_estimate, _MAV_PAYLOAD(msg), len);
 #endif

@@ -60,7 +60,7 @@ typedef struct __mavlink_raw_pressure_t {
  * @param temperature  Raw Temperature measurement (raw)
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_raw_pressure_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_raw_pressure_pack(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg,
                                uint64_t time_usec, int16_t press_abs, int16_t press_diff1, int16_t press_diff2, int16_t temperature)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -100,7 +100,7 @@ static inline uint16_t mavlink_msg_raw_pressure_pack(uint8_t system_id, uint8_t 
  * @param temperature  Raw Temperature measurement (raw)
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_raw_pressure_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_raw_pressure_pack_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan,
                                mavlink_message_t* msg,
                                    uint64_t time_usec,int16_t press_abs,int16_t press_diff1,int16_t press_diff2,int16_t temperature)
 {
@@ -136,7 +136,7 @@ static inline uint16_t mavlink_msg_raw_pressure_pack_chan(uint8_t system_id, uin
  * @param msg The MAVLink message to compress the data into
  * @param raw_pressure C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_raw_pressure_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_raw_pressure_t* raw_pressure)
+static inline uint16_t mavlink_msg_raw_pressure_encode(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg, const mavlink_raw_pressure_t* raw_pressure)
 {
     return mavlink_msg_raw_pressure_pack(system_id, component_id, msg, raw_pressure->time_usec, raw_pressure->press_abs, raw_pressure->press_diff1, raw_pressure->press_diff2, raw_pressure->temperature);
 }
@@ -150,7 +150,7 @@ static inline uint16_t mavlink_msg_raw_pressure_encode(uint8_t system_id, uint8_
  * @param msg The MAVLink message to compress the data into
  * @param raw_pressure C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_raw_pressure_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_raw_pressure_t* raw_pressure)
+static inline uint16_t mavlink_msg_raw_pressure_encode_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan, mavlink_message_t* msg, const mavlink_raw_pressure_t* raw_pressure)
 {
     return mavlink_msg_raw_pressure_pack_chan(system_id, component_id, chan, msg, raw_pressure->time_usec, raw_pressure->press_abs, raw_pressure->press_diff1, raw_pressure->press_diff2, raw_pressure->temperature);
 }
@@ -306,7 +306,7 @@ static inline void mavlink_msg_raw_pressure_decode(const mavlink_message_t* msg,
     raw_pressure->press_diff2 = mavlink_msg_raw_pressure_get_press_diff2(msg);
     raw_pressure->temperature = mavlink_msg_raw_pressure_get_temperature(msg);
 #else
-        uint8_t len = msg->len < MAVLINK_MSG_ID_RAW_PRESSURE_LEN? msg->len : MAVLINK_MSG_ID_RAW_PRESSURE_LEN;
+        Uint8_t len = msg->len < MAVLINK_MSG_ID_RAW_PRESSURE_LEN? msg->len : MAVLINK_MSG_ID_RAW_PRESSURE_LEN;
         memset(raw_pressure, 0, MAVLINK_MSG_ID_RAW_PRESSURE_LEN);
     memcpy(raw_pressure, _MAV_PAYLOAD(msg), len);
 #endif

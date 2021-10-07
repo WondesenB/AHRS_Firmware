@@ -10,8 +10,8 @@ typedef struct __mavlink_gimbal_device_set_attitude_t {
  float angular_velocity_y; /*< [rad/s] Y component of angular velocity, positive is pitching up, NaN to be ignored.*/
  float angular_velocity_z; /*< [rad/s] Z component of angular velocity, positive is yawing to the right, NaN to be ignored.*/
  uint16_t flags; /*<  Low level gimbal flags.*/
- uint8_t target_system; /*<  System ID*/
- uint8_t target_component; /*<  Component ID*/
+ Uint8_t target_system; /*<  System ID*/
+ Uint8_t target_component; /*<  Component ID*/
 } mavlink_gimbal_device_set_attitude_t;
 
 #define MAVLINK_MSG_ID_GIMBAL_DEVICE_SET_ATTITUDE_LEN 32
@@ -68,8 +68,8 @@ typedef struct __mavlink_gimbal_device_set_attitude_t {
  * @param angular_velocity_z [rad/s] Z component of angular velocity, positive is yawing to the right, NaN to be ignored.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_gimbal_device_set_attitude_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
-                               uint8_t target_system, uint8_t target_component, uint16_t flags, const float *q, float angular_velocity_x, float angular_velocity_y, float angular_velocity_z)
+static inline uint16_t mavlink_msg_gimbal_device_set_attitude_pack(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg,
+                               Uint8_t target_system, Uint8_t target_component, uint16_t flags, const float *q, float angular_velocity_x, float angular_velocity_y, float angular_velocity_z)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_GIMBAL_DEVICE_SET_ATTITUDE_LEN];
@@ -112,9 +112,9 @@ static inline uint16_t mavlink_msg_gimbal_device_set_attitude_pack(uint8_t syste
  * @param angular_velocity_z [rad/s] Z component of angular velocity, positive is yawing to the right, NaN to be ignored.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_gimbal_device_set_attitude_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_gimbal_device_set_attitude_pack_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan,
                                mavlink_message_t* msg,
-                                   uint8_t target_system,uint8_t target_component,uint16_t flags,const float *q,float angular_velocity_x,float angular_velocity_y,float angular_velocity_z)
+                                   Uint8_t target_system,Uint8_t target_component,uint16_t flags,const float *q,float angular_velocity_x,float angular_velocity_y,float angular_velocity_z)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_GIMBAL_DEVICE_SET_ATTITUDE_LEN];
@@ -150,7 +150,7 @@ static inline uint16_t mavlink_msg_gimbal_device_set_attitude_pack_chan(uint8_t 
  * @param msg The MAVLink message to compress the data into
  * @param gimbal_device_set_attitude C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_gimbal_device_set_attitude_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_gimbal_device_set_attitude_t* gimbal_device_set_attitude)
+static inline uint16_t mavlink_msg_gimbal_device_set_attitude_encode(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg, const mavlink_gimbal_device_set_attitude_t* gimbal_device_set_attitude)
 {
     return mavlink_msg_gimbal_device_set_attitude_pack(system_id, component_id, msg, gimbal_device_set_attitude->target_system, gimbal_device_set_attitude->target_component, gimbal_device_set_attitude->flags, gimbal_device_set_attitude->q, gimbal_device_set_attitude->angular_velocity_x, gimbal_device_set_attitude->angular_velocity_y, gimbal_device_set_attitude->angular_velocity_z);
 }
@@ -164,7 +164,7 @@ static inline uint16_t mavlink_msg_gimbal_device_set_attitude_encode(uint8_t sys
  * @param msg The MAVLink message to compress the data into
  * @param gimbal_device_set_attitude C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_gimbal_device_set_attitude_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_gimbal_device_set_attitude_t* gimbal_device_set_attitude)
+static inline uint16_t mavlink_msg_gimbal_device_set_attitude_encode_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan, mavlink_message_t* msg, const mavlink_gimbal_device_set_attitude_t* gimbal_device_set_attitude)
 {
     return mavlink_msg_gimbal_device_set_attitude_pack_chan(system_id, component_id, chan, msg, gimbal_device_set_attitude->target_system, gimbal_device_set_attitude->target_component, gimbal_device_set_attitude->flags, gimbal_device_set_attitude->q, gimbal_device_set_attitude->angular_velocity_x, gimbal_device_set_attitude->angular_velocity_y, gimbal_device_set_attitude->angular_velocity_z);
 }
@@ -183,7 +183,7 @@ static inline uint16_t mavlink_msg_gimbal_device_set_attitude_encode_chan(uint8_
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_gimbal_device_set_attitude_send(mavlink_channel_t chan, uint8_t target_system, uint8_t target_component, uint16_t flags, const float *q, float angular_velocity_x, float angular_velocity_y, float angular_velocity_z)
+static inline void mavlink_msg_gimbal_device_set_attitude_send(mavlink_channel_t chan, Uint8_t target_system, Uint8_t target_component, uint16_t flags, const float *q, float angular_velocity_x, float angular_velocity_y, float angular_velocity_z)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_GIMBAL_DEVICE_SET_ATTITUDE_LEN];
@@ -230,7 +230,7 @@ static inline void mavlink_msg_gimbal_device_set_attitude_send_struct(mavlink_ch
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_gimbal_device_set_attitude_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint8_t target_system, uint8_t target_component, uint16_t flags, const float *q, float angular_velocity_x, float angular_velocity_y, float angular_velocity_z)
+static inline void mavlink_msg_gimbal_device_set_attitude_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  Uint8_t target_system, Uint8_t target_component, uint16_t flags, const float *q, float angular_velocity_x, float angular_velocity_y, float angular_velocity_z)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char *buf = (char *)msgbuf;
@@ -266,7 +266,7 @@ static inline void mavlink_msg_gimbal_device_set_attitude_send_buf(mavlink_messa
  *
  * @return  System ID
  */
-static inline uint8_t mavlink_msg_gimbal_device_set_attitude_get_target_system(const mavlink_message_t* msg)
+static inline Uint8_t mavlink_msg_gimbal_device_set_attitude_get_target_system(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  30);
 }
@@ -276,7 +276,7 @@ static inline uint8_t mavlink_msg_gimbal_device_set_attitude_get_target_system(c
  *
  * @return  Component ID
  */
-static inline uint8_t mavlink_msg_gimbal_device_set_attitude_get_target_component(const mavlink_message_t* msg)
+static inline Uint8_t mavlink_msg_gimbal_device_set_attitude_get_target_component(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  31);
 }
@@ -348,7 +348,7 @@ static inline void mavlink_msg_gimbal_device_set_attitude_decode(const mavlink_m
     gimbal_device_set_attitude->target_system = mavlink_msg_gimbal_device_set_attitude_get_target_system(msg);
     gimbal_device_set_attitude->target_component = mavlink_msg_gimbal_device_set_attitude_get_target_component(msg);
 #else
-        uint8_t len = msg->len < MAVLINK_MSG_ID_GIMBAL_DEVICE_SET_ATTITUDE_LEN? msg->len : MAVLINK_MSG_ID_GIMBAL_DEVICE_SET_ATTITUDE_LEN;
+        Uint8_t len = msg->len < MAVLINK_MSG_ID_GIMBAL_DEVICE_SET_ATTITUDE_LEN? msg->len : MAVLINK_MSG_ID_GIMBAL_DEVICE_SET_ATTITUDE_LEN;
         memset(gimbal_device_set_attitude, 0, MAVLINK_MSG_ID_GIMBAL_DEVICE_SET_ATTITUDE_LEN);
     memcpy(gimbal_device_set_attitude, _MAV_PAYLOAD(msg), len);
 #endif

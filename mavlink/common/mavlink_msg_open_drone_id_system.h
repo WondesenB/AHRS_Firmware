@@ -11,13 +11,13 @@ typedef struct __mavlink_open_drone_id_system_t {
  float area_floor; /*< [m] Area Operations Floor relative to WGS84. If unknown: -1000 m.*/
  uint16_t area_count; /*<  Number of aircraft in the area, group or formation (default 1).*/
  uint16_t area_radius; /*< [m] Radius of the cylindrical area of the group or formation (default 0).*/
- uint8_t target_system; /*<  System ID (0 for broadcast).*/
- uint8_t target_component; /*<  Component ID (0 for broadcast).*/
- uint8_t id_or_mac[20]; /*<  Only used for drone ID data received from other UAs. See detailed description at https://mavlink.io/en/services/opendroneid.html. */
- uint8_t operator_location_type; /*<  Specifies the operator location type.*/
- uint8_t classification_type; /*<  Specifies the classification type of the UA.*/
- uint8_t category_eu; /*<  When classification_type is MAV_ODID_CLASSIFICATION_TYPE_EU, specifies the category of the UA.*/
- uint8_t class_eu; /*<  When classification_type is MAV_ODID_CLASSIFICATION_TYPE_EU, specifies the class of the UA.*/
+ Uint8_t target_system; /*<  System ID (0 for broadcast).*/
+ Uint8_t target_component; /*<  Component ID (0 for broadcast).*/
+ Uint8_t id_or_mac[20]; /*<  Only used for drone ID data received from other UAs. See detailed description at https://mavlink.io/en/services/opendroneid.html. */
+ Uint8_t operator_location_type; /*<  Specifies the operator location type.*/
+ Uint8_t classification_type; /*<  Specifies the classification type of the UA.*/
+ Uint8_t category_eu; /*<  When classification_type is MAV_ODID_CLASSIFICATION_TYPE_EU, specifies the category of the UA.*/
+ Uint8_t class_eu; /*<  When classification_type is MAV_ODID_CLASSIFICATION_TYPE_EU, specifies the class of the UA.*/
 } mavlink_open_drone_id_system_t;
 
 #define MAVLINK_MSG_ID_OPEN_DRONE_ID_SYSTEM_LEN 46
@@ -92,8 +92,8 @@ typedef struct __mavlink_open_drone_id_system_t {
  * @param class_eu  When classification_type is MAV_ODID_CLASSIFICATION_TYPE_EU, specifies the class of the UA.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_open_drone_id_system_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
-                               uint8_t target_system, uint8_t target_component, const uint8_t *id_or_mac, uint8_t operator_location_type, uint8_t classification_type, int32_t operator_latitude, int32_t operator_longitude, uint16_t area_count, uint16_t area_radius, float area_ceiling, float area_floor, uint8_t category_eu, uint8_t class_eu)
+static inline uint16_t mavlink_msg_open_drone_id_system_pack(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg,
+                               Uint8_t target_system, Uint8_t target_component, const Uint8_t *id_or_mac, Uint8_t operator_location_type, Uint8_t classification_type, int32_t operator_latitude, int32_t operator_longitude, uint16_t area_count, uint16_t area_radius, float area_ceiling, float area_floor, Uint8_t category_eu, Uint8_t class_eu)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_OPEN_DRONE_ID_SYSTEM_LEN];
@@ -125,7 +125,7 @@ static inline uint16_t mavlink_msg_open_drone_id_system_pack(uint8_t system_id, 
     packet.classification_type = classification_type;
     packet.category_eu = category_eu;
     packet.class_eu = class_eu;
-    mav_array_memcpy(packet.id_or_mac, id_or_mac, sizeof(uint8_t)*20);
+    mav_array_memcpy(packet.id_or_mac, id_or_mac, sizeof(Uint8_t)*20);
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_OPEN_DRONE_ID_SYSTEM_LEN);
 #endif
 
@@ -154,9 +154,9 @@ static inline uint16_t mavlink_msg_open_drone_id_system_pack(uint8_t system_id, 
  * @param class_eu  When classification_type is MAV_ODID_CLASSIFICATION_TYPE_EU, specifies the class of the UA.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_open_drone_id_system_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_open_drone_id_system_pack_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan,
                                mavlink_message_t* msg,
-                                   uint8_t target_system,uint8_t target_component,const uint8_t *id_or_mac,uint8_t operator_location_type,uint8_t classification_type,int32_t operator_latitude,int32_t operator_longitude,uint16_t area_count,uint16_t area_radius,float area_ceiling,float area_floor,uint8_t category_eu,uint8_t class_eu)
+                                   Uint8_t target_system,Uint8_t target_component,const Uint8_t *id_or_mac,Uint8_t operator_location_type,Uint8_t classification_type,int32_t operator_latitude,int32_t operator_longitude,uint16_t area_count,uint16_t area_radius,float area_ceiling,float area_floor,Uint8_t category_eu,Uint8_t class_eu)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_OPEN_DRONE_ID_SYSTEM_LEN];
@@ -188,7 +188,7 @@ static inline uint16_t mavlink_msg_open_drone_id_system_pack_chan(uint8_t system
     packet.classification_type = classification_type;
     packet.category_eu = category_eu;
     packet.class_eu = class_eu;
-    mav_array_memcpy(packet.id_or_mac, id_or_mac, sizeof(uint8_t)*20);
+    mav_array_memcpy(packet.id_or_mac, id_or_mac, sizeof(Uint8_t)*20);
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_OPEN_DRONE_ID_SYSTEM_LEN);
 #endif
 
@@ -204,7 +204,7 @@ static inline uint16_t mavlink_msg_open_drone_id_system_pack_chan(uint8_t system
  * @param msg The MAVLink message to compress the data into
  * @param open_drone_id_system C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_open_drone_id_system_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_open_drone_id_system_t* open_drone_id_system)
+static inline uint16_t mavlink_msg_open_drone_id_system_encode(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg, const mavlink_open_drone_id_system_t* open_drone_id_system)
 {
     return mavlink_msg_open_drone_id_system_pack(system_id, component_id, msg, open_drone_id_system->target_system, open_drone_id_system->target_component, open_drone_id_system->id_or_mac, open_drone_id_system->operator_location_type, open_drone_id_system->classification_type, open_drone_id_system->operator_latitude, open_drone_id_system->operator_longitude, open_drone_id_system->area_count, open_drone_id_system->area_radius, open_drone_id_system->area_ceiling, open_drone_id_system->area_floor, open_drone_id_system->category_eu, open_drone_id_system->class_eu);
 }
@@ -218,7 +218,7 @@ static inline uint16_t mavlink_msg_open_drone_id_system_encode(uint8_t system_id
  * @param msg The MAVLink message to compress the data into
  * @param open_drone_id_system C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_open_drone_id_system_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_open_drone_id_system_t* open_drone_id_system)
+static inline uint16_t mavlink_msg_open_drone_id_system_encode_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan, mavlink_message_t* msg, const mavlink_open_drone_id_system_t* open_drone_id_system)
 {
     return mavlink_msg_open_drone_id_system_pack_chan(system_id, component_id, chan, msg, open_drone_id_system->target_system, open_drone_id_system->target_component, open_drone_id_system->id_or_mac, open_drone_id_system->operator_location_type, open_drone_id_system->classification_type, open_drone_id_system->operator_latitude, open_drone_id_system->operator_longitude, open_drone_id_system->area_count, open_drone_id_system->area_radius, open_drone_id_system->area_ceiling, open_drone_id_system->area_floor, open_drone_id_system->category_eu, open_drone_id_system->class_eu);
 }
@@ -243,7 +243,7 @@ static inline uint16_t mavlink_msg_open_drone_id_system_encode_chan(uint8_t syst
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_open_drone_id_system_send(mavlink_channel_t chan, uint8_t target_system, uint8_t target_component, const uint8_t *id_or_mac, uint8_t operator_location_type, uint8_t classification_type, int32_t operator_latitude, int32_t operator_longitude, uint16_t area_count, uint16_t area_radius, float area_ceiling, float area_floor, uint8_t category_eu, uint8_t class_eu)
+static inline void mavlink_msg_open_drone_id_system_send(mavlink_channel_t chan, Uint8_t target_system, Uint8_t target_component, const Uint8_t *id_or_mac, Uint8_t operator_location_type, Uint8_t classification_type, int32_t operator_latitude, int32_t operator_longitude, uint16_t area_count, uint16_t area_radius, float area_ceiling, float area_floor, Uint8_t category_eu, Uint8_t class_eu)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_OPEN_DRONE_ID_SYSTEM_LEN];
@@ -275,7 +275,7 @@ static inline void mavlink_msg_open_drone_id_system_send(mavlink_channel_t chan,
     packet.classification_type = classification_type;
     packet.category_eu = category_eu;
     packet.class_eu = class_eu;
-    mav_array_memcpy(packet.id_or_mac, id_or_mac, sizeof(uint8_t)*20);
+    mav_array_memcpy(packet.id_or_mac, id_or_mac, sizeof(Uint8_t)*20);
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_OPEN_DRONE_ID_SYSTEM, (const char *)&packet, MAVLINK_MSG_ID_OPEN_DRONE_ID_SYSTEM_MIN_LEN, MAVLINK_MSG_ID_OPEN_DRONE_ID_SYSTEM_LEN, MAVLINK_MSG_ID_OPEN_DRONE_ID_SYSTEM_CRC);
 #endif
 }
@@ -302,7 +302,7 @@ static inline void mavlink_msg_open_drone_id_system_send_struct(mavlink_channel_
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_open_drone_id_system_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint8_t target_system, uint8_t target_component, const uint8_t *id_or_mac, uint8_t operator_location_type, uint8_t classification_type, int32_t operator_latitude, int32_t operator_longitude, uint16_t area_count, uint16_t area_radius, float area_ceiling, float area_floor, uint8_t category_eu, uint8_t class_eu)
+static inline void mavlink_msg_open_drone_id_system_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  Uint8_t target_system, Uint8_t target_component, const Uint8_t *id_or_mac, Uint8_t operator_location_type, Uint8_t classification_type, int32_t operator_latitude, int32_t operator_longitude, uint16_t area_count, uint16_t area_radius, float area_ceiling, float area_floor, Uint8_t category_eu, Uint8_t class_eu)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char *buf = (char *)msgbuf;
@@ -334,7 +334,7 @@ static inline void mavlink_msg_open_drone_id_system_send_buf(mavlink_message_t *
     packet->classification_type = classification_type;
     packet->category_eu = category_eu;
     packet->class_eu = class_eu;
-    mav_array_memcpy(packet->id_or_mac, id_or_mac, sizeof(uint8_t)*20);
+    mav_array_memcpy(packet->id_or_mac, id_or_mac, sizeof(Uint8_t)*20);
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_OPEN_DRONE_ID_SYSTEM, (const char *)packet, MAVLINK_MSG_ID_OPEN_DRONE_ID_SYSTEM_MIN_LEN, MAVLINK_MSG_ID_OPEN_DRONE_ID_SYSTEM_LEN, MAVLINK_MSG_ID_OPEN_DRONE_ID_SYSTEM_CRC);
 #endif
 }
@@ -350,7 +350,7 @@ static inline void mavlink_msg_open_drone_id_system_send_buf(mavlink_message_t *
  *
  * @return  System ID (0 for broadcast).
  */
-static inline uint8_t mavlink_msg_open_drone_id_system_get_target_system(const mavlink_message_t* msg)
+static inline Uint8_t mavlink_msg_open_drone_id_system_get_target_system(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  20);
 }
@@ -360,7 +360,7 @@ static inline uint8_t mavlink_msg_open_drone_id_system_get_target_system(const m
  *
  * @return  Component ID (0 for broadcast).
  */
-static inline uint8_t mavlink_msg_open_drone_id_system_get_target_component(const mavlink_message_t* msg)
+static inline Uint8_t mavlink_msg_open_drone_id_system_get_target_component(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  21);
 }
@@ -370,7 +370,7 @@ static inline uint8_t mavlink_msg_open_drone_id_system_get_target_component(cons
  *
  * @return  Only used for drone ID data received from other UAs. See detailed description at https://mavlink.io/en/services/opendroneid.html. 
  */
-static inline uint16_t mavlink_msg_open_drone_id_system_get_id_or_mac(const mavlink_message_t* msg, uint8_t *id_or_mac)
+static inline uint16_t mavlink_msg_open_drone_id_system_get_id_or_mac(const mavlink_message_t* msg, Uint8_t *id_or_mac)
 {
     return _MAV_RETURN_uint8_t_array(msg, id_or_mac, 20,  22);
 }
@@ -380,7 +380,7 @@ static inline uint16_t mavlink_msg_open_drone_id_system_get_id_or_mac(const mavl
  *
  * @return  Specifies the operator location type.
  */
-static inline uint8_t mavlink_msg_open_drone_id_system_get_operator_location_type(const mavlink_message_t* msg)
+static inline Uint8_t mavlink_msg_open_drone_id_system_get_operator_location_type(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  42);
 }
@@ -390,7 +390,7 @@ static inline uint8_t mavlink_msg_open_drone_id_system_get_operator_location_typ
  *
  * @return  Specifies the classification type of the UA.
  */
-static inline uint8_t mavlink_msg_open_drone_id_system_get_classification_type(const mavlink_message_t* msg)
+static inline Uint8_t mavlink_msg_open_drone_id_system_get_classification_type(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  43);
 }
@@ -460,7 +460,7 @@ static inline float mavlink_msg_open_drone_id_system_get_area_floor(const mavlin
  *
  * @return  When classification_type is MAV_ODID_CLASSIFICATION_TYPE_EU, specifies the category of the UA.
  */
-static inline uint8_t mavlink_msg_open_drone_id_system_get_category_eu(const mavlink_message_t* msg)
+static inline Uint8_t mavlink_msg_open_drone_id_system_get_category_eu(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  44);
 }
@@ -470,7 +470,7 @@ static inline uint8_t mavlink_msg_open_drone_id_system_get_category_eu(const mav
  *
  * @return  When classification_type is MAV_ODID_CLASSIFICATION_TYPE_EU, specifies the class of the UA.
  */
-static inline uint8_t mavlink_msg_open_drone_id_system_get_class_eu(const mavlink_message_t* msg)
+static inline Uint8_t mavlink_msg_open_drone_id_system_get_class_eu(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  45);
 }
@@ -498,7 +498,7 @@ static inline void mavlink_msg_open_drone_id_system_decode(const mavlink_message
     open_drone_id_system->category_eu = mavlink_msg_open_drone_id_system_get_category_eu(msg);
     open_drone_id_system->class_eu = mavlink_msg_open_drone_id_system_get_class_eu(msg);
 #else
-        uint8_t len = msg->len < MAVLINK_MSG_ID_OPEN_DRONE_ID_SYSTEM_LEN? msg->len : MAVLINK_MSG_ID_OPEN_DRONE_ID_SYSTEM_LEN;
+        Uint8_t len = msg->len < MAVLINK_MSG_ID_OPEN_DRONE_ID_SYSTEM_LEN? msg->len : MAVLINK_MSG_ID_OPEN_DRONE_ID_SYSTEM_LEN;
         memset(open_drone_id_system, 0, MAVLINK_MSG_ID_OPEN_DRONE_ID_SYSTEM_LEN);
     memcpy(open_drone_id_system, _MAV_PAYLOAD(msg), len);
 #endif

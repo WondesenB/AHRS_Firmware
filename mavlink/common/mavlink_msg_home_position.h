@@ -84,7 +84,7 @@ typedef struct __mavlink_home_position_t {
  * @param time_usec [us] Timestamp (UNIX Epoch time or time since system boot). The receiving end can infer timestamp format (since 1.1.1970 or since system boot) by checking for the magnitude of the number.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_home_position_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_home_position_pack(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg,
                                int32_t latitude, int32_t longitude, int32_t altitude, float x, float y, float z, const float *q, float approach_x, float approach_y, float approach_z, uint64_t time_usec)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -140,7 +140,7 @@ static inline uint16_t mavlink_msg_home_position_pack(uint8_t system_id, uint8_t
  * @param time_usec [us] Timestamp (UNIX Epoch time or time since system boot). The receiving end can infer timestamp format (since 1.1.1970 or since system boot) by checking for the magnitude of the number.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_home_position_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_home_position_pack_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan,
                                mavlink_message_t* msg,
                                    int32_t latitude,int32_t longitude,int32_t altitude,float x,float y,float z,const float *q,float approach_x,float approach_y,float approach_z,uint64_t time_usec)
 {
@@ -186,7 +186,7 @@ static inline uint16_t mavlink_msg_home_position_pack_chan(uint8_t system_id, ui
  * @param msg The MAVLink message to compress the data into
  * @param home_position C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_home_position_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_home_position_t* home_position)
+static inline uint16_t mavlink_msg_home_position_encode(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg, const mavlink_home_position_t* home_position)
 {
     return mavlink_msg_home_position_pack(system_id, component_id, msg, home_position->latitude, home_position->longitude, home_position->altitude, home_position->x, home_position->y, home_position->z, home_position->q, home_position->approach_x, home_position->approach_y, home_position->approach_z, home_position->time_usec);
 }
@@ -200,7 +200,7 @@ static inline uint16_t mavlink_msg_home_position_encode(uint8_t system_id, uint8
  * @param msg The MAVLink message to compress the data into
  * @param home_position C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_home_position_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_home_position_t* home_position)
+static inline uint16_t mavlink_msg_home_position_encode_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan, mavlink_message_t* msg, const mavlink_home_position_t* home_position)
 {
     return mavlink_msg_home_position_pack_chan(system_id, component_id, chan, msg, home_position->latitude, home_position->longitude, home_position->altitude, home_position->x, home_position->y, home_position->z, home_position->q, home_position->approach_x, home_position->approach_y, home_position->approach_z, home_position->time_usec);
 }
@@ -448,7 +448,7 @@ static inline void mavlink_msg_home_position_decode(const mavlink_message_t* msg
     home_position->approach_z = mavlink_msg_home_position_get_approach_z(msg);
     home_position->time_usec = mavlink_msg_home_position_get_time_usec(msg);
 #else
-        uint8_t len = msg->len < MAVLINK_MSG_ID_HOME_POSITION_LEN? msg->len : MAVLINK_MSG_ID_HOME_POSITION_LEN;
+        Uint8_t len = msg->len < MAVLINK_MSG_ID_HOME_POSITION_LEN? msg->len : MAVLINK_MSG_ID_HOME_POSITION_LEN;
         memset(home_position, 0, MAVLINK_MSG_ID_HOME_POSITION_LEN);
     memcpy(home_position, _MAV_PAYLOAD(msg), len);
 #endif

@@ -6,10 +6,10 @@
 
 typedef struct __mavlink_param_set_t {
  float param_value; /*<  Onboard parameter value*/
- uint8_t target_system; /*<  System ID*/
- uint8_t target_component; /*<  Component ID*/
+ Uint8_t target_system; /*<  System ID*/
+ Uint8_t target_component; /*<  Component ID*/
  char param_id[16]; /*<  Onboard parameter id, terminated by NULL if the length is less than 16 human-readable chars and WITHOUT null termination (NULL) byte if the length is exactly 16 chars - applications have to provide 16+1 bytes storage if the ID is stored as string*/
- uint8_t param_type; /*<  Onboard parameter type.*/
+ Uint8_t param_type; /*<  Onboard parameter type.*/
 } mavlink_param_set_t;
 
 #define MAVLINK_MSG_ID_PARAM_SET_LEN 23
@@ -60,8 +60,8 @@ typedef struct __mavlink_param_set_t {
  * @param param_type  Onboard parameter type.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_param_set_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
-                               uint8_t target_system, uint8_t target_component, const char *param_id, float param_value, uint8_t param_type)
+static inline uint16_t mavlink_msg_param_set_pack(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg,
+                               Uint8_t target_system, Uint8_t target_component, const char *param_id, float param_value, Uint8_t param_type)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_PARAM_SET_LEN];
@@ -98,9 +98,9 @@ static inline uint16_t mavlink_msg_param_set_pack(uint8_t system_id, uint8_t com
  * @param param_type  Onboard parameter type.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_param_set_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_param_set_pack_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan,
                                mavlink_message_t* msg,
-                                   uint8_t target_system,uint8_t target_component,const char *param_id,float param_value,uint8_t param_type)
+                                   Uint8_t target_system,Uint8_t target_component,const char *param_id,float param_value,Uint8_t param_type)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_PARAM_SET_LEN];
@@ -132,7 +132,7 @@ static inline uint16_t mavlink_msg_param_set_pack_chan(uint8_t system_id, uint8_
  * @param msg The MAVLink message to compress the data into
  * @param param_set C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_param_set_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_param_set_t* param_set)
+static inline uint16_t mavlink_msg_param_set_encode(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg, const mavlink_param_set_t* param_set)
 {
     return mavlink_msg_param_set_pack(system_id, component_id, msg, param_set->target_system, param_set->target_component, param_set->param_id, param_set->param_value, param_set->param_type);
 }
@@ -146,7 +146,7 @@ static inline uint16_t mavlink_msg_param_set_encode(uint8_t system_id, uint8_t c
  * @param msg The MAVLink message to compress the data into
  * @param param_set C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_param_set_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_param_set_t* param_set)
+static inline uint16_t mavlink_msg_param_set_encode_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan, mavlink_message_t* msg, const mavlink_param_set_t* param_set)
 {
     return mavlink_msg_param_set_pack_chan(system_id, component_id, chan, msg, param_set->target_system, param_set->target_component, param_set->param_id, param_set->param_value, param_set->param_type);
 }
@@ -163,7 +163,7 @@ static inline uint16_t mavlink_msg_param_set_encode_chan(uint8_t system_id, uint
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_param_set_send(mavlink_channel_t chan, uint8_t target_system, uint8_t target_component, const char *param_id, float param_value, uint8_t param_type)
+static inline void mavlink_msg_param_set_send(mavlink_channel_t chan, Uint8_t target_system, Uint8_t target_component, const char *param_id, float param_value, Uint8_t param_type)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_PARAM_SET_LEN];
@@ -206,7 +206,7 @@ static inline void mavlink_msg_param_set_send_struct(mavlink_channel_t chan, con
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_param_set_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint8_t target_system, uint8_t target_component, const char *param_id, float param_value, uint8_t param_type)
+static inline void mavlink_msg_param_set_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  Uint8_t target_system, Uint8_t target_component, const char *param_id, float param_value, Uint8_t param_type)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char *buf = (char *)msgbuf;
@@ -238,7 +238,7 @@ static inline void mavlink_msg_param_set_send_buf(mavlink_message_t *msgbuf, mav
  *
  * @return  System ID
  */
-static inline uint8_t mavlink_msg_param_set_get_target_system(const mavlink_message_t* msg)
+static inline Uint8_t mavlink_msg_param_set_get_target_system(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  4);
 }
@@ -248,7 +248,7 @@ static inline uint8_t mavlink_msg_param_set_get_target_system(const mavlink_mess
  *
  * @return  Component ID
  */
-static inline uint8_t mavlink_msg_param_set_get_target_component(const mavlink_message_t* msg)
+static inline Uint8_t mavlink_msg_param_set_get_target_component(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  5);
 }
@@ -278,7 +278,7 @@ static inline float mavlink_msg_param_set_get_param_value(const mavlink_message_
  *
  * @return  Onboard parameter type.
  */
-static inline uint8_t mavlink_msg_param_set_get_param_type(const mavlink_message_t* msg)
+static inline Uint8_t mavlink_msg_param_set_get_param_type(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  22);
 }
@@ -298,7 +298,7 @@ static inline void mavlink_msg_param_set_decode(const mavlink_message_t* msg, ma
     mavlink_msg_param_set_get_param_id(msg, param_set->param_id);
     param_set->param_type = mavlink_msg_param_set_get_param_type(msg);
 #else
-        uint8_t len = msg->len < MAVLINK_MSG_ID_PARAM_SET_LEN? msg->len : MAVLINK_MSG_ID_PARAM_SET_LEN;
+        Uint8_t len = msg->len < MAVLINK_MSG_ID_PARAM_SET_LEN? msg->len : MAVLINK_MSG_ID_PARAM_SET_LEN;
         memset(param_set, 0, MAVLINK_MSG_ID_PARAM_SET_LEN);
     memcpy(param_set, _MAV_PAYLOAD(msg), len);
 #endif

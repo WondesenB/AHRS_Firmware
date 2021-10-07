@@ -14,7 +14,7 @@ typedef struct __mavlink_global_position_int_cov_t {
  float vy; /*< [m/s] Ground Y Speed (Longitude)*/
  float vz; /*< [m/s] Ground Z Speed (Altitude)*/
  float covariance[36]; /*<  Row-major representation of a 6x6 position and velocity 6x6 cross-covariance matrix (states: lat, lon, alt, vx, vy, vz; first six entries are the first ROW, next six entries are the second row, etc.). If unknown, assign NaN value to first element in the array.*/
- uint8_t estimator_type; /*<  Class id of the estimator this estimate originated from.*/
+ Uint8_t estimator_type; /*<  Class id of the estimator this estimate originated from.*/
 } mavlink_global_position_int_cov_t;
 
 #define MAVLINK_MSG_ID_GLOBAL_POSITION_INT_COV_LEN 181
@@ -80,8 +80,8 @@ typedef struct __mavlink_global_position_int_cov_t {
  * @param covariance  Row-major representation of a 6x6 position and velocity 6x6 cross-covariance matrix (states: lat, lon, alt, vx, vy, vz; first six entries are the first ROW, next six entries are the second row, etc.). If unknown, assign NaN value to first element in the array.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_global_position_int_cov_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
-                               uint64_t time_usec, uint8_t estimator_type, int32_t lat, int32_t lon, int32_t alt, int32_t relative_alt, float vx, float vy, float vz, const float *covariance)
+static inline uint16_t mavlink_msg_global_position_int_cov_pack(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg,
+                               uint64_t time_usec, Uint8_t estimator_type, int32_t lat, int32_t lon, int32_t alt, int32_t relative_alt, float vx, float vy, float vz, const float *covariance)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_GLOBAL_POSITION_INT_COV_LEN];
@@ -133,9 +133,9 @@ static inline uint16_t mavlink_msg_global_position_int_cov_pack(uint8_t system_i
  * @param covariance  Row-major representation of a 6x6 position and velocity 6x6 cross-covariance matrix (states: lat, lon, alt, vx, vy, vz; first six entries are the first ROW, next six entries are the second row, etc.). If unknown, assign NaN value to first element in the array.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_global_position_int_cov_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_global_position_int_cov_pack_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan,
                                mavlink_message_t* msg,
-                                   uint64_t time_usec,uint8_t estimator_type,int32_t lat,int32_t lon,int32_t alt,int32_t relative_alt,float vx,float vy,float vz,const float *covariance)
+                                   uint64_t time_usec,Uint8_t estimator_type,int32_t lat,int32_t lon,int32_t alt,int32_t relative_alt,float vx,float vy,float vz,const float *covariance)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_GLOBAL_POSITION_INT_COV_LEN];
@@ -177,7 +177,7 @@ static inline uint16_t mavlink_msg_global_position_int_cov_pack_chan(uint8_t sys
  * @param msg The MAVLink message to compress the data into
  * @param global_position_int_cov C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_global_position_int_cov_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_global_position_int_cov_t* global_position_int_cov)
+static inline uint16_t mavlink_msg_global_position_int_cov_encode(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg, const mavlink_global_position_int_cov_t* global_position_int_cov)
 {
     return mavlink_msg_global_position_int_cov_pack(system_id, component_id, msg, global_position_int_cov->time_usec, global_position_int_cov->estimator_type, global_position_int_cov->lat, global_position_int_cov->lon, global_position_int_cov->alt, global_position_int_cov->relative_alt, global_position_int_cov->vx, global_position_int_cov->vy, global_position_int_cov->vz, global_position_int_cov->covariance);
 }
@@ -191,7 +191,7 @@ static inline uint16_t mavlink_msg_global_position_int_cov_encode(uint8_t system
  * @param msg The MAVLink message to compress the data into
  * @param global_position_int_cov C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_global_position_int_cov_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_global_position_int_cov_t* global_position_int_cov)
+static inline uint16_t mavlink_msg_global_position_int_cov_encode_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan, mavlink_message_t* msg, const mavlink_global_position_int_cov_t* global_position_int_cov)
 {
     return mavlink_msg_global_position_int_cov_pack_chan(system_id, component_id, chan, msg, global_position_int_cov->time_usec, global_position_int_cov->estimator_type, global_position_int_cov->lat, global_position_int_cov->lon, global_position_int_cov->alt, global_position_int_cov->relative_alt, global_position_int_cov->vx, global_position_int_cov->vy, global_position_int_cov->vz, global_position_int_cov->covariance);
 }
@@ -213,7 +213,7 @@ static inline uint16_t mavlink_msg_global_position_int_cov_encode_chan(uint8_t s
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_global_position_int_cov_send(mavlink_channel_t chan, uint64_t time_usec, uint8_t estimator_type, int32_t lat, int32_t lon, int32_t alt, int32_t relative_alt, float vx, float vy, float vz, const float *covariance)
+static inline void mavlink_msg_global_position_int_cov_send(mavlink_channel_t chan, uint64_t time_usec, Uint8_t estimator_type, int32_t lat, int32_t lon, int32_t alt, int32_t relative_alt, float vx, float vy, float vz, const float *covariance)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_GLOBAL_POSITION_INT_COV_LEN];
@@ -266,7 +266,7 @@ static inline void mavlink_msg_global_position_int_cov_send_struct(mavlink_chann
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_global_position_int_cov_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint64_t time_usec, uint8_t estimator_type, int32_t lat, int32_t lon, int32_t alt, int32_t relative_alt, float vx, float vy, float vz, const float *covariance)
+static inline void mavlink_msg_global_position_int_cov_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint64_t time_usec, Uint8_t estimator_type, int32_t lat, int32_t lon, int32_t alt, int32_t relative_alt, float vx, float vy, float vz, const float *covariance)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char *buf = (char *)msgbuf;
@@ -318,7 +318,7 @@ static inline uint64_t mavlink_msg_global_position_int_cov_get_time_usec(const m
  *
  * @return  Class id of the estimator this estimate originated from.
  */
-static inline uint8_t mavlink_msg_global_position_int_cov_get_estimator_type(const mavlink_message_t* msg)
+static inline Uint8_t mavlink_msg_global_position_int_cov_get_estimator_type(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  180);
 }
@@ -423,7 +423,7 @@ static inline void mavlink_msg_global_position_int_cov_decode(const mavlink_mess
     mavlink_msg_global_position_int_cov_get_covariance(msg, global_position_int_cov->covariance);
     global_position_int_cov->estimator_type = mavlink_msg_global_position_int_cov_get_estimator_type(msg);
 #else
-        uint8_t len = msg->len < MAVLINK_MSG_ID_GLOBAL_POSITION_INT_COV_LEN? msg->len : MAVLINK_MSG_ID_GLOBAL_POSITION_INT_COV_LEN;
+        Uint8_t len = msg->len < MAVLINK_MSG_ID_GLOBAL_POSITION_INT_COV_LEN? msg->len : MAVLINK_MSG_ID_GLOBAL_POSITION_INT_COV_LEN;
         memset(global_position_int_cov, 0, MAVLINK_MSG_ID_GLOBAL_POSITION_INT_COV_LEN);
     memcpy(global_position_int_cov, _MAV_PAYLOAD(msg), len);
 #endif

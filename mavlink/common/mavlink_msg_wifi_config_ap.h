@@ -7,8 +7,8 @@
 typedef struct __mavlink_wifi_config_ap_t {
  char ssid[32]; /*<  Name of Wi-Fi network (SSID). Blank to leave it unchanged when setting. Current SSID when sent back as a response.*/
  char password[64]; /*<  Password. Blank for an open AP. MD5 hash when message is sent back as a response.*/
- int8_t mode; /*<  WiFi Mode.*/
- int8_t response; /*<  Message acceptance response (sent back to GS).*/
+ Int8_t mode; /*<  WiFi Mode.*/
+ Int8_t response; /*<  Message acceptance response (sent back to GS).*/
 } mavlink_wifi_config_ap_t;
 
 #define MAVLINK_MSG_ID_WIFI_CONFIG_AP_LEN 98
@@ -57,8 +57,8 @@ typedef struct __mavlink_wifi_config_ap_t {
  * @param response  Message acceptance response (sent back to GS).
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_wifi_config_ap_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
-                               const char *ssid, const char *password, int8_t mode, int8_t response)
+static inline uint16_t mavlink_msg_wifi_config_ap_pack(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg,
+                               const char *ssid, const char *password, Int8_t mode, Int8_t response)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_WIFI_CONFIG_AP_LEN];
@@ -92,9 +92,9 @@ static inline uint16_t mavlink_msg_wifi_config_ap_pack(uint8_t system_id, uint8_
  * @param response  Message acceptance response (sent back to GS).
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_wifi_config_ap_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_wifi_config_ap_pack_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan,
                                mavlink_message_t* msg,
-                                   const char *ssid,const char *password,int8_t mode,int8_t response)
+                                   const char *ssid,const char *password,Int8_t mode,Int8_t response)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_WIFI_CONFIG_AP_LEN];
@@ -124,7 +124,7 @@ static inline uint16_t mavlink_msg_wifi_config_ap_pack_chan(uint8_t system_id, u
  * @param msg The MAVLink message to compress the data into
  * @param wifi_config_ap C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_wifi_config_ap_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_wifi_config_ap_t* wifi_config_ap)
+static inline uint16_t mavlink_msg_wifi_config_ap_encode(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg, const mavlink_wifi_config_ap_t* wifi_config_ap)
 {
     return mavlink_msg_wifi_config_ap_pack(system_id, component_id, msg, wifi_config_ap->ssid, wifi_config_ap->password, wifi_config_ap->mode, wifi_config_ap->response);
 }
@@ -138,7 +138,7 @@ static inline uint16_t mavlink_msg_wifi_config_ap_encode(uint8_t system_id, uint
  * @param msg The MAVLink message to compress the data into
  * @param wifi_config_ap C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_wifi_config_ap_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_wifi_config_ap_t* wifi_config_ap)
+static inline uint16_t mavlink_msg_wifi_config_ap_encode_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan, mavlink_message_t* msg, const mavlink_wifi_config_ap_t* wifi_config_ap)
 {
     return mavlink_msg_wifi_config_ap_pack_chan(system_id, component_id, chan, msg, wifi_config_ap->ssid, wifi_config_ap->password, wifi_config_ap->mode, wifi_config_ap->response);
 }
@@ -154,7 +154,7 @@ static inline uint16_t mavlink_msg_wifi_config_ap_encode_chan(uint8_t system_id,
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_wifi_config_ap_send(mavlink_channel_t chan, const char *ssid, const char *password, int8_t mode, int8_t response)
+static inline void mavlink_msg_wifi_config_ap_send(mavlink_channel_t chan, const char *ssid, const char *password, Int8_t mode, Int8_t response)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_WIFI_CONFIG_AP_LEN];
@@ -195,7 +195,7 @@ static inline void mavlink_msg_wifi_config_ap_send_struct(mavlink_channel_t chan
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_wifi_config_ap_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  const char *ssid, const char *password, int8_t mode, int8_t response)
+static inline void mavlink_msg_wifi_config_ap_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  const char *ssid, const char *password, Int8_t mode, Int8_t response)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char *buf = (char *)msgbuf;
@@ -245,7 +245,7 @@ static inline uint16_t mavlink_msg_wifi_config_ap_get_password(const mavlink_mes
  *
  * @return  WiFi Mode.
  */
-static inline int8_t mavlink_msg_wifi_config_ap_get_mode(const mavlink_message_t* msg)
+static inline Int8_t mavlink_msg_wifi_config_ap_get_mode(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_int8_t(msg,  96);
 }
@@ -255,7 +255,7 @@ static inline int8_t mavlink_msg_wifi_config_ap_get_mode(const mavlink_message_t
  *
  * @return  Message acceptance response (sent back to GS).
  */
-static inline int8_t mavlink_msg_wifi_config_ap_get_response(const mavlink_message_t* msg)
+static inline Int8_t mavlink_msg_wifi_config_ap_get_response(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_int8_t(msg,  97);
 }
@@ -274,7 +274,7 @@ static inline void mavlink_msg_wifi_config_ap_decode(const mavlink_message_t* ms
     wifi_config_ap->mode = mavlink_msg_wifi_config_ap_get_mode(msg);
     wifi_config_ap->response = mavlink_msg_wifi_config_ap_get_response(msg);
 #else
-        uint8_t len = msg->len < MAVLINK_MSG_ID_WIFI_CONFIG_AP_LEN? msg->len : MAVLINK_MSG_ID_WIFI_CONFIG_AP_LEN;
+        Uint8_t len = msg->len < MAVLINK_MSG_ID_WIFI_CONFIG_AP_LEN? msg->len : MAVLINK_MSG_ID_WIFI_CONFIG_AP_LEN;
         memset(wifi_config_ap, 0, MAVLINK_MSG_ID_WIFI_CONFIG_AP_LEN);
     memcpy(wifi_config_ap, _MAV_PAYLOAD(msg), len);
 #endif

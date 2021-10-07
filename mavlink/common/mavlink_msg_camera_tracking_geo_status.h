@@ -17,7 +17,7 @@ typedef struct __mavlink_camera_tracking_geo_status_t {
  float dist; /*< [m] Distance between camera and tracked object. NAN if unknown*/
  float hdg; /*< [rad] Heading in radians, in NED. NAN if unknown*/
  float hdg_acc; /*< [rad] Accuracy of heading, in NED. NAN if unknown*/
- uint8_t tracking_status; /*<  Current tracking status*/
+ Uint8_t tracking_status; /*<  Current tracking status*/
 } mavlink_camera_tracking_geo_status_t;
 
 #define MAVLINK_MSG_ID_CAMERA_TRACKING_GEO_STATUS_LEN 49
@@ -92,8 +92,8 @@ typedef struct __mavlink_camera_tracking_geo_status_t {
  * @param hdg_acc [rad] Accuracy of heading, in NED. NAN if unknown
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_camera_tracking_geo_status_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
-                               uint8_t tracking_status, int32_t lat, int32_t lon, float alt, float h_acc, float v_acc, float vel_n, float vel_e, float vel_d, float vel_acc, float dist, float hdg, float hdg_acc)
+static inline uint16_t mavlink_msg_camera_tracking_geo_status_pack(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg,
+                               Uint8_t tracking_status, int32_t lat, int32_t lon, float alt, float h_acc, float v_acc, float vel_n, float vel_e, float vel_d, float vel_acc, float dist, float hdg, float hdg_acc)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_CAMERA_TRACKING_GEO_STATUS_LEN];
@@ -156,9 +156,9 @@ static inline uint16_t mavlink_msg_camera_tracking_geo_status_pack(uint8_t syste
  * @param hdg_acc [rad] Accuracy of heading, in NED. NAN if unknown
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_camera_tracking_geo_status_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_camera_tracking_geo_status_pack_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan,
                                mavlink_message_t* msg,
-                                   uint8_t tracking_status,int32_t lat,int32_t lon,float alt,float h_acc,float v_acc,float vel_n,float vel_e,float vel_d,float vel_acc,float dist,float hdg,float hdg_acc)
+                                   Uint8_t tracking_status,int32_t lat,int32_t lon,float alt,float h_acc,float v_acc,float vel_n,float vel_e,float vel_d,float vel_acc,float dist,float hdg,float hdg_acc)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_CAMERA_TRACKING_GEO_STATUS_LEN];
@@ -208,7 +208,7 @@ static inline uint16_t mavlink_msg_camera_tracking_geo_status_pack_chan(uint8_t 
  * @param msg The MAVLink message to compress the data into
  * @param camera_tracking_geo_status C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_camera_tracking_geo_status_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_camera_tracking_geo_status_t* camera_tracking_geo_status)
+static inline uint16_t mavlink_msg_camera_tracking_geo_status_encode(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg, const mavlink_camera_tracking_geo_status_t* camera_tracking_geo_status)
 {
     return mavlink_msg_camera_tracking_geo_status_pack(system_id, component_id, msg, camera_tracking_geo_status->tracking_status, camera_tracking_geo_status->lat, camera_tracking_geo_status->lon, camera_tracking_geo_status->alt, camera_tracking_geo_status->h_acc, camera_tracking_geo_status->v_acc, camera_tracking_geo_status->vel_n, camera_tracking_geo_status->vel_e, camera_tracking_geo_status->vel_d, camera_tracking_geo_status->vel_acc, camera_tracking_geo_status->dist, camera_tracking_geo_status->hdg, camera_tracking_geo_status->hdg_acc);
 }
@@ -222,7 +222,7 @@ static inline uint16_t mavlink_msg_camera_tracking_geo_status_encode(uint8_t sys
  * @param msg The MAVLink message to compress the data into
  * @param camera_tracking_geo_status C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_camera_tracking_geo_status_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_camera_tracking_geo_status_t* camera_tracking_geo_status)
+static inline uint16_t mavlink_msg_camera_tracking_geo_status_encode_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan, mavlink_message_t* msg, const mavlink_camera_tracking_geo_status_t* camera_tracking_geo_status)
 {
     return mavlink_msg_camera_tracking_geo_status_pack_chan(system_id, component_id, chan, msg, camera_tracking_geo_status->tracking_status, camera_tracking_geo_status->lat, camera_tracking_geo_status->lon, camera_tracking_geo_status->alt, camera_tracking_geo_status->h_acc, camera_tracking_geo_status->v_acc, camera_tracking_geo_status->vel_n, camera_tracking_geo_status->vel_e, camera_tracking_geo_status->vel_d, camera_tracking_geo_status->vel_acc, camera_tracking_geo_status->dist, camera_tracking_geo_status->hdg, camera_tracking_geo_status->hdg_acc);
 }
@@ -247,7 +247,7 @@ static inline uint16_t mavlink_msg_camera_tracking_geo_status_encode_chan(uint8_
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_camera_tracking_geo_status_send(mavlink_channel_t chan, uint8_t tracking_status, int32_t lat, int32_t lon, float alt, float h_acc, float v_acc, float vel_n, float vel_e, float vel_d, float vel_acc, float dist, float hdg, float hdg_acc)
+static inline void mavlink_msg_camera_tracking_geo_status_send(mavlink_channel_t chan, Uint8_t tracking_status, int32_t lat, int32_t lon, float alt, float h_acc, float v_acc, float vel_n, float vel_e, float vel_d, float vel_acc, float dist, float hdg, float hdg_acc)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_CAMERA_TRACKING_GEO_STATUS_LEN];
@@ -308,7 +308,7 @@ static inline void mavlink_msg_camera_tracking_geo_status_send_struct(mavlink_ch
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_camera_tracking_geo_status_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint8_t tracking_status, int32_t lat, int32_t lon, float alt, float h_acc, float v_acc, float vel_n, float vel_e, float vel_d, float vel_acc, float dist, float hdg, float hdg_acc)
+static inline void mavlink_msg_camera_tracking_geo_status_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  Uint8_t tracking_status, int32_t lat, int32_t lon, float alt, float h_acc, float v_acc, float vel_n, float vel_e, float vel_d, float vel_acc, float dist, float hdg, float hdg_acc)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char *buf = (char *)msgbuf;
@@ -358,7 +358,7 @@ static inline void mavlink_msg_camera_tracking_geo_status_send_buf(mavlink_messa
  *
  * @return  Current tracking status
  */
-static inline uint8_t mavlink_msg_camera_tracking_geo_status_get_tracking_status(const mavlink_message_t* msg)
+static inline Uint8_t mavlink_msg_camera_tracking_geo_status_get_tracking_status(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  48);
 }
@@ -506,7 +506,7 @@ static inline void mavlink_msg_camera_tracking_geo_status_decode(const mavlink_m
     camera_tracking_geo_status->hdg_acc = mavlink_msg_camera_tracking_geo_status_get_hdg_acc(msg);
     camera_tracking_geo_status->tracking_status = mavlink_msg_camera_tracking_geo_status_get_tracking_status(msg);
 #else
-        uint8_t len = msg->len < MAVLINK_MSG_ID_CAMERA_TRACKING_GEO_STATUS_LEN? msg->len : MAVLINK_MSG_ID_CAMERA_TRACKING_GEO_STATUS_LEN;
+        Uint8_t len = msg->len < MAVLINK_MSG_ID_CAMERA_TRACKING_GEO_STATUS_LEN? msg->len : MAVLINK_MSG_ID_CAMERA_TRACKING_GEO_STATUS_LEN;
         memset(camera_tracking_geo_status, 0, MAVLINK_MSG_ID_CAMERA_TRACKING_GEO_STATUS_LEN);
     memcpy(camera_tracking_geo_status, _MAV_PAYLOAD(msg), len);
 #endif

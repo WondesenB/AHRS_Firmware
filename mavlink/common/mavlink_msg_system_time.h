@@ -48,7 +48,7 @@ typedef struct __mavlink_system_time_t {
  * @param time_boot_ms [ms] Timestamp (time since system boot).
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_system_time_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_system_time_pack(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg,
                                uint64_t time_unix_usec, uint32_t time_boot_ms)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -79,7 +79,7 @@ static inline uint16_t mavlink_msg_system_time_pack(uint8_t system_id, uint8_t c
  * @param time_boot_ms [ms] Timestamp (time since system boot).
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_system_time_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_system_time_pack_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan,
                                mavlink_message_t* msg,
                                    uint64_t time_unix_usec,uint32_t time_boot_ms)
 {
@@ -109,7 +109,7 @@ static inline uint16_t mavlink_msg_system_time_pack_chan(uint8_t system_id, uint
  * @param msg The MAVLink message to compress the data into
  * @param system_time C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_system_time_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_system_time_t* system_time)
+static inline uint16_t mavlink_msg_system_time_encode(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg, const mavlink_system_time_t* system_time)
 {
     return mavlink_msg_system_time_pack(system_id, component_id, msg, system_time->time_unix_usec, system_time->time_boot_ms);
 }
@@ -123,7 +123,7 @@ static inline uint16_t mavlink_msg_system_time_encode(uint8_t system_id, uint8_t
  * @param msg The MAVLink message to compress the data into
  * @param system_time C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_system_time_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_system_time_t* system_time)
+static inline uint16_t mavlink_msg_system_time_encode_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan, mavlink_message_t* msg, const mavlink_system_time_t* system_time)
 {
     return mavlink_msg_system_time_pack_chan(system_id, component_id, chan, msg, system_time->time_unix_usec, system_time->time_boot_ms);
 }
@@ -231,7 +231,7 @@ static inline void mavlink_msg_system_time_decode(const mavlink_message_t* msg, 
     system_time->time_unix_usec = mavlink_msg_system_time_get_time_unix_usec(msg);
     system_time->time_boot_ms = mavlink_msg_system_time_get_time_boot_ms(msg);
 #else
-        uint8_t len = msg->len < MAVLINK_MSG_ID_SYSTEM_TIME_LEN? msg->len : MAVLINK_MSG_ID_SYSTEM_TIME_LEN;
+        Uint8_t len = msg->len < MAVLINK_MSG_ID_SYSTEM_TIME_LEN? msg->len : MAVLINK_MSG_ID_SYSTEM_TIME_LEN;
         memset(system_time, 0, MAVLINK_MSG_ID_SYSTEM_TIME_LEN);
     memcpy(system_time, _MAV_PAYLOAD(msg), len);
 #endif

@@ -65,7 +65,7 @@ typedef struct __mavlink_attitude_quaternion_cov_t {
  * @param covariance  Row-major representation of a 3x3 attitude covariance matrix (states: roll, pitch, yaw; first three entries are the first ROW, next three entries are the second row, etc.). If unknown, assign NaN value to first element in the array.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_attitude_quaternion_cov_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_attitude_quaternion_cov_pack(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg,
                                uint64_t time_usec, const float *q, float rollspeed, float pitchspeed, float yawspeed, const float *covariance)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -106,7 +106,7 @@ static inline uint16_t mavlink_msg_attitude_quaternion_cov_pack(uint8_t system_i
  * @param covariance  Row-major representation of a 3x3 attitude covariance matrix (states: roll, pitch, yaw; first three entries are the first ROW, next three entries are the second row, etc.). If unknown, assign NaN value to first element in the array.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_attitude_quaternion_cov_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_attitude_quaternion_cov_pack_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan,
                                mavlink_message_t* msg,
                                    uint64_t time_usec,const float *q,float rollspeed,float pitchspeed,float yawspeed,const float *covariance)
 {
@@ -142,7 +142,7 @@ static inline uint16_t mavlink_msg_attitude_quaternion_cov_pack_chan(uint8_t sys
  * @param msg The MAVLink message to compress the data into
  * @param attitude_quaternion_cov C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_attitude_quaternion_cov_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_attitude_quaternion_cov_t* attitude_quaternion_cov)
+static inline uint16_t mavlink_msg_attitude_quaternion_cov_encode(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg, const mavlink_attitude_quaternion_cov_t* attitude_quaternion_cov)
 {
     return mavlink_msg_attitude_quaternion_cov_pack(system_id, component_id, msg, attitude_quaternion_cov->time_usec, attitude_quaternion_cov->q, attitude_quaternion_cov->rollspeed, attitude_quaternion_cov->pitchspeed, attitude_quaternion_cov->yawspeed, attitude_quaternion_cov->covariance);
 }
@@ -156,7 +156,7 @@ static inline uint16_t mavlink_msg_attitude_quaternion_cov_encode(uint8_t system
  * @param msg The MAVLink message to compress the data into
  * @param attitude_quaternion_cov C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_attitude_quaternion_cov_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_attitude_quaternion_cov_t* attitude_quaternion_cov)
+static inline uint16_t mavlink_msg_attitude_quaternion_cov_encode_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan, mavlink_message_t* msg, const mavlink_attitude_quaternion_cov_t* attitude_quaternion_cov)
 {
     return mavlink_msg_attitude_quaternion_cov_pack_chan(system_id, component_id, chan, msg, attitude_quaternion_cov->time_usec, attitude_quaternion_cov->q, attitude_quaternion_cov->rollspeed, attitude_quaternion_cov->pitchspeed, attitude_quaternion_cov->yawspeed, attitude_quaternion_cov->covariance);
 }
@@ -324,7 +324,7 @@ static inline void mavlink_msg_attitude_quaternion_cov_decode(const mavlink_mess
     attitude_quaternion_cov->yawspeed = mavlink_msg_attitude_quaternion_cov_get_yawspeed(msg);
     mavlink_msg_attitude_quaternion_cov_get_covariance(msg, attitude_quaternion_cov->covariance);
 #else
-        uint8_t len = msg->len < MAVLINK_MSG_ID_ATTITUDE_QUATERNION_COV_LEN? msg->len : MAVLINK_MSG_ID_ATTITUDE_QUATERNION_COV_LEN;
+        Uint8_t len = msg->len < MAVLINK_MSG_ID_ATTITUDE_QUATERNION_COV_LEN? msg->len : MAVLINK_MSG_ID_ATTITUDE_QUATERNION_COV_LEN;
         memset(attitude_quaternion_cov, 0, MAVLINK_MSG_ID_ATTITUDE_QUATERNION_COV_LEN);
     memcpy(attitude_quaternion_cov, _MAV_PAYLOAD(msg), len);
 #endif

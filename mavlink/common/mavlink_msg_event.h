@@ -8,10 +8,10 @@ typedef struct __mavlink_event_t {
  uint32_t id; /*<  Event ID (as defined in the component metadata)*/
  uint32_t event_time_boot_ms; /*< [ms] Timestamp (time since system boot when the event happened).*/
  uint16_t sequence; /*<  Sequence number.*/
- uint8_t destination_component; /*<  Component ID*/
- uint8_t destination_system; /*<  System ID*/
- uint8_t log_levels; /*<  Log levels: 4 bits MSB: internal (for logging purposes), 4 bits LSB: external. Levels: Emergency = 0, Alert = 1, Critical = 2, Error = 3, Warning = 4, Notice = 5, Info = 6, Debug = 7, Protocol = 8, Disabled = 9*/
- uint8_t arguments[40]; /*<  Arguments (depend on event ID).*/
+ Uint8_t destination_component; /*<  Component ID*/
+ Uint8_t destination_system; /*<  System ID*/
+ Uint8_t log_levels; /*<  Log levels: 4 bits MSB: internal (for logging purposes), 4 bits LSB: external. Levels: Emergency = 0, Alert = 1, Critical = 2, Error = 3, Warning = 4, Notice = 5, Info = 6, Debug = 7, Protocol = 8, Disabled = 9*/
+ Uint8_t arguments[40]; /*<  Arguments (depend on event ID).*/
 } mavlink_event_t;
 
 #define MAVLINK_MSG_ID_EVENT_LEN 53
@@ -68,8 +68,8 @@ typedef struct __mavlink_event_t {
  * @param arguments  Arguments (depend on event ID).
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_event_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
-                               uint8_t destination_component, uint8_t destination_system, uint32_t id, uint32_t event_time_boot_ms, uint16_t sequence, uint8_t log_levels, const uint8_t *arguments)
+static inline uint16_t mavlink_msg_event_pack(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg,
+                               Uint8_t destination_component, Uint8_t destination_system, uint32_t id, uint32_t event_time_boot_ms, uint16_t sequence, Uint8_t log_levels, const Uint8_t *arguments)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_EVENT_LEN];
@@ -89,7 +89,7 @@ static inline uint16_t mavlink_msg_event_pack(uint8_t system_id, uint8_t compone
     packet.destination_component = destination_component;
     packet.destination_system = destination_system;
     packet.log_levels = log_levels;
-    mav_array_memcpy(packet.arguments, arguments, sizeof(uint8_t)*40);
+    mav_array_memcpy(packet.arguments, arguments, sizeof(Uint8_t)*40);
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_EVENT_LEN);
 #endif
 
@@ -112,9 +112,9 @@ static inline uint16_t mavlink_msg_event_pack(uint8_t system_id, uint8_t compone
  * @param arguments  Arguments (depend on event ID).
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_event_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_event_pack_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan,
                                mavlink_message_t* msg,
-                                   uint8_t destination_component,uint8_t destination_system,uint32_t id,uint32_t event_time_boot_ms,uint16_t sequence,uint8_t log_levels,const uint8_t *arguments)
+                                   Uint8_t destination_component,Uint8_t destination_system,uint32_t id,uint32_t event_time_boot_ms,uint16_t sequence,Uint8_t log_levels,const Uint8_t *arguments)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_EVENT_LEN];
@@ -134,7 +134,7 @@ static inline uint16_t mavlink_msg_event_pack_chan(uint8_t system_id, uint8_t co
     packet.destination_component = destination_component;
     packet.destination_system = destination_system;
     packet.log_levels = log_levels;
-    mav_array_memcpy(packet.arguments, arguments, sizeof(uint8_t)*40);
+    mav_array_memcpy(packet.arguments, arguments, sizeof(Uint8_t)*40);
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_EVENT_LEN);
 #endif
 
@@ -150,7 +150,7 @@ static inline uint16_t mavlink_msg_event_pack_chan(uint8_t system_id, uint8_t co
  * @param msg The MAVLink message to compress the data into
  * @param event C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_event_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_event_t* event)
+static inline uint16_t mavlink_msg_event_encode(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg, const mavlink_event_t* event)
 {
     return mavlink_msg_event_pack(system_id, component_id, msg, event->destination_component, event->destination_system, event->id, event->event_time_boot_ms, event->sequence, event->log_levels, event->arguments);
 }
@@ -164,7 +164,7 @@ static inline uint16_t mavlink_msg_event_encode(uint8_t system_id, uint8_t compo
  * @param msg The MAVLink message to compress the data into
  * @param event C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_event_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_event_t* event)
+static inline uint16_t mavlink_msg_event_encode_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan, mavlink_message_t* msg, const mavlink_event_t* event)
 {
     return mavlink_msg_event_pack_chan(system_id, component_id, chan, msg, event->destination_component, event->destination_system, event->id, event->event_time_boot_ms, event->sequence, event->log_levels, event->arguments);
 }
@@ -183,7 +183,7 @@ static inline uint16_t mavlink_msg_event_encode_chan(uint8_t system_id, uint8_t 
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_event_send(mavlink_channel_t chan, uint8_t destination_component, uint8_t destination_system, uint32_t id, uint32_t event_time_boot_ms, uint16_t sequence, uint8_t log_levels, const uint8_t *arguments)
+static inline void mavlink_msg_event_send(mavlink_channel_t chan, Uint8_t destination_component, Uint8_t destination_system, uint32_t id, uint32_t event_time_boot_ms, uint16_t sequence, Uint8_t log_levels, const Uint8_t *arguments)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_EVENT_LEN];
@@ -203,7 +203,7 @@ static inline void mavlink_msg_event_send(mavlink_channel_t chan, uint8_t destin
     packet.destination_component = destination_component;
     packet.destination_system = destination_system;
     packet.log_levels = log_levels;
-    mav_array_memcpy(packet.arguments, arguments, sizeof(uint8_t)*40);
+    mav_array_memcpy(packet.arguments, arguments, sizeof(Uint8_t)*40);
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_EVENT, (const char *)&packet, MAVLINK_MSG_ID_EVENT_MIN_LEN, MAVLINK_MSG_ID_EVENT_LEN, MAVLINK_MSG_ID_EVENT_CRC);
 #endif
 }
@@ -230,7 +230,7 @@ static inline void mavlink_msg_event_send_struct(mavlink_channel_t chan, const m
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_event_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint8_t destination_component, uint8_t destination_system, uint32_t id, uint32_t event_time_boot_ms, uint16_t sequence, uint8_t log_levels, const uint8_t *arguments)
+static inline void mavlink_msg_event_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  Uint8_t destination_component, Uint8_t destination_system, uint32_t id, uint32_t event_time_boot_ms, uint16_t sequence, Uint8_t log_levels, const Uint8_t *arguments)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char *buf = (char *)msgbuf;
@@ -250,7 +250,7 @@ static inline void mavlink_msg_event_send_buf(mavlink_message_t *msgbuf, mavlink
     packet->destination_component = destination_component;
     packet->destination_system = destination_system;
     packet->log_levels = log_levels;
-    mav_array_memcpy(packet->arguments, arguments, sizeof(uint8_t)*40);
+    mav_array_memcpy(packet->arguments, arguments, sizeof(Uint8_t)*40);
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_EVENT, (const char *)packet, MAVLINK_MSG_ID_EVENT_MIN_LEN, MAVLINK_MSG_ID_EVENT_LEN, MAVLINK_MSG_ID_EVENT_CRC);
 #endif
 }
@@ -266,7 +266,7 @@ static inline void mavlink_msg_event_send_buf(mavlink_message_t *msgbuf, mavlink
  *
  * @return  Component ID
  */
-static inline uint8_t mavlink_msg_event_get_destination_component(const mavlink_message_t* msg)
+static inline Uint8_t mavlink_msg_event_get_destination_component(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  10);
 }
@@ -276,7 +276,7 @@ static inline uint8_t mavlink_msg_event_get_destination_component(const mavlink_
  *
  * @return  System ID
  */
-static inline uint8_t mavlink_msg_event_get_destination_system(const mavlink_message_t* msg)
+static inline Uint8_t mavlink_msg_event_get_destination_system(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  11);
 }
@@ -316,7 +316,7 @@ static inline uint16_t mavlink_msg_event_get_sequence(const mavlink_message_t* m
  *
  * @return  Log levels: 4 bits MSB: internal (for logging purposes), 4 bits LSB: external. Levels: Emergency = 0, Alert = 1, Critical = 2, Error = 3, Warning = 4, Notice = 5, Info = 6, Debug = 7, Protocol = 8, Disabled = 9
  */
-static inline uint8_t mavlink_msg_event_get_log_levels(const mavlink_message_t* msg)
+static inline Uint8_t mavlink_msg_event_get_log_levels(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  12);
 }
@@ -326,7 +326,7 @@ static inline uint8_t mavlink_msg_event_get_log_levels(const mavlink_message_t* 
  *
  * @return  Arguments (depend on event ID).
  */
-static inline uint16_t mavlink_msg_event_get_arguments(const mavlink_message_t* msg, uint8_t *arguments)
+static inline uint16_t mavlink_msg_event_get_arguments(const mavlink_message_t* msg, Uint8_t *arguments)
 {
     return _MAV_RETURN_uint8_t_array(msg, arguments, 40,  13);
 }
@@ -348,7 +348,7 @@ static inline void mavlink_msg_event_decode(const mavlink_message_t* msg, mavlin
     event->log_levels = mavlink_msg_event_get_log_levels(msg);
     mavlink_msg_event_get_arguments(msg, event->arguments);
 #else
-        uint8_t len = msg->len < MAVLINK_MSG_ID_EVENT_LEN? msg->len : MAVLINK_MSG_ID_EVENT_LEN;
+        Uint8_t len = msg->len < MAVLINK_MSG_ID_EVENT_LEN? msg->len : MAVLINK_MSG_ID_EVENT_LEN;
         memset(event, 0, MAVLINK_MSG_ID_EVENT_LEN);
     memcpy(event, _MAV_PAYLOAD(msg), len);
 #endif

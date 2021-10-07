@@ -18,10 +18,10 @@ typedef struct __mavlink_odometry_t {
  float yawspeed; /*< [rad/s] Yaw angular speed*/
  float pose_covariance[21]; /*<  Row-major representation of a 6x6 pose cross-covariance matrix upper right triangle (states: x, y, z, roll, pitch, yaw; first six entries are the first ROW, next five entries are the second ROW, etc.). If unknown, assign NaN value to first element in the array.*/
  float velocity_covariance[21]; /*<  Row-major representation of a 6x6 velocity cross-covariance matrix upper right triangle (states: vx, vy, vz, rollspeed, pitchspeed, yawspeed; first six entries are the first ROW, next five entries are the second ROW, etc.). If unknown, assign NaN value to first element in the array.*/
- uint8_t frame_id; /*<  Coordinate frame of reference for the pose data.*/
- uint8_t child_frame_id; /*<  Coordinate frame of reference for the velocity in free space (twist) data.*/
- uint8_t reset_counter; /*<  Estimate reset counter. This should be incremented when the estimate resets in any of the dimensions (position, velocity, attitude, angular speed). This is designed to be used when e.g an external SLAM system detects a loop-closure and the estimate jumps.*/
- uint8_t estimator_type; /*<  Type of estimator that is providing the odometry.*/
+ Uint8_t frame_id; /*<  Coordinate frame of reference for the pose data.*/
+ Uint8_t child_frame_id; /*<  Coordinate frame of reference for the velocity in free space (twist) data.*/
+ Uint8_t reset_counter; /*<  Estimate reset counter. This should be incremented when the estimate resets in any of the dimensions (position, velocity, attitude, angular speed). This is designed to be used when e.g an external SLAM system detects a loop-closure and the estimate jumps.*/
+ Uint8_t estimator_type; /*<  Type of estimator that is providing the odometry.*/
 } mavlink_odometry_t;
 
 #define MAVLINK_MSG_ID_ODOMETRY_LEN 232
@@ -110,8 +110,8 @@ typedef struct __mavlink_odometry_t {
  * @param estimator_type  Type of estimator that is providing the odometry.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_odometry_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
-                               uint64_t time_usec, uint8_t frame_id, uint8_t child_frame_id, float x, float y, float z, const float *q, float vx, float vy, float vz, float rollspeed, float pitchspeed, float yawspeed, const float *pose_covariance, const float *velocity_covariance, uint8_t reset_counter, uint8_t estimator_type)
+static inline uint16_t mavlink_msg_odometry_pack(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg,
+                               uint64_t time_usec, Uint8_t frame_id, Uint8_t child_frame_id, float x, float y, float z, const float *q, float vx, float vy, float vz, float rollspeed, float pitchspeed, float yawspeed, const float *pose_covariance, const float *velocity_covariance, Uint8_t reset_counter, Uint8_t estimator_type)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_ODOMETRY_LEN];
@@ -184,9 +184,9 @@ static inline uint16_t mavlink_msg_odometry_pack(uint8_t system_id, uint8_t comp
  * @param estimator_type  Type of estimator that is providing the odometry.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_odometry_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_odometry_pack_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan,
                                mavlink_message_t* msg,
-                                   uint64_t time_usec,uint8_t frame_id,uint8_t child_frame_id,float x,float y,float z,const float *q,float vx,float vy,float vz,float rollspeed,float pitchspeed,float yawspeed,const float *pose_covariance,const float *velocity_covariance,uint8_t reset_counter,uint8_t estimator_type)
+                                   uint64_t time_usec,Uint8_t frame_id,Uint8_t child_frame_id,float x,float y,float z,const float *q,float vx,float vy,float vz,float rollspeed,float pitchspeed,float yawspeed,const float *pose_covariance,const float *velocity_covariance,Uint8_t reset_counter,Uint8_t estimator_type)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_ODOMETRY_LEN];
@@ -242,7 +242,7 @@ static inline uint16_t mavlink_msg_odometry_pack_chan(uint8_t system_id, uint8_t
  * @param msg The MAVLink message to compress the data into
  * @param odometry C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_odometry_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_odometry_t* odometry)
+static inline uint16_t mavlink_msg_odometry_encode(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg, const mavlink_odometry_t* odometry)
 {
     return mavlink_msg_odometry_pack(system_id, component_id, msg, odometry->time_usec, odometry->frame_id, odometry->child_frame_id, odometry->x, odometry->y, odometry->z, odometry->q, odometry->vx, odometry->vy, odometry->vz, odometry->rollspeed, odometry->pitchspeed, odometry->yawspeed, odometry->pose_covariance, odometry->velocity_covariance, odometry->reset_counter, odometry->estimator_type);
 }
@@ -256,7 +256,7 @@ static inline uint16_t mavlink_msg_odometry_encode(uint8_t system_id, uint8_t co
  * @param msg The MAVLink message to compress the data into
  * @param odometry C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_odometry_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_odometry_t* odometry)
+static inline uint16_t mavlink_msg_odometry_encode_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan, mavlink_message_t* msg, const mavlink_odometry_t* odometry)
 {
     return mavlink_msg_odometry_pack_chan(system_id, component_id, chan, msg, odometry->time_usec, odometry->frame_id, odometry->child_frame_id, odometry->x, odometry->y, odometry->z, odometry->q, odometry->vx, odometry->vy, odometry->vz, odometry->rollspeed, odometry->pitchspeed, odometry->yawspeed, odometry->pose_covariance, odometry->velocity_covariance, odometry->reset_counter, odometry->estimator_type);
 }
@@ -285,7 +285,7 @@ static inline uint16_t mavlink_msg_odometry_encode_chan(uint8_t system_id, uint8
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_odometry_send(mavlink_channel_t chan, uint64_t time_usec, uint8_t frame_id, uint8_t child_frame_id, float x, float y, float z, const float *q, float vx, float vy, float vz, float rollspeed, float pitchspeed, float yawspeed, const float *pose_covariance, const float *velocity_covariance, uint8_t reset_counter, uint8_t estimator_type)
+static inline void mavlink_msg_odometry_send(mavlink_channel_t chan, uint64_t time_usec, Uint8_t frame_id, Uint8_t child_frame_id, float x, float y, float z, const float *q, float vx, float vy, float vz, float rollspeed, float pitchspeed, float yawspeed, const float *pose_covariance, const float *velocity_covariance, Uint8_t reset_counter, Uint8_t estimator_type)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_ODOMETRY_LEN];
@@ -352,7 +352,7 @@ static inline void mavlink_msg_odometry_send_struct(mavlink_channel_t chan, cons
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_odometry_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint64_t time_usec, uint8_t frame_id, uint8_t child_frame_id, float x, float y, float z, const float *q, float vx, float vy, float vz, float rollspeed, float pitchspeed, float yawspeed, const float *pose_covariance, const float *velocity_covariance, uint8_t reset_counter, uint8_t estimator_type)
+static inline void mavlink_msg_odometry_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint64_t time_usec, Uint8_t frame_id, Uint8_t child_frame_id, float x, float y, float z, const float *q, float vx, float vy, float vz, float rollspeed, float pitchspeed, float yawspeed, const float *pose_covariance, const float *velocity_covariance, Uint8_t reset_counter, Uint8_t estimator_type)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char *buf = (char *)msgbuf;
@@ -418,7 +418,7 @@ static inline uint64_t mavlink_msg_odometry_get_time_usec(const mavlink_message_
  *
  * @return  Coordinate frame of reference for the pose data.
  */
-static inline uint8_t mavlink_msg_odometry_get_frame_id(const mavlink_message_t* msg)
+static inline Uint8_t mavlink_msg_odometry_get_frame_id(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  228);
 }
@@ -428,7 +428,7 @@ static inline uint8_t mavlink_msg_odometry_get_frame_id(const mavlink_message_t*
  *
  * @return  Coordinate frame of reference for the velocity in free space (twist) data.
  */
-static inline uint8_t mavlink_msg_odometry_get_child_frame_id(const mavlink_message_t* msg)
+static inline Uint8_t mavlink_msg_odometry_get_child_frame_id(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  229);
 }
@@ -558,7 +558,7 @@ static inline uint16_t mavlink_msg_odometry_get_velocity_covariance(const mavlin
  *
  * @return  Estimate reset counter. This should be incremented when the estimate resets in any of the dimensions (position, velocity, attitude, angular speed). This is designed to be used when e.g an external SLAM system detects a loop-closure and the estimate jumps.
  */
-static inline uint8_t mavlink_msg_odometry_get_reset_counter(const mavlink_message_t* msg)
+static inline Uint8_t mavlink_msg_odometry_get_reset_counter(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  230);
 }
@@ -568,7 +568,7 @@ static inline uint8_t mavlink_msg_odometry_get_reset_counter(const mavlink_messa
  *
  * @return  Type of estimator that is providing the odometry.
  */
-static inline uint8_t mavlink_msg_odometry_get_estimator_type(const mavlink_message_t* msg)
+static inline Uint8_t mavlink_msg_odometry_get_estimator_type(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  231);
 }
@@ -600,7 +600,7 @@ static inline void mavlink_msg_odometry_decode(const mavlink_message_t* msg, mav
     odometry->reset_counter = mavlink_msg_odometry_get_reset_counter(msg);
     odometry->estimator_type = mavlink_msg_odometry_get_estimator_type(msg);
 #else
-        uint8_t len = msg->len < MAVLINK_MSG_ID_ODOMETRY_LEN? msg->len : MAVLINK_MSG_ID_ODOMETRY_LEN;
+        Uint8_t len = msg->len < MAVLINK_MSG_ID_ODOMETRY_LEN? msg->len : MAVLINK_MSG_ID_ODOMETRY_LEN;
         memset(odometry, 0, MAVLINK_MSG_ID_ODOMETRY_LEN);
     memcpy(odometry, _MAV_PAYLOAD(msg), len);
 #endif

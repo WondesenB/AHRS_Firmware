@@ -44,7 +44,7 @@ typedef struct __mavlink_mission_current_t {
  * @param seq  Sequence
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_mission_current_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_mission_current_pack(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg,
                                uint16_t seq)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -72,7 +72,7 @@ static inline uint16_t mavlink_msg_mission_current_pack(uint8_t system_id, uint8
  * @param seq  Sequence
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_mission_current_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_mission_current_pack_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan,
                                mavlink_message_t* msg,
                                    uint16_t seq)
 {
@@ -100,7 +100,7 @@ static inline uint16_t mavlink_msg_mission_current_pack_chan(uint8_t system_id, 
  * @param msg The MAVLink message to compress the data into
  * @param mission_current C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_mission_current_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_mission_current_t* mission_current)
+static inline uint16_t mavlink_msg_mission_current_encode(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg, const mavlink_mission_current_t* mission_current)
 {
     return mavlink_msg_mission_current_pack(system_id, component_id, msg, mission_current->seq);
 }
@@ -114,7 +114,7 @@ static inline uint16_t mavlink_msg_mission_current_encode(uint8_t system_id, uin
  * @param msg The MAVLink message to compress the data into
  * @param mission_current C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_mission_current_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_mission_current_t* mission_current)
+static inline uint16_t mavlink_msg_mission_current_encode_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan, mavlink_message_t* msg, const mavlink_mission_current_t* mission_current)
 {
     return mavlink_msg_mission_current_pack_chan(system_id, component_id, chan, msg, mission_current->seq);
 }
@@ -206,7 +206,7 @@ static inline void mavlink_msg_mission_current_decode(const mavlink_message_t* m
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     mission_current->seq = mavlink_msg_mission_current_get_seq(msg);
 #else
-        uint8_t len = msg->len < MAVLINK_MSG_ID_MISSION_CURRENT_LEN? msg->len : MAVLINK_MSG_ID_MISSION_CURRENT_LEN;
+        Uint8_t len = msg->len < MAVLINK_MSG_ID_MISSION_CURRENT_LEN? msg->len : MAVLINK_MSG_ID_MISSION_CURRENT_LEN;
         memset(mission_current, 0, MAVLINK_MSG_ID_MISSION_CURRENT_LEN);
     memcpy(mission_current, _MAV_PAYLOAD(msg), len);
 #endif

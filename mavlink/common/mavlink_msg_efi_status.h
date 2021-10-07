@@ -21,7 +21,7 @@ typedef struct __mavlink_efi_status_t {
  float exhaust_gas_temperature; /*< [degC] Exhaust gas temperature*/
  float throttle_out; /*< [%] Output throttle*/
  float pt_compensation; /*<  Pressure/temperature compensation*/
- uint8_t health; /*<  EFI health status*/
+ Uint8_t health; /*<  EFI health status*/
 } mavlink_efi_status_t;
 
 #define MAVLINK_MSG_ID_EFI_STATUS_LEN 65
@@ -108,8 +108,8 @@ typedef struct __mavlink_efi_status_t {
  * @param pt_compensation  Pressure/temperature compensation
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_efi_status_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
-                               uint8_t health, float ecu_index, float rpm, float fuel_consumed, float fuel_flow, float engine_load, float throttle_position, float spark_dwell_time, float barometric_pressure, float intake_manifold_pressure, float intake_manifold_temperature, float cylinder_head_temperature, float ignition_timing, float injection_time, float exhaust_gas_temperature, float throttle_out, float pt_compensation)
+static inline uint16_t mavlink_msg_efi_status_pack(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg,
+                               Uint8_t health, float ecu_index, float rpm, float fuel_consumed, float fuel_flow, float engine_load, float throttle_position, float spark_dwell_time, float barometric_pressure, float intake_manifold_pressure, float intake_manifold_temperature, float cylinder_head_temperature, float ignition_timing, float injection_time, float exhaust_gas_temperature, float throttle_out, float pt_compensation)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_EFI_STATUS_LEN];
@@ -184,9 +184,9 @@ static inline uint16_t mavlink_msg_efi_status_pack(uint8_t system_id, uint8_t co
  * @param pt_compensation  Pressure/temperature compensation
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_efi_status_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_efi_status_pack_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan,
                                mavlink_message_t* msg,
-                                   uint8_t health,float ecu_index,float rpm,float fuel_consumed,float fuel_flow,float engine_load,float throttle_position,float spark_dwell_time,float barometric_pressure,float intake_manifold_pressure,float intake_manifold_temperature,float cylinder_head_temperature,float ignition_timing,float injection_time,float exhaust_gas_temperature,float throttle_out,float pt_compensation)
+                                   Uint8_t health,float ecu_index,float rpm,float fuel_consumed,float fuel_flow,float engine_load,float throttle_position,float spark_dwell_time,float barometric_pressure,float intake_manifold_pressure,float intake_manifold_temperature,float cylinder_head_temperature,float ignition_timing,float injection_time,float exhaust_gas_temperature,float throttle_out,float pt_compensation)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_EFI_STATUS_LEN];
@@ -244,7 +244,7 @@ static inline uint16_t mavlink_msg_efi_status_pack_chan(uint8_t system_id, uint8
  * @param msg The MAVLink message to compress the data into
  * @param efi_status C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_efi_status_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_efi_status_t* efi_status)
+static inline uint16_t mavlink_msg_efi_status_encode(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg, const mavlink_efi_status_t* efi_status)
 {
     return mavlink_msg_efi_status_pack(system_id, component_id, msg, efi_status->health, efi_status->ecu_index, efi_status->rpm, efi_status->fuel_consumed, efi_status->fuel_flow, efi_status->engine_load, efi_status->throttle_position, efi_status->spark_dwell_time, efi_status->barometric_pressure, efi_status->intake_manifold_pressure, efi_status->intake_manifold_temperature, efi_status->cylinder_head_temperature, efi_status->ignition_timing, efi_status->injection_time, efi_status->exhaust_gas_temperature, efi_status->throttle_out, efi_status->pt_compensation);
 }
@@ -258,7 +258,7 @@ static inline uint16_t mavlink_msg_efi_status_encode(uint8_t system_id, uint8_t 
  * @param msg The MAVLink message to compress the data into
  * @param efi_status C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_efi_status_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_efi_status_t* efi_status)
+static inline uint16_t mavlink_msg_efi_status_encode_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan, mavlink_message_t* msg, const mavlink_efi_status_t* efi_status)
 {
     return mavlink_msg_efi_status_pack_chan(system_id, component_id, chan, msg, efi_status->health, efi_status->ecu_index, efi_status->rpm, efi_status->fuel_consumed, efi_status->fuel_flow, efi_status->engine_load, efi_status->throttle_position, efi_status->spark_dwell_time, efi_status->barometric_pressure, efi_status->intake_manifold_pressure, efi_status->intake_manifold_temperature, efi_status->cylinder_head_temperature, efi_status->ignition_timing, efi_status->injection_time, efi_status->exhaust_gas_temperature, efi_status->throttle_out, efi_status->pt_compensation);
 }
@@ -287,7 +287,7 @@ static inline uint16_t mavlink_msg_efi_status_encode_chan(uint8_t system_id, uin
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_efi_status_send(mavlink_channel_t chan, uint8_t health, float ecu_index, float rpm, float fuel_consumed, float fuel_flow, float engine_load, float throttle_position, float spark_dwell_time, float barometric_pressure, float intake_manifold_pressure, float intake_manifold_temperature, float cylinder_head_temperature, float ignition_timing, float injection_time, float exhaust_gas_temperature, float throttle_out, float pt_compensation)
+static inline void mavlink_msg_efi_status_send(mavlink_channel_t chan, Uint8_t health, float ecu_index, float rpm, float fuel_consumed, float fuel_flow, float engine_load, float throttle_position, float spark_dwell_time, float barometric_pressure, float intake_manifold_pressure, float intake_manifold_temperature, float cylinder_head_temperature, float ignition_timing, float injection_time, float exhaust_gas_temperature, float throttle_out, float pt_compensation)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_EFI_STATUS_LEN];
@@ -356,7 +356,7 @@ static inline void mavlink_msg_efi_status_send_struct(mavlink_channel_t chan, co
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_efi_status_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint8_t health, float ecu_index, float rpm, float fuel_consumed, float fuel_flow, float engine_load, float throttle_position, float spark_dwell_time, float barometric_pressure, float intake_manifold_pressure, float intake_manifold_temperature, float cylinder_head_temperature, float ignition_timing, float injection_time, float exhaust_gas_temperature, float throttle_out, float pt_compensation)
+static inline void mavlink_msg_efi_status_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  Uint8_t health, float ecu_index, float rpm, float fuel_consumed, float fuel_flow, float engine_load, float throttle_position, float spark_dwell_time, float barometric_pressure, float intake_manifold_pressure, float intake_manifold_temperature, float cylinder_head_temperature, float ignition_timing, float injection_time, float exhaust_gas_temperature, float throttle_out, float pt_compensation)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char *buf = (char *)msgbuf;
@@ -414,7 +414,7 @@ static inline void mavlink_msg_efi_status_send_buf(mavlink_message_t *msgbuf, ma
  *
  * @return  EFI health status
  */
-static inline uint8_t mavlink_msg_efi_status_get_health(const mavlink_message_t* msg)
+static inline Uint8_t mavlink_msg_efi_status_get_health(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  64);
 }
@@ -606,7 +606,7 @@ static inline void mavlink_msg_efi_status_decode(const mavlink_message_t* msg, m
     efi_status->pt_compensation = mavlink_msg_efi_status_get_pt_compensation(msg);
     efi_status->health = mavlink_msg_efi_status_get_health(msg);
 #else
-        uint8_t len = msg->len < MAVLINK_MSG_ID_EFI_STATUS_LEN? msg->len : MAVLINK_MSG_ID_EFI_STATUS_LEN;
+        Uint8_t len = msg->len < MAVLINK_MSG_ID_EFI_STATUS_LEN? msg->len : MAVLINK_MSG_ID_EFI_STATUS_LEN;
         memset(efi_status, 0, MAVLINK_MSG_ID_EFI_STATUS_LEN);
     memcpy(efi_status, _MAV_PAYLOAD(msg), len);
 #endif

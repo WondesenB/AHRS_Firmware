@@ -9,11 +9,11 @@ typedef struct __mavlink_uavcan_node_info_t {
  uint32_t uptime_sec; /*< [s] Time since the start-up of the node.*/
  uint32_t sw_vcs_commit; /*<  Version control system (VCS) revision identifier (e.g. git short commit hash). 0 if unknown.*/
  char name[80]; /*<  Node name string. For example, "sapog.px4.io".*/
- uint8_t hw_version_major; /*<  Hardware major version number.*/
- uint8_t hw_version_minor; /*<  Hardware minor version number.*/
- uint8_t hw_unique_id[16]; /*<  Hardware unique 128-bit ID.*/
- uint8_t sw_version_major; /*<  Software major version number.*/
- uint8_t sw_version_minor; /*<  Software minor version number.*/
+ Uint8_t hw_version_major; /*<  Hardware major version number.*/
+ Uint8_t hw_version_minor; /*<  Hardware minor version number.*/
+ Uint8_t hw_unique_id[16]; /*<  Hardware unique 128-bit ID.*/
+ Uint8_t sw_version_major; /*<  Software major version number.*/
+ Uint8_t sw_version_minor; /*<  Software minor version number.*/
 } mavlink_uavcan_node_info_t;
 
 #define MAVLINK_MSG_ID_UAVCAN_NODE_INFO_LEN 116
@@ -77,8 +77,8 @@ typedef struct __mavlink_uavcan_node_info_t {
  * @param sw_vcs_commit  Version control system (VCS) revision identifier (e.g. git short commit hash). 0 if unknown.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_uavcan_node_info_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
-                               uint64_t time_usec, uint32_t uptime_sec, const char *name, uint8_t hw_version_major, uint8_t hw_version_minor, const uint8_t *hw_unique_id, uint8_t sw_version_major, uint8_t sw_version_minor, uint32_t sw_vcs_commit)
+static inline uint16_t mavlink_msg_uavcan_node_info_pack(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg,
+                               uint64_t time_usec, uint32_t uptime_sec, const char *name, Uint8_t hw_version_major, Uint8_t hw_version_minor, const Uint8_t *hw_unique_id, Uint8_t sw_version_major, Uint8_t sw_version_minor, uint32_t sw_vcs_commit)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_UAVCAN_NODE_INFO_LEN];
@@ -102,7 +102,7 @@ static inline uint16_t mavlink_msg_uavcan_node_info_pack(uint8_t system_id, uint
     packet.sw_version_major = sw_version_major;
     packet.sw_version_minor = sw_version_minor;
     mav_array_memcpy(packet.name, name, sizeof(char)*80);
-    mav_array_memcpy(packet.hw_unique_id, hw_unique_id, sizeof(uint8_t)*16);
+    mav_array_memcpy(packet.hw_unique_id, hw_unique_id, sizeof(Uint8_t)*16);
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_UAVCAN_NODE_INFO_LEN);
 #endif
 
@@ -127,9 +127,9 @@ static inline uint16_t mavlink_msg_uavcan_node_info_pack(uint8_t system_id, uint
  * @param sw_vcs_commit  Version control system (VCS) revision identifier (e.g. git short commit hash). 0 if unknown.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_uavcan_node_info_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_uavcan_node_info_pack_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan,
                                mavlink_message_t* msg,
-                                   uint64_t time_usec,uint32_t uptime_sec,const char *name,uint8_t hw_version_major,uint8_t hw_version_minor,const uint8_t *hw_unique_id,uint8_t sw_version_major,uint8_t sw_version_minor,uint32_t sw_vcs_commit)
+                                   uint64_t time_usec,uint32_t uptime_sec,const char *name,Uint8_t hw_version_major,Uint8_t hw_version_minor,const Uint8_t *hw_unique_id,Uint8_t sw_version_major,Uint8_t sw_version_minor,uint32_t sw_vcs_commit)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_UAVCAN_NODE_INFO_LEN];
@@ -153,7 +153,7 @@ static inline uint16_t mavlink_msg_uavcan_node_info_pack_chan(uint8_t system_id,
     packet.sw_version_major = sw_version_major;
     packet.sw_version_minor = sw_version_minor;
     mav_array_memcpy(packet.name, name, sizeof(char)*80);
-    mav_array_memcpy(packet.hw_unique_id, hw_unique_id, sizeof(uint8_t)*16);
+    mav_array_memcpy(packet.hw_unique_id, hw_unique_id, sizeof(Uint8_t)*16);
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_UAVCAN_NODE_INFO_LEN);
 #endif
 
@@ -169,7 +169,7 @@ static inline uint16_t mavlink_msg_uavcan_node_info_pack_chan(uint8_t system_id,
  * @param msg The MAVLink message to compress the data into
  * @param uavcan_node_info C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_uavcan_node_info_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_uavcan_node_info_t* uavcan_node_info)
+static inline uint16_t mavlink_msg_uavcan_node_info_encode(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg, const mavlink_uavcan_node_info_t* uavcan_node_info)
 {
     return mavlink_msg_uavcan_node_info_pack(system_id, component_id, msg, uavcan_node_info->time_usec, uavcan_node_info->uptime_sec, uavcan_node_info->name, uavcan_node_info->hw_version_major, uavcan_node_info->hw_version_minor, uavcan_node_info->hw_unique_id, uavcan_node_info->sw_version_major, uavcan_node_info->sw_version_minor, uavcan_node_info->sw_vcs_commit);
 }
@@ -183,7 +183,7 @@ static inline uint16_t mavlink_msg_uavcan_node_info_encode(uint8_t system_id, ui
  * @param msg The MAVLink message to compress the data into
  * @param uavcan_node_info C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_uavcan_node_info_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_uavcan_node_info_t* uavcan_node_info)
+static inline uint16_t mavlink_msg_uavcan_node_info_encode_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan, mavlink_message_t* msg, const mavlink_uavcan_node_info_t* uavcan_node_info)
 {
     return mavlink_msg_uavcan_node_info_pack_chan(system_id, component_id, chan, msg, uavcan_node_info->time_usec, uavcan_node_info->uptime_sec, uavcan_node_info->name, uavcan_node_info->hw_version_major, uavcan_node_info->hw_version_minor, uavcan_node_info->hw_unique_id, uavcan_node_info->sw_version_major, uavcan_node_info->sw_version_minor, uavcan_node_info->sw_vcs_commit);
 }
@@ -204,7 +204,7 @@ static inline uint16_t mavlink_msg_uavcan_node_info_encode_chan(uint8_t system_i
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_uavcan_node_info_send(mavlink_channel_t chan, uint64_t time_usec, uint32_t uptime_sec, const char *name, uint8_t hw_version_major, uint8_t hw_version_minor, const uint8_t *hw_unique_id, uint8_t sw_version_major, uint8_t sw_version_minor, uint32_t sw_vcs_commit)
+static inline void mavlink_msg_uavcan_node_info_send(mavlink_channel_t chan, uint64_t time_usec, uint32_t uptime_sec, const char *name, Uint8_t hw_version_major, Uint8_t hw_version_minor, const Uint8_t *hw_unique_id, Uint8_t sw_version_major, Uint8_t sw_version_minor, uint32_t sw_vcs_commit)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_UAVCAN_NODE_INFO_LEN];
@@ -228,7 +228,7 @@ static inline void mavlink_msg_uavcan_node_info_send(mavlink_channel_t chan, uin
     packet.sw_version_major = sw_version_major;
     packet.sw_version_minor = sw_version_minor;
     mav_array_memcpy(packet.name, name, sizeof(char)*80);
-    mav_array_memcpy(packet.hw_unique_id, hw_unique_id, sizeof(uint8_t)*16);
+    mav_array_memcpy(packet.hw_unique_id, hw_unique_id, sizeof(Uint8_t)*16);
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_UAVCAN_NODE_INFO, (const char *)&packet, MAVLINK_MSG_ID_UAVCAN_NODE_INFO_MIN_LEN, MAVLINK_MSG_ID_UAVCAN_NODE_INFO_LEN, MAVLINK_MSG_ID_UAVCAN_NODE_INFO_CRC);
 #endif
 }
@@ -255,7 +255,7 @@ static inline void mavlink_msg_uavcan_node_info_send_struct(mavlink_channel_t ch
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_uavcan_node_info_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint64_t time_usec, uint32_t uptime_sec, const char *name, uint8_t hw_version_major, uint8_t hw_version_minor, const uint8_t *hw_unique_id, uint8_t sw_version_major, uint8_t sw_version_minor, uint32_t sw_vcs_commit)
+static inline void mavlink_msg_uavcan_node_info_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint64_t time_usec, uint32_t uptime_sec, const char *name, Uint8_t hw_version_major, Uint8_t hw_version_minor, const Uint8_t *hw_unique_id, Uint8_t sw_version_major, Uint8_t sw_version_minor, uint32_t sw_vcs_commit)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char *buf = (char *)msgbuf;
@@ -279,7 +279,7 @@ static inline void mavlink_msg_uavcan_node_info_send_buf(mavlink_message_t *msgb
     packet->sw_version_major = sw_version_major;
     packet->sw_version_minor = sw_version_minor;
     mav_array_memcpy(packet->name, name, sizeof(char)*80);
-    mav_array_memcpy(packet->hw_unique_id, hw_unique_id, sizeof(uint8_t)*16);
+    mav_array_memcpy(packet->hw_unique_id, hw_unique_id, sizeof(Uint8_t)*16);
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_UAVCAN_NODE_INFO, (const char *)packet, MAVLINK_MSG_ID_UAVCAN_NODE_INFO_MIN_LEN, MAVLINK_MSG_ID_UAVCAN_NODE_INFO_LEN, MAVLINK_MSG_ID_UAVCAN_NODE_INFO_CRC);
 #endif
 }
@@ -325,7 +325,7 @@ static inline uint16_t mavlink_msg_uavcan_node_info_get_name(const mavlink_messa
  *
  * @return  Hardware major version number.
  */
-static inline uint8_t mavlink_msg_uavcan_node_info_get_hw_version_major(const mavlink_message_t* msg)
+static inline Uint8_t mavlink_msg_uavcan_node_info_get_hw_version_major(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  96);
 }
@@ -335,7 +335,7 @@ static inline uint8_t mavlink_msg_uavcan_node_info_get_hw_version_major(const ma
  *
  * @return  Hardware minor version number.
  */
-static inline uint8_t mavlink_msg_uavcan_node_info_get_hw_version_minor(const mavlink_message_t* msg)
+static inline Uint8_t mavlink_msg_uavcan_node_info_get_hw_version_minor(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  97);
 }
@@ -345,7 +345,7 @@ static inline uint8_t mavlink_msg_uavcan_node_info_get_hw_version_minor(const ma
  *
  * @return  Hardware unique 128-bit ID.
  */
-static inline uint16_t mavlink_msg_uavcan_node_info_get_hw_unique_id(const mavlink_message_t* msg, uint8_t *hw_unique_id)
+static inline uint16_t mavlink_msg_uavcan_node_info_get_hw_unique_id(const mavlink_message_t* msg, Uint8_t *hw_unique_id)
 {
     return _MAV_RETURN_uint8_t_array(msg, hw_unique_id, 16,  98);
 }
@@ -355,7 +355,7 @@ static inline uint16_t mavlink_msg_uavcan_node_info_get_hw_unique_id(const mavli
  *
  * @return  Software major version number.
  */
-static inline uint8_t mavlink_msg_uavcan_node_info_get_sw_version_major(const mavlink_message_t* msg)
+static inline Uint8_t mavlink_msg_uavcan_node_info_get_sw_version_major(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  114);
 }
@@ -365,7 +365,7 @@ static inline uint8_t mavlink_msg_uavcan_node_info_get_sw_version_major(const ma
  *
  * @return  Software minor version number.
  */
-static inline uint8_t mavlink_msg_uavcan_node_info_get_sw_version_minor(const mavlink_message_t* msg)
+static inline Uint8_t mavlink_msg_uavcan_node_info_get_sw_version_minor(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  115);
 }
@@ -399,7 +399,7 @@ static inline void mavlink_msg_uavcan_node_info_decode(const mavlink_message_t* 
     uavcan_node_info->sw_version_major = mavlink_msg_uavcan_node_info_get_sw_version_major(msg);
     uavcan_node_info->sw_version_minor = mavlink_msg_uavcan_node_info_get_sw_version_minor(msg);
 #else
-        uint8_t len = msg->len < MAVLINK_MSG_ID_UAVCAN_NODE_INFO_LEN? msg->len : MAVLINK_MSG_ID_UAVCAN_NODE_INFO_LEN;
+        Uint8_t len = msg->len < MAVLINK_MSG_ID_UAVCAN_NODE_INFO_LEN? msg->len : MAVLINK_MSG_ID_UAVCAN_NODE_INFO_LEN;
         memset(uavcan_node_info, 0, MAVLINK_MSG_ID_UAVCAN_NODE_INFO_LEN);
     memcpy(uavcan_node_info, _MAV_PAYLOAD(msg), len);
 #endif

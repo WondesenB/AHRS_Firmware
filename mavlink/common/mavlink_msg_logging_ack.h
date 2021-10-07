@@ -6,8 +6,8 @@
 
 typedef struct __mavlink_logging_ack_t {
  uint16_t sequence; /*<  sequence number (must match the one in LOGGING_DATA_ACKED)*/
- uint8_t target_system; /*<  system ID of the target*/
- uint8_t target_component; /*<  component ID of the target*/
+ Uint8_t target_system; /*<  system ID of the target*/
+ Uint8_t target_component; /*<  component ID of the target*/
 } mavlink_logging_ack_t;
 
 #define MAVLINK_MSG_ID_LOGGING_ACK_LEN 4
@@ -52,8 +52,8 @@ typedef struct __mavlink_logging_ack_t {
  * @param sequence  sequence number (must match the one in LOGGING_DATA_ACKED)
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_logging_ack_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
-                               uint8_t target_system, uint8_t target_component, uint16_t sequence)
+static inline uint16_t mavlink_msg_logging_ack_pack(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg,
+                               Uint8_t target_system, Uint8_t target_component, uint16_t sequence)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_LOGGING_ACK_LEN];
@@ -86,9 +86,9 @@ static inline uint16_t mavlink_msg_logging_ack_pack(uint8_t system_id, uint8_t c
  * @param sequence  sequence number (must match the one in LOGGING_DATA_ACKED)
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_logging_ack_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_logging_ack_pack_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan,
                                mavlink_message_t* msg,
-                                   uint8_t target_system,uint8_t target_component,uint16_t sequence)
+                                   Uint8_t target_system,Uint8_t target_component,uint16_t sequence)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_LOGGING_ACK_LEN];
@@ -118,7 +118,7 @@ static inline uint16_t mavlink_msg_logging_ack_pack_chan(uint8_t system_id, uint
  * @param msg The MAVLink message to compress the data into
  * @param logging_ack C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_logging_ack_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_logging_ack_t* logging_ack)
+static inline uint16_t mavlink_msg_logging_ack_encode(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg, const mavlink_logging_ack_t* logging_ack)
 {
     return mavlink_msg_logging_ack_pack(system_id, component_id, msg, logging_ack->target_system, logging_ack->target_component, logging_ack->sequence);
 }
@@ -132,7 +132,7 @@ static inline uint16_t mavlink_msg_logging_ack_encode(uint8_t system_id, uint8_t
  * @param msg The MAVLink message to compress the data into
  * @param logging_ack C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_logging_ack_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_logging_ack_t* logging_ack)
+static inline uint16_t mavlink_msg_logging_ack_encode_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan, mavlink_message_t* msg, const mavlink_logging_ack_t* logging_ack)
 {
     return mavlink_msg_logging_ack_pack_chan(system_id, component_id, chan, msg, logging_ack->target_system, logging_ack->target_component, logging_ack->sequence);
 }
@@ -147,7 +147,7 @@ static inline uint16_t mavlink_msg_logging_ack_encode_chan(uint8_t system_id, ui
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_logging_ack_send(mavlink_channel_t chan, uint8_t target_system, uint8_t target_component, uint16_t sequence)
+static inline void mavlink_msg_logging_ack_send(mavlink_channel_t chan, Uint8_t target_system, Uint8_t target_component, uint16_t sequence)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_LOGGING_ACK_LEN];
@@ -188,7 +188,7 @@ static inline void mavlink_msg_logging_ack_send_struct(mavlink_channel_t chan, c
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_logging_ack_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint8_t target_system, uint8_t target_component, uint16_t sequence)
+static inline void mavlink_msg_logging_ack_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  Uint8_t target_system, Uint8_t target_component, uint16_t sequence)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char *buf = (char *)msgbuf;
@@ -218,7 +218,7 @@ static inline void mavlink_msg_logging_ack_send_buf(mavlink_message_t *msgbuf, m
  *
  * @return  system ID of the target
  */
-static inline uint8_t mavlink_msg_logging_ack_get_target_system(const mavlink_message_t* msg)
+static inline Uint8_t mavlink_msg_logging_ack_get_target_system(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  2);
 }
@@ -228,7 +228,7 @@ static inline uint8_t mavlink_msg_logging_ack_get_target_system(const mavlink_me
  *
  * @return  component ID of the target
  */
-static inline uint8_t mavlink_msg_logging_ack_get_target_component(const mavlink_message_t* msg)
+static inline Uint8_t mavlink_msg_logging_ack_get_target_component(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  3);
 }
@@ -256,7 +256,7 @@ static inline void mavlink_msg_logging_ack_decode(const mavlink_message_t* msg, 
     logging_ack->target_system = mavlink_msg_logging_ack_get_target_system(msg);
     logging_ack->target_component = mavlink_msg_logging_ack_get_target_component(msg);
 #else
-        uint8_t len = msg->len < MAVLINK_MSG_ID_LOGGING_ACK_LEN? msg->len : MAVLINK_MSG_ID_LOGGING_ACK_LEN;
+        Uint8_t len = msg->len < MAVLINK_MSG_ID_LOGGING_ACK_LEN? msg->len : MAVLINK_MSG_ID_LOGGING_ACK_LEN;
         memset(logging_ack, 0, MAVLINK_MSG_ID_LOGGING_ACK_LEN);
     memcpy(logging_ack, _MAV_PAYLOAD(msg), len);
 #endif

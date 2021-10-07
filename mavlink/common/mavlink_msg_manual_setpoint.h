@@ -10,8 +10,8 @@ typedef struct __mavlink_manual_setpoint_t {
  float pitch; /*< [rad/s] Desired pitch rate*/
  float yaw; /*< [rad/s] Desired yaw rate*/
  float thrust; /*<  Collective thrust, normalized to 0 .. 1*/
- uint8_t mode_switch; /*<  Flight mode switch position, 0.. 255*/
- uint8_t manual_override_switch; /*<  Override mode switch position, 0.. 255*/
+ Uint8_t mode_switch; /*<  Flight mode switch position, 0.. 255*/
+ Uint8_t manual_override_switch; /*<  Override mode switch position, 0.. 255*/
 } mavlink_manual_setpoint_t;
 
 #define MAVLINK_MSG_ID_MANUAL_SETPOINT_LEN 22
@@ -68,8 +68,8 @@ typedef struct __mavlink_manual_setpoint_t {
  * @param manual_override_switch  Override mode switch position, 0.. 255
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_manual_setpoint_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
-                               uint32_t time_boot_ms, float roll, float pitch, float yaw, float thrust, uint8_t mode_switch, uint8_t manual_override_switch)
+static inline uint16_t mavlink_msg_manual_setpoint_pack(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg,
+                               uint32_t time_boot_ms, float roll, float pitch, float yaw, float thrust, Uint8_t mode_switch, Uint8_t manual_override_switch)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_MANUAL_SETPOINT_LEN];
@@ -114,9 +114,9 @@ static inline uint16_t mavlink_msg_manual_setpoint_pack(uint8_t system_id, uint8
  * @param manual_override_switch  Override mode switch position, 0.. 255
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_manual_setpoint_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_manual_setpoint_pack_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan,
                                mavlink_message_t* msg,
-                                   uint32_t time_boot_ms,float roll,float pitch,float yaw,float thrust,uint8_t mode_switch,uint8_t manual_override_switch)
+                                   uint32_t time_boot_ms,float roll,float pitch,float yaw,float thrust,Uint8_t mode_switch,Uint8_t manual_override_switch)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_MANUAL_SETPOINT_LEN];
@@ -154,7 +154,7 @@ static inline uint16_t mavlink_msg_manual_setpoint_pack_chan(uint8_t system_id, 
  * @param msg The MAVLink message to compress the data into
  * @param manual_setpoint C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_manual_setpoint_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_manual_setpoint_t* manual_setpoint)
+static inline uint16_t mavlink_msg_manual_setpoint_encode(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg, const mavlink_manual_setpoint_t* manual_setpoint)
 {
     return mavlink_msg_manual_setpoint_pack(system_id, component_id, msg, manual_setpoint->time_boot_ms, manual_setpoint->roll, manual_setpoint->pitch, manual_setpoint->yaw, manual_setpoint->thrust, manual_setpoint->mode_switch, manual_setpoint->manual_override_switch);
 }
@@ -168,7 +168,7 @@ static inline uint16_t mavlink_msg_manual_setpoint_encode(uint8_t system_id, uin
  * @param msg The MAVLink message to compress the data into
  * @param manual_setpoint C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_manual_setpoint_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_manual_setpoint_t* manual_setpoint)
+static inline uint16_t mavlink_msg_manual_setpoint_encode_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan, mavlink_message_t* msg, const mavlink_manual_setpoint_t* manual_setpoint)
 {
     return mavlink_msg_manual_setpoint_pack_chan(system_id, component_id, chan, msg, manual_setpoint->time_boot_ms, manual_setpoint->roll, manual_setpoint->pitch, manual_setpoint->yaw, manual_setpoint->thrust, manual_setpoint->mode_switch, manual_setpoint->manual_override_switch);
 }
@@ -187,7 +187,7 @@ static inline uint16_t mavlink_msg_manual_setpoint_encode_chan(uint8_t system_id
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_manual_setpoint_send(mavlink_channel_t chan, uint32_t time_boot_ms, float roll, float pitch, float yaw, float thrust, uint8_t mode_switch, uint8_t manual_override_switch)
+static inline void mavlink_msg_manual_setpoint_send(mavlink_channel_t chan, uint32_t time_boot_ms, float roll, float pitch, float yaw, float thrust, Uint8_t mode_switch, Uint8_t manual_override_switch)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_MANUAL_SETPOINT_LEN];
@@ -236,7 +236,7 @@ static inline void mavlink_msg_manual_setpoint_send_struct(mavlink_channel_t cha
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_manual_setpoint_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint32_t time_boot_ms, float roll, float pitch, float yaw, float thrust, uint8_t mode_switch, uint8_t manual_override_switch)
+static inline void mavlink_msg_manual_setpoint_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint32_t time_boot_ms, float roll, float pitch, float yaw, float thrust, Uint8_t mode_switch, Uint8_t manual_override_switch)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char *buf = (char *)msgbuf;
@@ -324,7 +324,7 @@ static inline float mavlink_msg_manual_setpoint_get_thrust(const mavlink_message
  *
  * @return  Flight mode switch position, 0.. 255
  */
-static inline uint8_t mavlink_msg_manual_setpoint_get_mode_switch(const mavlink_message_t* msg)
+static inline Uint8_t mavlink_msg_manual_setpoint_get_mode_switch(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  20);
 }
@@ -334,7 +334,7 @@ static inline uint8_t mavlink_msg_manual_setpoint_get_mode_switch(const mavlink_
  *
  * @return  Override mode switch position, 0.. 255
  */
-static inline uint8_t mavlink_msg_manual_setpoint_get_manual_override_switch(const mavlink_message_t* msg)
+static inline Uint8_t mavlink_msg_manual_setpoint_get_manual_override_switch(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  21);
 }
@@ -356,7 +356,7 @@ static inline void mavlink_msg_manual_setpoint_decode(const mavlink_message_t* m
     manual_setpoint->mode_switch = mavlink_msg_manual_setpoint_get_mode_switch(msg);
     manual_setpoint->manual_override_switch = mavlink_msg_manual_setpoint_get_manual_override_switch(msg);
 #else
-        uint8_t len = msg->len < MAVLINK_MSG_ID_MANUAL_SETPOINT_LEN? msg->len : MAVLINK_MSG_ID_MANUAL_SETPOINT_LEN;
+        Uint8_t len = msg->len < MAVLINK_MSG_ID_MANUAL_SETPOINT_LEN? msg->len : MAVLINK_MSG_ID_MANUAL_SETPOINT_LEN;
         memset(manual_setpoint, 0, MAVLINK_MSG_ID_MANUAL_SETPOINT_LEN);
     memcpy(manual_setpoint, _MAV_PAYLOAD(msg), len);
 #endif

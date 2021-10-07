@@ -48,7 +48,7 @@ typedef struct __mavlink_message_interval_t {
  * @param interval_us [us] The interval between two messages. A value of -1 indicates this stream is disabled, 0 indicates it is not available, > 0 indicates the interval at which it is sent.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_message_interval_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_message_interval_pack(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg,
                                uint16_t message_id, int32_t interval_us)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -79,7 +79,7 @@ static inline uint16_t mavlink_msg_message_interval_pack(uint8_t system_id, uint
  * @param interval_us [us] The interval between two messages. A value of -1 indicates this stream is disabled, 0 indicates it is not available, > 0 indicates the interval at which it is sent.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_message_interval_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_message_interval_pack_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan,
                                mavlink_message_t* msg,
                                    uint16_t message_id,int32_t interval_us)
 {
@@ -109,7 +109,7 @@ static inline uint16_t mavlink_msg_message_interval_pack_chan(uint8_t system_id,
  * @param msg The MAVLink message to compress the data into
  * @param message_interval C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_message_interval_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_message_interval_t* message_interval)
+static inline uint16_t mavlink_msg_message_interval_encode(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg, const mavlink_message_interval_t* message_interval)
 {
     return mavlink_msg_message_interval_pack(system_id, component_id, msg, message_interval->message_id, message_interval->interval_us);
 }
@@ -123,7 +123,7 @@ static inline uint16_t mavlink_msg_message_interval_encode(uint8_t system_id, ui
  * @param msg The MAVLink message to compress the data into
  * @param message_interval C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_message_interval_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_message_interval_t* message_interval)
+static inline uint16_t mavlink_msg_message_interval_encode_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan, mavlink_message_t* msg, const mavlink_message_interval_t* message_interval)
 {
     return mavlink_msg_message_interval_pack_chan(system_id, component_id, chan, msg, message_interval->message_id, message_interval->interval_us);
 }
@@ -231,7 +231,7 @@ static inline void mavlink_msg_message_interval_decode(const mavlink_message_t* 
     message_interval->interval_us = mavlink_msg_message_interval_get_interval_us(msg);
     message_interval->message_id = mavlink_msg_message_interval_get_message_id(msg);
 #else
-        uint8_t len = msg->len < MAVLINK_MSG_ID_MESSAGE_INTERVAL_LEN? msg->len : MAVLINK_MSG_ID_MESSAGE_INTERVAL_LEN;
+        Uint8_t len = msg->len < MAVLINK_MSG_ID_MESSAGE_INTERVAL_LEN? msg->len : MAVLINK_MSG_ID_MESSAGE_INTERVAL_LEN;
         memset(message_interval, 0, MAVLINK_MSG_ID_MESSAGE_INTERVAL_LEN);
     memcpy(message_interval, _MAV_PAYLOAD(msg), len);
 #endif

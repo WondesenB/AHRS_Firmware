@@ -7,11 +7,11 @@
 typedef struct __mavlink_gimbal_manager_status_t {
  uint32_t time_boot_ms; /*< [ms] Timestamp (time since system boot).*/
  uint32_t flags; /*<  High level gimbal manager flags currently applied.*/
- uint8_t gimbal_device_id; /*<  Gimbal device ID that this gimbal manager is responsible for.*/
- uint8_t primary_control_sysid; /*<  System ID of MAVLink component with primary control, 0 for none.*/
- uint8_t primary_control_compid; /*<  Component ID of MAVLink component with primary control, 0 for none.*/
- uint8_t secondary_control_sysid; /*<  System ID of MAVLink component with secondary control, 0 for none.*/
- uint8_t secondary_control_compid; /*<  Component ID of MAVLink component with secondary control, 0 for none.*/
+ Uint8_t gimbal_device_id; /*<  Gimbal device ID that this gimbal manager is responsible for.*/
+ Uint8_t primary_control_sysid; /*<  System ID of MAVLink component with primary control, 0 for none.*/
+ Uint8_t primary_control_compid; /*<  Component ID of MAVLink component with primary control, 0 for none.*/
+ Uint8_t secondary_control_sysid; /*<  System ID of MAVLink component with secondary control, 0 for none.*/
+ Uint8_t secondary_control_compid; /*<  Component ID of MAVLink component with secondary control, 0 for none.*/
 } mavlink_gimbal_manager_status_t;
 
 #define MAVLINK_MSG_ID_GIMBAL_MANAGER_STATUS_LEN 13
@@ -68,8 +68,8 @@ typedef struct __mavlink_gimbal_manager_status_t {
  * @param secondary_control_compid  Component ID of MAVLink component with secondary control, 0 for none.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_gimbal_manager_status_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
-                               uint32_t time_boot_ms, uint32_t flags, uint8_t gimbal_device_id, uint8_t primary_control_sysid, uint8_t primary_control_compid, uint8_t secondary_control_sysid, uint8_t secondary_control_compid)
+static inline uint16_t mavlink_msg_gimbal_manager_status_pack(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg,
+                               uint32_t time_boot_ms, uint32_t flags, Uint8_t gimbal_device_id, Uint8_t primary_control_sysid, Uint8_t primary_control_compid, Uint8_t secondary_control_sysid, Uint8_t secondary_control_compid)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_GIMBAL_MANAGER_STATUS_LEN];
@@ -114,9 +114,9 @@ static inline uint16_t mavlink_msg_gimbal_manager_status_pack(uint8_t system_id,
  * @param secondary_control_compid  Component ID of MAVLink component with secondary control, 0 for none.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_gimbal_manager_status_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_gimbal_manager_status_pack_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan,
                                mavlink_message_t* msg,
-                                   uint32_t time_boot_ms,uint32_t flags,uint8_t gimbal_device_id,uint8_t primary_control_sysid,uint8_t primary_control_compid,uint8_t secondary_control_sysid,uint8_t secondary_control_compid)
+                                   uint32_t time_boot_ms,uint32_t flags,Uint8_t gimbal_device_id,Uint8_t primary_control_sysid,Uint8_t primary_control_compid,Uint8_t secondary_control_sysid,Uint8_t secondary_control_compid)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_GIMBAL_MANAGER_STATUS_LEN];
@@ -154,7 +154,7 @@ static inline uint16_t mavlink_msg_gimbal_manager_status_pack_chan(uint8_t syste
  * @param msg The MAVLink message to compress the data into
  * @param gimbal_manager_status C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_gimbal_manager_status_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_gimbal_manager_status_t* gimbal_manager_status)
+static inline uint16_t mavlink_msg_gimbal_manager_status_encode(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg, const mavlink_gimbal_manager_status_t* gimbal_manager_status)
 {
     return mavlink_msg_gimbal_manager_status_pack(system_id, component_id, msg, gimbal_manager_status->time_boot_ms, gimbal_manager_status->flags, gimbal_manager_status->gimbal_device_id, gimbal_manager_status->primary_control_sysid, gimbal_manager_status->primary_control_compid, gimbal_manager_status->secondary_control_sysid, gimbal_manager_status->secondary_control_compid);
 }
@@ -168,7 +168,7 @@ static inline uint16_t mavlink_msg_gimbal_manager_status_encode(uint8_t system_i
  * @param msg The MAVLink message to compress the data into
  * @param gimbal_manager_status C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_gimbal_manager_status_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_gimbal_manager_status_t* gimbal_manager_status)
+static inline uint16_t mavlink_msg_gimbal_manager_status_encode_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan, mavlink_message_t* msg, const mavlink_gimbal_manager_status_t* gimbal_manager_status)
 {
     return mavlink_msg_gimbal_manager_status_pack_chan(system_id, component_id, chan, msg, gimbal_manager_status->time_boot_ms, gimbal_manager_status->flags, gimbal_manager_status->gimbal_device_id, gimbal_manager_status->primary_control_sysid, gimbal_manager_status->primary_control_compid, gimbal_manager_status->secondary_control_sysid, gimbal_manager_status->secondary_control_compid);
 }
@@ -187,7 +187,7 @@ static inline uint16_t mavlink_msg_gimbal_manager_status_encode_chan(uint8_t sys
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_gimbal_manager_status_send(mavlink_channel_t chan, uint32_t time_boot_ms, uint32_t flags, uint8_t gimbal_device_id, uint8_t primary_control_sysid, uint8_t primary_control_compid, uint8_t secondary_control_sysid, uint8_t secondary_control_compid)
+static inline void mavlink_msg_gimbal_manager_status_send(mavlink_channel_t chan, uint32_t time_boot_ms, uint32_t flags, Uint8_t gimbal_device_id, Uint8_t primary_control_sysid, Uint8_t primary_control_compid, Uint8_t secondary_control_sysid, Uint8_t secondary_control_compid)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_GIMBAL_MANAGER_STATUS_LEN];
@@ -236,7 +236,7 @@ static inline void mavlink_msg_gimbal_manager_status_send_struct(mavlink_channel
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_gimbal_manager_status_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint32_t time_boot_ms, uint32_t flags, uint8_t gimbal_device_id, uint8_t primary_control_sysid, uint8_t primary_control_compid, uint8_t secondary_control_sysid, uint8_t secondary_control_compid)
+static inline void mavlink_msg_gimbal_manager_status_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint32_t time_boot_ms, uint32_t flags, Uint8_t gimbal_device_id, Uint8_t primary_control_sysid, Uint8_t primary_control_compid, Uint8_t secondary_control_sysid, Uint8_t secondary_control_compid)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char *buf = (char *)msgbuf;
@@ -294,7 +294,7 @@ static inline uint32_t mavlink_msg_gimbal_manager_status_get_flags(const mavlink
  *
  * @return  Gimbal device ID that this gimbal manager is responsible for.
  */
-static inline uint8_t mavlink_msg_gimbal_manager_status_get_gimbal_device_id(const mavlink_message_t* msg)
+static inline Uint8_t mavlink_msg_gimbal_manager_status_get_gimbal_device_id(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  8);
 }
@@ -304,7 +304,7 @@ static inline uint8_t mavlink_msg_gimbal_manager_status_get_gimbal_device_id(con
  *
  * @return  System ID of MAVLink component with primary control, 0 for none.
  */
-static inline uint8_t mavlink_msg_gimbal_manager_status_get_primary_control_sysid(const mavlink_message_t* msg)
+static inline Uint8_t mavlink_msg_gimbal_manager_status_get_primary_control_sysid(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  9);
 }
@@ -314,7 +314,7 @@ static inline uint8_t mavlink_msg_gimbal_manager_status_get_primary_control_sysi
  *
  * @return  Component ID of MAVLink component with primary control, 0 for none.
  */
-static inline uint8_t mavlink_msg_gimbal_manager_status_get_primary_control_compid(const mavlink_message_t* msg)
+static inline Uint8_t mavlink_msg_gimbal_manager_status_get_primary_control_compid(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  10);
 }
@@ -324,7 +324,7 @@ static inline uint8_t mavlink_msg_gimbal_manager_status_get_primary_control_comp
  *
  * @return  System ID of MAVLink component with secondary control, 0 for none.
  */
-static inline uint8_t mavlink_msg_gimbal_manager_status_get_secondary_control_sysid(const mavlink_message_t* msg)
+static inline Uint8_t mavlink_msg_gimbal_manager_status_get_secondary_control_sysid(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  11);
 }
@@ -334,7 +334,7 @@ static inline uint8_t mavlink_msg_gimbal_manager_status_get_secondary_control_sy
  *
  * @return  Component ID of MAVLink component with secondary control, 0 for none.
  */
-static inline uint8_t mavlink_msg_gimbal_manager_status_get_secondary_control_compid(const mavlink_message_t* msg)
+static inline Uint8_t mavlink_msg_gimbal_manager_status_get_secondary_control_compid(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  12);
 }
@@ -356,7 +356,7 @@ static inline void mavlink_msg_gimbal_manager_status_decode(const mavlink_messag
     gimbal_manager_status->secondary_control_sysid = mavlink_msg_gimbal_manager_status_get_secondary_control_sysid(msg);
     gimbal_manager_status->secondary_control_compid = mavlink_msg_gimbal_manager_status_get_secondary_control_compid(msg);
 #else
-        uint8_t len = msg->len < MAVLINK_MSG_ID_GIMBAL_MANAGER_STATUS_LEN? msg->len : MAVLINK_MSG_ID_GIMBAL_MANAGER_STATUS_LEN;
+        Uint8_t len = msg->len < MAVLINK_MSG_ID_GIMBAL_MANAGER_STATUS_LEN? msg->len : MAVLINK_MSG_ID_GIMBAL_MANAGER_STATUS_LEN;
         memset(gimbal_manager_status, 0, MAVLINK_MSG_ID_GIMBAL_MANAGER_STATUS_LEN);
     memcpy(gimbal_manager_status, _MAV_PAYLOAD(msg), len);
 #endif

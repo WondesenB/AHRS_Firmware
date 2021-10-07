@@ -7,9 +7,9 @@
 typedef struct __mavlink_response_event_error_t {
  uint16_t sequence; /*<  Sequence number.*/
  uint16_t sequence_oldest_available; /*<  Oldest Sequence number that is still available after the sequence set in REQUEST_EVENT.*/
- uint8_t target_system; /*<  System ID*/
- uint8_t target_component; /*<  Component ID*/
- uint8_t reason; /*<  Error reason.*/
+ Uint8_t target_system; /*<  System ID*/
+ Uint8_t target_component; /*<  Component ID*/
+ Uint8_t reason; /*<  Error reason.*/
 } mavlink_response_event_error_t;
 
 #define MAVLINK_MSG_ID_RESPONSE_EVENT_ERROR_LEN 7
@@ -60,8 +60,8 @@ typedef struct __mavlink_response_event_error_t {
  * @param reason  Error reason.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_response_event_error_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
-                               uint8_t target_system, uint8_t target_component, uint16_t sequence, uint16_t sequence_oldest_available, uint8_t reason)
+static inline uint16_t mavlink_msg_response_event_error_pack(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg,
+                               Uint8_t target_system, Uint8_t target_component, uint16_t sequence, uint16_t sequence_oldest_available, Uint8_t reason)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_RESPONSE_EVENT_ERROR_LEN];
@@ -100,9 +100,9 @@ static inline uint16_t mavlink_msg_response_event_error_pack(uint8_t system_id, 
  * @param reason  Error reason.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_response_event_error_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_response_event_error_pack_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan,
                                mavlink_message_t* msg,
-                                   uint8_t target_system,uint8_t target_component,uint16_t sequence,uint16_t sequence_oldest_available,uint8_t reason)
+                                   Uint8_t target_system,Uint8_t target_component,uint16_t sequence,uint16_t sequence_oldest_available,Uint8_t reason)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_RESPONSE_EVENT_ERROR_LEN];
@@ -136,7 +136,7 @@ static inline uint16_t mavlink_msg_response_event_error_pack_chan(uint8_t system
  * @param msg The MAVLink message to compress the data into
  * @param response_event_error C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_response_event_error_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_response_event_error_t* response_event_error)
+static inline uint16_t mavlink_msg_response_event_error_encode(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg, const mavlink_response_event_error_t* response_event_error)
 {
     return mavlink_msg_response_event_error_pack(system_id, component_id, msg, response_event_error->target_system, response_event_error->target_component, response_event_error->sequence, response_event_error->sequence_oldest_available, response_event_error->reason);
 }
@@ -150,7 +150,7 @@ static inline uint16_t mavlink_msg_response_event_error_encode(uint8_t system_id
  * @param msg The MAVLink message to compress the data into
  * @param response_event_error C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_response_event_error_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_response_event_error_t* response_event_error)
+static inline uint16_t mavlink_msg_response_event_error_encode_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan, mavlink_message_t* msg, const mavlink_response_event_error_t* response_event_error)
 {
     return mavlink_msg_response_event_error_pack_chan(system_id, component_id, chan, msg, response_event_error->target_system, response_event_error->target_component, response_event_error->sequence, response_event_error->sequence_oldest_available, response_event_error->reason);
 }
@@ -167,7 +167,7 @@ static inline uint16_t mavlink_msg_response_event_error_encode_chan(uint8_t syst
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_response_event_error_send(mavlink_channel_t chan, uint8_t target_system, uint8_t target_component, uint16_t sequence, uint16_t sequence_oldest_available, uint8_t reason)
+static inline void mavlink_msg_response_event_error_send(mavlink_channel_t chan, Uint8_t target_system, Uint8_t target_component, uint16_t sequence, uint16_t sequence_oldest_available, Uint8_t reason)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_RESPONSE_EVENT_ERROR_LEN];
@@ -212,7 +212,7 @@ static inline void mavlink_msg_response_event_error_send_struct(mavlink_channel_
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_response_event_error_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint8_t target_system, uint8_t target_component, uint16_t sequence, uint16_t sequence_oldest_available, uint8_t reason)
+static inline void mavlink_msg_response_event_error_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  Uint8_t target_system, Uint8_t target_component, uint16_t sequence, uint16_t sequence_oldest_available, Uint8_t reason)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char *buf = (char *)msgbuf;
@@ -246,7 +246,7 @@ static inline void mavlink_msg_response_event_error_send_buf(mavlink_message_t *
  *
  * @return  System ID
  */
-static inline uint8_t mavlink_msg_response_event_error_get_target_system(const mavlink_message_t* msg)
+static inline Uint8_t mavlink_msg_response_event_error_get_target_system(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  4);
 }
@@ -256,7 +256,7 @@ static inline uint8_t mavlink_msg_response_event_error_get_target_system(const m
  *
  * @return  Component ID
  */
-static inline uint8_t mavlink_msg_response_event_error_get_target_component(const mavlink_message_t* msg)
+static inline Uint8_t mavlink_msg_response_event_error_get_target_component(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  5);
 }
@@ -286,7 +286,7 @@ static inline uint16_t mavlink_msg_response_event_error_get_sequence_oldest_avai
  *
  * @return  Error reason.
  */
-static inline uint8_t mavlink_msg_response_event_error_get_reason(const mavlink_message_t* msg)
+static inline Uint8_t mavlink_msg_response_event_error_get_reason(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  6);
 }
@@ -306,7 +306,7 @@ static inline void mavlink_msg_response_event_error_decode(const mavlink_message
     response_event_error->target_component = mavlink_msg_response_event_error_get_target_component(msg);
     response_event_error->reason = mavlink_msg_response_event_error_get_reason(msg);
 #else
-        uint8_t len = msg->len < MAVLINK_MSG_ID_RESPONSE_EVENT_ERROR_LEN? msg->len : MAVLINK_MSG_ID_RESPONSE_EVENT_ERROR_LEN;
+        Uint8_t len = msg->len < MAVLINK_MSG_ID_RESPONSE_EVENT_ERROR_LEN? msg->len : MAVLINK_MSG_ID_RESPONSE_EVENT_ERROR_LEN;
         memset(response_event_error, 0, MAVLINK_MSG_ID_RESPONSE_EVENT_ERROR_LEN);
     memcpy(response_event_error, _MAV_PAYLOAD(msg), len);
 #endif

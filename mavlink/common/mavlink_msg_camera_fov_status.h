@@ -80,7 +80,7 @@ typedef struct __mavlink_camera_fov_status_t {
  * @param vfov [deg] Vertical field of view (NaN if unknown).
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_camera_fov_status_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_camera_fov_status_pack(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg,
                                uint32_t time_boot_ms, int32_t lat_camera, int32_t lon_camera, int32_t alt_camera, int32_t lat_image, int32_t lon_image, int32_t alt_image, const float *q, float hfov, float vfov)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -133,7 +133,7 @@ static inline uint16_t mavlink_msg_camera_fov_status_pack(uint8_t system_id, uin
  * @param vfov [deg] Vertical field of view (NaN if unknown).
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_camera_fov_status_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_camera_fov_status_pack_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan,
                                mavlink_message_t* msg,
                                    uint32_t time_boot_ms,int32_t lat_camera,int32_t lon_camera,int32_t alt_camera,int32_t lat_image,int32_t lon_image,int32_t alt_image,const float *q,float hfov,float vfov)
 {
@@ -177,7 +177,7 @@ static inline uint16_t mavlink_msg_camera_fov_status_pack_chan(uint8_t system_id
  * @param msg The MAVLink message to compress the data into
  * @param camera_fov_status C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_camera_fov_status_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_camera_fov_status_t* camera_fov_status)
+static inline uint16_t mavlink_msg_camera_fov_status_encode(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg, const mavlink_camera_fov_status_t* camera_fov_status)
 {
     return mavlink_msg_camera_fov_status_pack(system_id, component_id, msg, camera_fov_status->time_boot_ms, camera_fov_status->lat_camera, camera_fov_status->lon_camera, camera_fov_status->alt_camera, camera_fov_status->lat_image, camera_fov_status->lon_image, camera_fov_status->alt_image, camera_fov_status->q, camera_fov_status->hfov, camera_fov_status->vfov);
 }
@@ -191,7 +191,7 @@ static inline uint16_t mavlink_msg_camera_fov_status_encode(uint8_t system_id, u
  * @param msg The MAVLink message to compress the data into
  * @param camera_fov_status C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_camera_fov_status_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_camera_fov_status_t* camera_fov_status)
+static inline uint16_t mavlink_msg_camera_fov_status_encode_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan, mavlink_message_t* msg, const mavlink_camera_fov_status_t* camera_fov_status)
 {
     return mavlink_msg_camera_fov_status_pack_chan(system_id, component_id, chan, msg, camera_fov_status->time_boot_ms, camera_fov_status->lat_camera, camera_fov_status->lon_camera, camera_fov_status->alt_camera, camera_fov_status->lat_image, camera_fov_status->lon_image, camera_fov_status->alt_image, camera_fov_status->q, camera_fov_status->hfov, camera_fov_status->vfov);
 }
@@ -423,7 +423,7 @@ static inline void mavlink_msg_camera_fov_status_decode(const mavlink_message_t*
     camera_fov_status->hfov = mavlink_msg_camera_fov_status_get_hfov(msg);
     camera_fov_status->vfov = mavlink_msg_camera_fov_status_get_vfov(msg);
 #else
-        uint8_t len = msg->len < MAVLINK_MSG_ID_CAMERA_FOV_STATUS_LEN? msg->len : MAVLINK_MSG_ID_CAMERA_FOV_STATUS_LEN;
+        Uint8_t len = msg->len < MAVLINK_MSG_ID_CAMERA_FOV_STATUS_LEN? msg->len : MAVLINK_MSG_ID_CAMERA_FOV_STATUS_LEN;
         memset(camera_fov_status, 0, MAVLINK_MSG_ID_CAMERA_FOV_STATUS_LEN);
     memcpy(camera_fov_status, _MAV_PAYLOAD(msg), len);
 #endif

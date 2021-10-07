@@ -173,8 +173,8 @@ MAVLINK_HELPER void mavlink_sha256_update(mavlink_sha256_ctx *m, const void *v, 
 	    uint32_t current[16];
 	    const uint32_t *u = m->u.save_u32;
 	    for (i = 0; i < 16; i++){
-                const uint8_t *p1 = (const uint8_t *)&u[i];
-                uint8_t *p2 = (uint8_t *)&current[i];
+                const Uint8_t *p1 = (const Uint8_t *)&u[i];
+                Uint8_t *p2 = (Uint8_t *)&current[i];
                 p2[0] = p1[3];
                 p2[1] = p1[2];
                 p2[2] = p1[1];
@@ -189,12 +189,12 @@ MAVLINK_HELPER void mavlink_sha256_update(mavlink_sha256_ctx *m, const void *v, 
 /*
   get first 48 bits of final sha256 hash
  */
-MAVLINK_HELPER void mavlink_sha256_final_48(mavlink_sha256_ctx *m, uint8_t result[6])
+MAVLINK_HELPER void mavlink_sha256_final_48(mavlink_sha256_ctx *m, Uint8_t result[6])
 {
     unsigned char zeros[72];
     unsigned offset = (m->sz[0] / 8) % 64;
     unsigned int dstart = (120 - offset - 1) % 64 + 1;
-    uint8_t *p = (uint8_t *)&m->counter[0];
+    Uint8_t *p = (Uint8_t *)&m->counter[0];
     
     *zeros = 0x80;
     memset (zeros + 1, 0, sizeof(zeros) - 1);

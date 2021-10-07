@@ -61,7 +61,7 @@ typedef struct __mavlink_component_information_t {
  * @param peripherals_metadata_uri  (Optional) Component definition URI for TYPE_PERIPHERALS. This must be a MAVLink FTP URI and the file might be compressed with xz.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_component_information_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_component_information_pack(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg,
                                uint32_t time_boot_ms, uint32_t general_metadata_file_crc, const char *general_metadata_uri, uint32_t peripherals_metadata_file_crc, const char *peripherals_metadata_uri)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -99,7 +99,7 @@ static inline uint16_t mavlink_msg_component_information_pack(uint8_t system_id,
  * @param peripherals_metadata_uri  (Optional) Component definition URI for TYPE_PERIPHERALS. This must be a MAVLink FTP URI and the file might be compressed with xz.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_component_information_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_component_information_pack_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan,
                                mavlink_message_t* msg,
                                    uint32_t time_boot_ms,uint32_t general_metadata_file_crc,const char *general_metadata_uri,uint32_t peripherals_metadata_file_crc,const char *peripherals_metadata_uri)
 {
@@ -133,7 +133,7 @@ static inline uint16_t mavlink_msg_component_information_pack_chan(uint8_t syste
  * @param msg The MAVLink message to compress the data into
  * @param component_information C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_component_information_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_component_information_t* component_information)
+static inline uint16_t mavlink_msg_component_information_encode(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg, const mavlink_component_information_t* component_information)
 {
     return mavlink_msg_component_information_pack(system_id, component_id, msg, component_information->time_boot_ms, component_information->general_metadata_file_crc, component_information->general_metadata_uri, component_information->peripherals_metadata_file_crc, component_information->peripherals_metadata_uri);
 }
@@ -147,7 +147,7 @@ static inline uint16_t mavlink_msg_component_information_encode(uint8_t system_i
  * @param msg The MAVLink message to compress the data into
  * @param component_information C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_component_information_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_component_information_t* component_information)
+static inline uint16_t mavlink_msg_component_information_encode_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan, mavlink_message_t* msg, const mavlink_component_information_t* component_information)
 {
     return mavlink_msg_component_information_pack_chan(system_id, component_id, chan, msg, component_information->time_boot_ms, component_information->general_metadata_file_crc, component_information->general_metadata_uri, component_information->peripherals_metadata_file_crc, component_information->peripherals_metadata_uri);
 }
@@ -299,7 +299,7 @@ static inline void mavlink_msg_component_information_decode(const mavlink_messag
     mavlink_msg_component_information_get_general_metadata_uri(msg, component_information->general_metadata_uri);
     mavlink_msg_component_information_get_peripherals_metadata_uri(msg, component_information->peripherals_metadata_uri);
 #else
-        uint8_t len = msg->len < MAVLINK_MSG_ID_COMPONENT_INFORMATION_LEN? msg->len : MAVLINK_MSG_ID_COMPONENT_INFORMATION_LEN;
+        Uint8_t len = msg->len < MAVLINK_MSG_ID_COMPONENT_INFORMATION_LEN? msg->len : MAVLINK_MSG_ID_COMPONENT_INFORMATION_LEN;
         memset(component_information, 0, MAVLINK_MSG_ID_COMPONENT_INFORMATION_LEN);
     memcpy(component_information, _MAV_PAYLOAD(msg), len);
 #endif

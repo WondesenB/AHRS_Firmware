@@ -72,7 +72,7 @@ typedef struct __mavlink_nav_controller_output_t {
  * @param xtrack_error [m] Current crosstrack error on x-y plane
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_nav_controller_output_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_nav_controller_output_pack(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg,
                                float nav_roll, float nav_pitch, int16_t nav_bearing, int16_t target_bearing, uint16_t wp_dist, float alt_error, float aspd_error, float xtrack_error)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -121,7 +121,7 @@ static inline uint16_t mavlink_msg_nav_controller_output_pack(uint8_t system_id,
  * @param xtrack_error [m] Current crosstrack error on x-y plane
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_nav_controller_output_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_nav_controller_output_pack_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan,
                                mavlink_message_t* msg,
                                    float nav_roll,float nav_pitch,int16_t nav_bearing,int16_t target_bearing,uint16_t wp_dist,float alt_error,float aspd_error,float xtrack_error)
 {
@@ -163,7 +163,7 @@ static inline uint16_t mavlink_msg_nav_controller_output_pack_chan(uint8_t syste
  * @param msg The MAVLink message to compress the data into
  * @param nav_controller_output C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_nav_controller_output_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_nav_controller_output_t* nav_controller_output)
+static inline uint16_t mavlink_msg_nav_controller_output_encode(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg, const mavlink_nav_controller_output_t* nav_controller_output)
 {
     return mavlink_msg_nav_controller_output_pack(system_id, component_id, msg, nav_controller_output->nav_roll, nav_controller_output->nav_pitch, nav_controller_output->nav_bearing, nav_controller_output->target_bearing, nav_controller_output->wp_dist, nav_controller_output->alt_error, nav_controller_output->aspd_error, nav_controller_output->xtrack_error);
 }
@@ -177,7 +177,7 @@ static inline uint16_t mavlink_msg_nav_controller_output_encode(uint8_t system_i
  * @param msg The MAVLink message to compress the data into
  * @param nav_controller_output C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_nav_controller_output_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_nav_controller_output_t* nav_controller_output)
+static inline uint16_t mavlink_msg_nav_controller_output_encode_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan, mavlink_message_t* msg, const mavlink_nav_controller_output_t* nav_controller_output)
 {
     return mavlink_msg_nav_controller_output_pack_chan(system_id, component_id, chan, msg, nav_controller_output->nav_roll, nav_controller_output->nav_pitch, nav_controller_output->nav_bearing, nav_controller_output->target_bearing, nav_controller_output->wp_dist, nav_controller_output->alt_error, nav_controller_output->aspd_error, nav_controller_output->xtrack_error);
 }
@@ -381,7 +381,7 @@ static inline void mavlink_msg_nav_controller_output_decode(const mavlink_messag
     nav_controller_output->target_bearing = mavlink_msg_nav_controller_output_get_target_bearing(msg);
     nav_controller_output->wp_dist = mavlink_msg_nav_controller_output_get_wp_dist(msg);
 #else
-        uint8_t len = msg->len < MAVLINK_MSG_ID_NAV_CONTROLLER_OUTPUT_LEN? msg->len : MAVLINK_MSG_ID_NAV_CONTROLLER_OUTPUT_LEN;
+        Uint8_t len = msg->len < MAVLINK_MSG_ID_NAV_CONTROLLER_OUTPUT_LEN? msg->len : MAVLINK_MSG_ID_NAV_CONTROLLER_OUTPUT_LEN;
         memset(nav_controller_output, 0, MAVLINK_MSG_ID_NAV_CONTROLLER_OUTPUT_LEN);
     memcpy(nav_controller_output, _MAV_PAYLOAD(msg), len);
 #endif

@@ -80,7 +80,7 @@ typedef struct __mavlink_estimator_status_t {
  * @param pos_vert_accuracy [m] Vertical position 1-STD accuracy relative to the EKF local origin
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_estimator_status_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_estimator_status_pack(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg,
                                uint64_t time_usec, uint16_t flags, float vel_ratio, float pos_horiz_ratio, float pos_vert_ratio, float mag_ratio, float hagl_ratio, float tas_ratio, float pos_horiz_accuracy, float pos_vert_accuracy)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -135,7 +135,7 @@ static inline uint16_t mavlink_msg_estimator_status_pack(uint8_t system_id, uint
  * @param pos_vert_accuracy [m] Vertical position 1-STD accuracy relative to the EKF local origin
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_estimator_status_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_estimator_status_pack_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan,
                                mavlink_message_t* msg,
                                    uint64_t time_usec,uint16_t flags,float vel_ratio,float pos_horiz_ratio,float pos_vert_ratio,float mag_ratio,float hagl_ratio,float tas_ratio,float pos_horiz_accuracy,float pos_vert_accuracy)
 {
@@ -181,7 +181,7 @@ static inline uint16_t mavlink_msg_estimator_status_pack_chan(uint8_t system_id,
  * @param msg The MAVLink message to compress the data into
  * @param estimator_status C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_estimator_status_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_estimator_status_t* estimator_status)
+static inline uint16_t mavlink_msg_estimator_status_encode(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg, const mavlink_estimator_status_t* estimator_status)
 {
     return mavlink_msg_estimator_status_pack(system_id, component_id, msg, estimator_status->time_usec, estimator_status->flags, estimator_status->vel_ratio, estimator_status->pos_horiz_ratio, estimator_status->pos_vert_ratio, estimator_status->mag_ratio, estimator_status->hagl_ratio, estimator_status->tas_ratio, estimator_status->pos_horiz_accuracy, estimator_status->pos_vert_accuracy);
 }
@@ -195,7 +195,7 @@ static inline uint16_t mavlink_msg_estimator_status_encode(uint8_t system_id, ui
  * @param msg The MAVLink message to compress the data into
  * @param estimator_status C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_estimator_status_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_estimator_status_t* estimator_status)
+static inline uint16_t mavlink_msg_estimator_status_encode_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan, mavlink_message_t* msg, const mavlink_estimator_status_t* estimator_status)
 {
     return mavlink_msg_estimator_status_pack_chan(system_id, component_id, chan, msg, estimator_status->time_usec, estimator_status->flags, estimator_status->vel_ratio, estimator_status->pos_horiz_ratio, estimator_status->pos_vert_ratio, estimator_status->mag_ratio, estimator_status->hagl_ratio, estimator_status->tas_ratio, estimator_status->pos_horiz_accuracy, estimator_status->pos_vert_accuracy);
 }
@@ -431,7 +431,7 @@ static inline void mavlink_msg_estimator_status_decode(const mavlink_message_t* 
     estimator_status->pos_vert_accuracy = mavlink_msg_estimator_status_get_pos_vert_accuracy(msg);
     estimator_status->flags = mavlink_msg_estimator_status_get_flags(msg);
 #else
-        uint8_t len = msg->len < MAVLINK_MSG_ID_ESTIMATOR_STATUS_LEN? msg->len : MAVLINK_MSG_ID_ESTIMATOR_STATUS_LEN;
+        Uint8_t len = msg->len < MAVLINK_MSG_ID_ESTIMATOR_STATUS_LEN? msg->len : MAVLINK_MSG_ID_ESTIMATOR_STATUS_LEN;
         memset(estimator_status, 0, MAVLINK_MSG_ID_ESTIMATOR_STATUS_LEN);
     memcpy(estimator_status, _MAV_PAYLOAD(msg), len);
 #endif

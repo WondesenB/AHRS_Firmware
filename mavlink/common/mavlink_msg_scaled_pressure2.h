@@ -60,7 +60,7 @@ typedef struct __mavlink_scaled_pressure2_t {
  * @param temperature_press_diff [cdegC] Differential pressure temperature (0, if not available). Report values of 0 (or 1) as 1 cdegC.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_scaled_pressure2_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_scaled_pressure2_pack(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg,
                                uint32_t time_boot_ms, float press_abs, float press_diff, int16_t temperature, int16_t temperature_press_diff)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -100,7 +100,7 @@ static inline uint16_t mavlink_msg_scaled_pressure2_pack(uint8_t system_id, uint
  * @param temperature_press_diff [cdegC] Differential pressure temperature (0, if not available). Report values of 0 (or 1) as 1 cdegC.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_scaled_pressure2_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_scaled_pressure2_pack_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan,
                                mavlink_message_t* msg,
                                    uint32_t time_boot_ms,float press_abs,float press_diff,int16_t temperature,int16_t temperature_press_diff)
 {
@@ -136,7 +136,7 @@ static inline uint16_t mavlink_msg_scaled_pressure2_pack_chan(uint8_t system_id,
  * @param msg The MAVLink message to compress the data into
  * @param scaled_pressure2 C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_scaled_pressure2_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_scaled_pressure2_t* scaled_pressure2)
+static inline uint16_t mavlink_msg_scaled_pressure2_encode(Uint8_t system_id, Uint8_t component_id, mavlink_message_t* msg, const mavlink_scaled_pressure2_t* scaled_pressure2)
 {
     return mavlink_msg_scaled_pressure2_pack(system_id, component_id, msg, scaled_pressure2->time_boot_ms, scaled_pressure2->press_abs, scaled_pressure2->press_diff, scaled_pressure2->temperature, scaled_pressure2->temperature_press_diff);
 }
@@ -150,7 +150,7 @@ static inline uint16_t mavlink_msg_scaled_pressure2_encode(uint8_t system_id, ui
  * @param msg The MAVLink message to compress the data into
  * @param scaled_pressure2 C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_scaled_pressure2_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_scaled_pressure2_t* scaled_pressure2)
+static inline uint16_t mavlink_msg_scaled_pressure2_encode_chan(Uint8_t system_id, Uint8_t component_id, Uint8_t chan, mavlink_message_t* msg, const mavlink_scaled_pressure2_t* scaled_pressure2)
 {
     return mavlink_msg_scaled_pressure2_pack_chan(system_id, component_id, chan, msg, scaled_pressure2->time_boot_ms, scaled_pressure2->press_abs, scaled_pressure2->press_diff, scaled_pressure2->temperature, scaled_pressure2->temperature_press_diff);
 }
@@ -306,7 +306,7 @@ static inline void mavlink_msg_scaled_pressure2_decode(const mavlink_message_t* 
     scaled_pressure2->temperature = mavlink_msg_scaled_pressure2_get_temperature(msg);
     scaled_pressure2->temperature_press_diff = mavlink_msg_scaled_pressure2_get_temperature_press_diff(msg);
 #else
-        uint8_t len = msg->len < MAVLINK_MSG_ID_SCALED_PRESSURE2_LEN? msg->len : MAVLINK_MSG_ID_SCALED_PRESSURE2_LEN;
+        Uint8_t len = msg->len < MAVLINK_MSG_ID_SCALED_PRESSURE2_LEN? msg->len : MAVLINK_MSG_ID_SCALED_PRESSURE2_LEN;
         memset(scaled_pressure2, 0, MAVLINK_MSG_ID_SCALED_PRESSURE2_LEN);
     memcpy(scaled_pressure2, _MAV_PAYLOAD(msg), len);
 #endif
