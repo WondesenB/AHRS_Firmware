@@ -160,7 +160,7 @@ static void model(struct EKF_Q * ekf, float omega[3],float T)
        ekf->hx[5]= (f4*f4-f5*f5-f6*f6+f7*f7)*g;
        //
        ekf->hx[6]= (f4*f4+f5*f5-f6*f6-f7*f7)*HX + 2*(f5*f6 +f4*f7)*HY +2*(f5*f7-f4*f6)*HZ ;
-       ekf->hx[7]= 2*(f5*f6 -f0*f7)*HX +(f4*f4 -f5*f5+f6*f6 -f7*f7)*HY +2*(f6*f7 +f4*f5)*HZ ;
+       ekf->hx[7]= 2*(f5*f6 -f4*f7)*HX +(f4*f4 -f5*f5+f6*f6 -f7*f7)*HY +2*(f6*f7 +f4*f5)*HZ ;
        ekf->hx[8]= 2*(f4*f6 +f5*f7)*HX + 2*(f6*f7-f4*f5)*HY + (f4*f4 -f5*f5 -f6*f6 +f7*f7)*HZ ;
      // Observation matrix  Hk
        // column 1~4
