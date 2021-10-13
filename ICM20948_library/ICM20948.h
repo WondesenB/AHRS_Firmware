@@ -282,6 +282,9 @@ struct attitude
     float roll;
     float pitch;
     float yaw;
+    float rollrate;
+    float pitchrate;
+    float yawrate;
 };
 struct timeinfo
 {

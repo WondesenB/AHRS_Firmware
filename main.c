@@ -14,6 +14,7 @@
 
 #define SENSORS_GRAVITY_EARTH  9.80665  /**< Earth's gravity in m/s^2 */
 #define  testled  0
+#define  ExportRawdata  0
 struct parameters para;
 struct sensors_raw imu_raw;
 struct sensors imu;
@@ -183,7 +184,10 @@ void main(void)
     while (1)
     {
         //get altitude
-        estimateAltitude();
+        if(ExportRawdata)
+        {
+            estimateAltitude();
+        }
         // Switch to user bank 0
         writeByte(ICM20948_ADDRESS, REG_BANK_SEL, 0x00);
         // If intPin goes high, all data registers have new data
@@ -241,7 +245,7 @@ void main(void)
             mmy = Magy;
             mmz = Magz;
             //Calculate magnetic calibration coefficients
-//            Cla1ForceTask1();
+            Cla1ForceTask1();
             //
             if (MagCalibrate)
             {
@@ -289,6 +293,10 @@ void main(void)
 //        psi = atan2f(2.0f * (q1 * q2 + q0 * q3),
 //                            q0 * q0 + q1 * q1 - q2 * q2 - q3 * q3);
         //
+        att.rollrate = (phi-att.roll)/tm.deltat;
+        att.pitchrate = (theta - att.pitch)/tm.deltat;
+        att.yawrate = ( psi - att.yaw)/tm.deltat;
+
         att.pitch = theta;// * RAD_TO_DEG;
         att.roll = phi ;//* RAD_TO_DEG;
 //        psi *= RAD_TO_DEG;
@@ -303,25 +311,27 @@ void main(void)
 // send data via serial with mavlink protocol
 // Encode
         /* IMU data exporting */
-        float rollspeed = 0.2;
-        float pitchspeed = 0.2;
-        float yawspeed = 0.2;
 //
         mavlink_msg_attitude_pack(1, 1, &message, tm.time_millis, att.roll,
-                                  att.pitch, att.yaw, rollspeed, pitchspeed,
-                                  yawspeed);
-        mavlink_msg_hil_sensor_pack(1, 1, &message_raw, tm.Now, imu.ax, imu.ay,
-                                    imu.az, imu.gx, imu.gy, imu.gz, imu.mx,
-                                    imu.my, imu.mz, P,P-refP,relativeAlt,20,31,0);
+                                  att.pitch, att.yaw, att.rollrate, att.pitchrate,
+                                  att.yawrate);
         unsigned leng = mavlink_msg_to_send_buffer((Uint8_t*) buff, &message);
-        unsigned leng_raw = mavlink_msg_to_send_buffer((Uint8_t*) buff_raw,&message_raw);
         for (i = 0; i <= leng; i++)
         {
             scia_xmit(buff[i]);
         }
-        for (i = 0; i <= leng_raw; i++)
+        if (ExportRawdata)
         {
-            scia_xmit(buff_raw[i]);
+            mavlink_msg_hil_sensor_pack(1, 1, &message_raw, tm.Now, imu.ax,
+                                        imu.ay, imu.az, imu.gx, imu.gy, imu.gz,
+                                        imu.mx, imu.my, imu.mz, P, P - refP,
+                                        relativeAlt, 20, 31, 0);
+            unsigned leng_raw = mavlink_msg_to_send_buffer((Uint8_t*) buff_raw,
+                                                           &message_raw);
+            for (i = 0; i <= leng_raw; i++)
+            {
+                scia_xmit(buff_raw[i]);
+            }
         }
     }
 }
