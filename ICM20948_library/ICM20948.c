@@ -10,6 +10,7 @@ void param_initialize(void)
     para.Gscale = GFS_2000DPS;
     para.Ascale = AFS_16G;
     para.Mmode = M_8HZ;
+    para.roomTempOffset = 21; //
     tm.deltat = 0.0f;
     tm.time = 0.0f;
     tm.lastUpdate = 0;
@@ -79,6 +80,10 @@ void getAres()
         break;
     }
 }
+void getTres()
+{
+    para.tRes = 333.87;
+}
 void readAccelData(int16_t * destination)
 {
     char rawData[6];  // x/y/z accel register data stored here
@@ -100,6 +105,16 @@ void readGyroData(int16_t * destination)
     destination[1] = (int16_t) (rawData[2] << 8) | rawData[3];
     destination[2] = (int16_t) (rawData[4] << 8) | rawData[5];
 }
+
+int16_t readTempData()
+{
+    char rawData[2]; // x/y/z gyro register data stored here
+    // Read the two raw data registers sequentially into data array
+    readBytes(ICM20948_ADDRESS, TEMP_OUT_H, 2, &rawData[0]);
+    // Turn the MSB and LSB into a 16-bit value
+    return ((int16_t) rawData[0] << 8) | rawData[1];
+}
+
 void readMagData(int16_t * destination)
 {
     // x/y/z gyro register data, ST2 register stored here, must read ST2 at end
@@ -166,17 +181,6 @@ void readMagData(int16_t * destination)
         imu_raw.magDOR_count++;
     }
 }
-
-
-int16_t readTempData()
-{
-    char rawData[2]; // x/y/z gyro register data stored here
-    // Read the two raw data registers sequentially into data array
-    readBytes(ICM20948_ADDRESS, TEMP_OUT_H, 2, &rawData[0]);
-    // Turn the MSB and LSB into a 16-bit value
-    return ((int16_t) rawData[0] << 8) | rawData[1];
-}
-
 //
 void readSensorConfig(void)
 {

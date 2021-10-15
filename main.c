@@ -13,8 +13,9 @@
 #include "ms5611_barometer.h"
 
 #define SENSORS_GRAVITY_EARTH  9.80665  /**< Earth's gravity in m/s^2 */
-#define  testled  0
-#define  ExportRawdata  0
+#define  testled         0
+#define  ExportRawdata   1
+#define  EN_Auto_MagCali 0
 struct parameters para;
 struct sensors_raw imu_raw;
 struct sensors imu;
@@ -194,6 +195,7 @@ void main(void)
         // On interrupt, check if data ready interrupt
         if (readByte(ICM20948_ADDRESS, INT_STATUS_1) & 0x01)
         {
+            //
             readAccelData(imu_raw.accelCount);  // Read the x/y/z adc values
             // Now we'll calculate the accleration value into actual g's
             // This depends on scale being set
@@ -223,6 +225,10 @@ void main(void)
             imu.gx = 0.5 * (Gyroy + imu.gx);
             imu.gy = 0.5 * (Gyrox + imu.gy);
             imu.gz = 0.5 * (-Gyroz + imu.gz);
+            // read temprature measurement
+            imu_raw.tempCount= readTempData();
+            imu.temperature = (float) ((imu_raw.tempCount - para.roomTempOffset)/para.tRes) + 21;
+            //
             readMagData(imu_raw.magCount);  // Read the x/y/z adc values
 
             // Calculate the magnetometer values in milliGauss
@@ -245,7 +251,11 @@ void main(void)
             mmy = Magy;
             mmz = Magz;
             //Calculate magnetic calibration coefficients
-            Cla1ForceTask1();
+            if(EN_Auto_MagCali)
+            {
+                Cla1ForceTask1();
+            }
+
             //
             if (MagCalibrate)
             {
@@ -325,7 +335,7 @@ void main(void)
             mavlink_msg_hil_sensor_pack(1, 1, &message_raw, tm.Now, imu.ax,
                                         imu.ay, imu.az, imu.gx, imu.gy, imu.gz,
                                         imu.mx, imu.my, imu.mz, P, P - refP,
-                                        relativeAlt, 20, 31, 0);
+                                        relativeAlt, imu.temperature, 31, 0);
             unsigned leng_raw = mavlink_msg_to_send_buffer((Uint8_t*) buff_raw,
                                                            &message_raw);
             for (i = 0; i <= leng_raw; i++)
@@ -347,13 +357,14 @@ void init(void)
     {
         // Reset
         reset();
-        // Select clock source
+        // Select clock source and enable temperature sensor
         writeByte(ICM20948_ADDRESS, PWR_MGMT_1, 0x01);
         DELAY_US(1000);
         // Get sensor resolutions, only need to do this once
         getAres();
         getGres();
         getMres();
+        getTres();
         // Initialize device for active mode read of acclerometer, gyroscope, and
         // temperature
         initICM20948();

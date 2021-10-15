@@ -249,8 +249,10 @@ struct parameters
      char Ascale ;
     // 2 for 8 Hz, 6 for 100 Hz continuous magnetometer data read
      char Mmode ;
+     // Room temprature offset
+     int16_t roomTempOffset;
     // Scale resolutions per LSB for the sensors
-     float aRes, gRes, mRes;
+     float aRes, gRes, mRes, tRes;
     // Factory mag calibration and mag bias
      float factoryMagCalibration[3];
      float factoryMagBias[3] ;
@@ -305,6 +307,7 @@ extern struct sensorConfigdata sensorConfig;
  extern void getMres();
  extern void getGres();
  extern void getAres();
+ extern void getTres();
  extern void readAccelData(int16_t * destination);
  extern void readGyroData(int16_t * destination);
  extern void readMagData(int16_t * destination);
