@@ -45,14 +45,14 @@ static void init(struct EKF_Q * ekf)
             ekf->P[i][j] =0.0;
         }
     }
-    float R0 = 50;
+    float R0 = 100;
     for (i=0; i<m-3; ++i)
     {
         ekf->R[i][i] = R0;
     }
-    ekf->R[6][6]=500;
-    ekf->R[7][7]=500;
-    ekf->R[8][8]=500;
+    ekf->R[6][6]=20000;
+    ekf->R[7][7]=20000;
+    ekf->R[8][8]=20000;
 }
 //system model
 static void model(struct EKF_Q * ekf, float omega[3],float T)
@@ -190,7 +190,7 @@ static void model(struct EKF_Q * ekf, float omega[3],float T)
            {
                if(k==w)
                {
-                   ekf->Q[k][w]=100;
+                   ekf->Q[k][w]=0.1;
                }
                else
                {
