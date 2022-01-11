@@ -17,6 +17,7 @@
 #define  f6    ekf->fx[6]
 #define  f7    ekf->fx[7]
 
+static int cov_updated = 0;
  struct EKF_Q{
 
     int n;           /* number of state values */
@@ -53,6 +54,7 @@ extern struct EKF_Q ekf_t;
 extern void ekf_init(void*, int, int);
 extern int ekf_step(void*, float*);
 void EKFQ(float ax, float ay, float az, float gx, float gy, float gz, float mx,
-          float my, float mz, float deltat);
+          float my, float mz, float deltat,float time);
+void Covariance_update(struct EKF_Q * ekf,float R);
 const float* getQ();
 #endif // _AHRSALOGRITHMS_H_

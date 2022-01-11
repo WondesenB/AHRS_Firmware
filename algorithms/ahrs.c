@@ -45,17 +45,17 @@ static void init(struct EKF_Q * ekf)
             ekf->P[i][j] =0.0;
         }
     }
-    float R0 = 100;
+    float R0 = 50;
     for (i=0; i<m-3; ++i)
     {
         ekf->R[i][i] = R0;
     }
-    ekf->R[6][6]=20000;
-    ekf->R[7][7]=20000;
-    ekf->R[8][8]=20000;
+    ekf->R[6][6]=500;
+    ekf->R[7][7]=500;
+    ekf->R[8][8]=500;
 }
 //system model
-static void model(struct EKF_Q * ekf, float omega[3],float T)
+static void model(struct EKF_Q * ekf, float omega[3],float T, float time)
 {
      int k,  w;
      int n =Nsta;
@@ -184,22 +184,42 @@ static void model(struct EKF_Q * ekf, float omega[3],float T)
        ekf->H[7][4] = 2.0*(HY*f4-HX*f7 + HZ*f5) ; ekf->H[7][5] = 2.0*(HX*f6-HY*f5+HZ*f4); ekf->H[7][6] = 2.0*(HX*f5+HY*f6+HZ*f7); ekf->H[7][7] = 2.0*(HZ*f6-HY*f7-HX*f4);
        ekf->H[8][4] = 2.0*(HX*f6-HY*f5 + HZ*f4) ; ekf->H[8][5] = 2.0*(HX*f7-HY*f4-HZ*f5); ekf->H[8][6] = 2.0*(HX*f4+HY*f7-HZ*f6); ekf->H[8][7] = 2.0*(HX*f5+HY*f6+HZ*f7);
        // Process noise covariance Qk
-       for (k=0;k<n;k++)
-       {
-           for(w=0;w<n;w++)
-           {
-               if(k==w)
-               {
-                   ekf->Q[k][w]=0.1;
-               }
-               else
-               {
-                   ekf->Q[k][w]=  0.0;
-               }
-           }
-       }
+    if (time <= 10000)
+    {
+        for (k = 0; k < n; k++)
+        {
+            for (w = 0; w < n; w++)
+            {
+                if (k == w)
+                {
+                    ekf->Q[k][w] = 100;
+                }
+                else
+                {
+                    ekf->Q[k][w] = 0.0;
+                }
+            }
+        }
+    }
+    else
+    {
+        for (k = 0; k < n; k++)
+        {
+            for (w = 0; w < n; w++)
+            {
+                if (k == w)
+                {
+                    ekf->Q[k][w] = 0.1;
+                }
+                else
+                {
+                    ekf->Q[k][w] = 0.0;
+                }
+            }
+        }
+    }
 }
-void EKFQ(float ax, float ay, float az, float gx, float gy,float gz, float mx, float my, float mz, float deltat)
+void EKFQ(float ax, float ay, float az, float gx, float gy,float gz, float mx, float my, float mz, float deltat,float time)
 {
     int N =Nsta;
     int M = Mobs;
@@ -232,8 +252,13 @@ void EKFQ(float ax, float ay, float az, float gx, float gy,float gz, float mx, f
     float omega[3] = {gx,gy,gz}; //{0.0,0.0,0.0};//
     float acclmag[9] = {ax,ay,az,ax,ay,az,mx,my,mz};  //{0.0,0.0,0.0,0.0,0.0,0.0}; //
     float q1, q2, q3, q4, q5, q6, q7, q8 ;
+    //update ekf covariance matrix
+    if(time > 10000 && cov_updated ==0)
+    {
+        Covariance_update(&ekf_t,20000);
+    }
     // compute Fk, fk(x), hk(x), Hk & Qk
-    model(&ekf_t,omega,deltat);
+    model(&ekf_t,omega,deltat,time);
     // EKF update
     ekf_step(&ekf_t,acclmag);
     // normalize quaternion
@@ -269,5 +294,16 @@ void EKFQ(float ax, float ay, float az, float gx, float gy,float gz, float mx, f
     ekf_t.x[6] =q[6];
     ekf_t.x[7] =q[7];
 }
-
+void Covariance_update(struct EKF_Q * ekf, float R)
+{
+    int i;
+    for (i=0; i<Mobs-3; ++i)
+    {
+        ekf->R[i][i] = 100;
+    }
+    ekf->R[6][6]=R;
+    ekf->R[7][7]=R;
+    ekf->R[8][8]=R;
+    cov_updated =1;
+}
 const float * getQ () { return q; }

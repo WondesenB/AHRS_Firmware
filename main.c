@@ -14,7 +14,7 @@
 
 #define SENSORS_GRAVITY_EARTH  9.80665  /**< Earth's gravity in m/s^2 */
 #define  testled         0
-#define  ExportRawdata   1
+#define  ExportRawdata   0
 #define  EN_Auto_MagCali 0
 struct parameters para;
 struct sensors_raw imu_raw;
@@ -273,7 +273,7 @@ void main(void)
         updateTime();
         // AHRS
         EKFQ(imu.ax, imu.ay, imu.az, imu.gx, imu.gy, imu.gz, imu.mx, imu.my,
-             imu.mz, tm.deltat);
+             imu.mz, tm.deltat,tm.time_millis);
         q0 = ekf_t.x[0];
         q1 = ekf_t.x[1];
         q2 = ekf_t.x[2];
